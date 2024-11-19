@@ -27,19 +27,20 @@
 	bind:this={mapComponent}
 	on:recentre={(e) => console.log(e.detail.center.lat, e.detail.center.lng)}
 	options={{ scrollZoom: false }}
-></Map>
-
-<!-- 	<Earthquakes />
+>
 	<Marker
-		lat={someLat}
-		lng={someLng}
+		{lat}
+		{lng}
 		color="rgb(255,255,255)"
 		label="some marker label"
 		popupClassName="class-name"
 	/>
 	<NavigationControl />
 	<GeolocateControl options={{ some: 'control-option' }} on:eventname={eventHandler} />
-	<ScaleControl /> -->
+	<ScaleControl /></Map
+>
+
+<!-- 	<Earthquakes /> -->
 
 <style>
 	:global(.mapboxgl-map) {

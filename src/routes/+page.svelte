@@ -1,49 +1,55 @@
 <script>
 	import TestComponent from '$lib/TestComponent.svelte';
-	import { Map, Geocoder, Marker, controls } from '@beyonk/svelte-mapbox';
-	// import Earthquakes from './Earthquakes.svelte'; // custom component
+	import { onMount, mount } from 'svelte';
+	import mapboxgl from 'mapbox-gl';
+	import 'mapbox-gl/dist/mapbox-gl.css';
 
-	const { GeolocateControl, NavigationControl, ScaleControl } = controls;
-
-	let mapComponent;
+	let mapContainer;
 
 	let lng = 0;
 	let lat = 0;
 	let zoom = 5;
 
-	// Usage of methods like setCenter and flyto
-	mapComponent?.setCenter([lng, lat], zoom); // zoom is optional
-	mapComponent?.flyTo({ center: [lng, lat] }); // documentation (https://docs.mapbox.com/mapbox-gl-js/example/flyto)
+	let map;
 
-	// Define this to handle `eventname` events - see [GeoLocate Events](https://docs.mapbox.com/mapbox-gl-js/api/markers/#geolocatecontrol-events)
-	function eventHandler(e) {
-		const data = e.detail;
-		// do something with `data`, it's the result returned from the mapbox event
-	}
+	onMount(() => {
+		mapboxgl.accessToken =
+			'pk.eyJ1IjoiY2hvNCIsImEiOiJja3Z0b2ViNTIwdG55MzBseWZ3Mmc0bXluIn0.F3y-oHZn9KCmgPNR_11zzg';
+		// map = new mapboxgl.Map({
+		// 	container: mapContainer, // container id
+		// 	style: 'mapbox://styles/cho4/clg3kv3ji003z01mwniqkksw2', // 'mapbox://styles/mapbox/light-v10'
+		// 	// with satellite-based styles, some odd uncatchable fog errors pop up: https://docs.mapbox.com/mapbox-gl-js/style-spec/fog/
+		// 	attributionControl: false,
+		// 	center: [lng, lat],
+		// 	zoom: zoom,
+		// 	projection: 'naturalEarth'
+		// });
+
+		map = new mapboxgl.Map({
+			container: 'mapbox-map-container',
+			style: 'mapbox://styles/mapbox/dark-v10',
+			center: [lng, lat],
+			zoom: zoom
+		});
+
+		const canvasContainer = map.getCanvasContainer();
+		const testSvg = mount(TestComponent, { target: canvasContainer });
+
+		// TODO: mapManager.js inside C:\Users\benedikt\Documents\phd\projects\exex\story shows an example of how to keep the svg position synced with the mapbox map
+	});
 </script>
 
-<Map
-	accessToken="pk.eyJ1IjoiY2hvNCIsImEiOiJja3Z0b2ViNTIwdG55MzBseWZ3Mmc0bXluIn0.F3y-oHZn9KCmgPNR_11zzg"
-	bind:this={mapComponent}
-	on:recentre={(e) => console.log(e.detail.center.lat, e.detail.center.lng)}
-	options={{ scrollZoom: false }}
->
-	<Marker
-		{lat}
-		{lng}
-		color="rgb(255,255,255)"
-		label="some marker label"
-		popupClassName="class-name"
-	/>
-	<NavigationControl />
-	<GeolocateControl options={{ some: 'control-option' }} on:eventname={eventHandler} />
-	<ScaleControl /></Map
->
+<div id="mapbox-map-container" bind:this={mapContainer}></div>
 
 <!-- 	<Earthquakes /> -->
 
 <style>
+	#mapbox-map-container,
 	:global(.mapboxgl-map) {
-		height: 200px;
+		height: 600px;
+	}
+
+	:global(.mapboxgl-canvas) {
+		z-index: 1;
 	}
 </style>

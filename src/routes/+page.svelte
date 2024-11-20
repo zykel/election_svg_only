@@ -8,6 +8,10 @@
 	// and
 	// +page.server.ts plus +page.svelte
 
+	let { data } = $props();
+
+	console.log(data);
+
 	let mapContainer;
 
 	let lng = -7.807195714694519;

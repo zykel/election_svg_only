@@ -6,8 +6,8 @@
 
 	let mapContainer;
 
-	let lng = 0;
-	let lat = 0;
+	let lng = -7.807195714694519;
+	let lat = 53.41035563891312;
 	let zoom = 5;
 
 	let map = $state(null);
@@ -16,38 +16,7 @@
 	const mapWidth = 600;
 	const mapHeight = 600;
 
-	const mm = {};
-
-	/*
-    mm.ll2l = (map, d) => {
-        return map.latLngToLayerPoint(new L.LatLng(d.lat, d.lon))
-    }
-    */
-
-	mm.ll2l = (map, d) => {
-		return map.project(mm.getLL(d));
-	};
-	mm.unll2l = (map, x, y) => {
-		return map.unproject(mm.getPoint(x, y));
-	};
-	mm.getLL = (d) => {
-		return new mapboxgl.LngLat(+d.lon, +d.lat);
-	};
-	mm.getPoint = (x, y) => {
-		return new mapboxgl.Point(x, y);
-	};
-
-	mm.viewReset = (map, mapId) => {
-		// Translate all circles for the map
-		select(`#${mapId}-svg`)
-			.selectAll('circle')
-			//.attr('transform', d => `translate(${mm.ll2l(map, d.pos).x},${mm.ll2l(map, d.pos).y})`)
-			.attr('cx', (d) => mm.ll2l(map, d.pos).x)
-			.attr('cy', (d) => mm.ll2l(map, d.pos).y);
-	};
-
-	let count = $state(0);
-	let printcount = $derived('' + count + '');
+	let mapMoveNotifyToggle = $state(false);
 
 	onMount(() => {
 		mapboxgl.accessToken =
@@ -70,10 +39,10 @@
 		});
 
 		// const canvasContainer = map.getCanvasContainer();
-		// Do this does not seem to be properly reactive - only the component in the markup fires the printcount
-		// const testSvg = mount(TestComponent, { target: canvasContainer, props: { map, printcount } });
+		// Do this does not seem to be properly reactive - only the component in the markup fires the mapMoveNotifyToggle
+		// const testSvg = mount(TestComponent, { target: canvasContainer, props: { map, mapMoveNotifyToggle } });
 
-		map.on('move', () => (count += 1)); // mm.viewReset(map, mapId)
+		map.on('move', () => (mapMoveNotifyToggle = !mapMoveNotifyToggle)); // mm.viewReset(map, mapId)
 
 		// TODO: mapManager.js inside C:\Users\benedikt\Documents\phd\projects\exex\story shows an example of how to keep the svg position synced with the mapbox map
 	});
@@ -88,7 +57,9 @@
 <div id="map-container" style="width: {mapWidth}px; height: {mapHeight}px">
 	<div id="mapbox-map-container" style="width: {mapWidth}px; height: {mapHeight}px"></div>
 	<div id="svg-map-container" style="width: {mapWidth}px; height: {mapHeight}px">
-		<TestComponent bind:svgLayer {map} {printcount} />
+		{#if map !== null}
+			<TestComponent bind:svgLayer {map} {mapMoveNotifyToggle} />
+		{/if}
 	</div>
 </div>
 

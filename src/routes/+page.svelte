@@ -10,7 +10,11 @@
 	let lat = 0;
 	let zoom = 5;
 
-	let map;
+	let map = $state(null);
+	let svgLayer = $state(null);
+
+	const mapWidth = 600;
+	const mapHeight = 600;
 
 	const mm = {};
 
@@ -65,9 +69,9 @@
 			zoom: zoom
 		});
 
-		const canvasContainer = map.getCanvasContainer();
+		// const canvasContainer = map.getCanvasContainer();
 		// Do this does not seem to be properly reactive - only the component in the markup fires the printcount
-		const testSvg = mount(TestComponent, { target: canvasContainer, props: { map, printcount } });
+		// const testSvg = mount(TestComponent, { target: canvasContainer, props: { map, printcount } });
 
 		map.on('move', () => (count += 1)); // mm.viewReset(map, mapId)
 
@@ -75,19 +79,32 @@
 	});
 </script>
 
-<div id="mapbox-map-container" bind:this={mapContainer}></div>
+<!-- <div id="mapbox-map-container" bind:this={mapContainer}></div>
 
-<TestComponent {map} {printcount} />
+<TestComponent  /> -->
 
 <!-- 	<Earthquakes /> -->
 
+<div id="map-container" style="width: {mapWidth}px; height: {mapHeight}px">
+	<div id="mapbox-map-container" style="width: {mapWidth}px; height: {mapHeight}px"></div>
+	<div id="svg-map-container" style="width: {mapWidth}px; height: {mapHeight}px">
+		<TestComponent bind:svgLayer {map} {printcount} />
+	</div>
+</div>
+
 <style>
-	#mapbox-map-container,
-	:global(.mapboxgl-map) {
-		height: 600px;
+	#map-container {
+		position: relative;
 	}
 
-	:global(.mapboxgl-canvas) {
-		z-index: 1;
+	#mapbox-map-container,
+	#svg-map-container {
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+	#svg-map-container {
+		overflow: hidden;
+		pointer-events: none;
 	}
 </style>

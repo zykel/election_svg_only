@@ -1,3 +1,9 @@
+<script>
+	let { map, printcount } = $props();
+
+	$inspect(printcount);
+</script>
+
 <svg class="test-svg" width="200" height="200">
 	<rect width="100" height="100" fill="red"> </rect>
 </svg>

@@ -4,6 +4,10 @@
 	import mapboxgl from 'mapbox-gl';
 	import 'mapbox-gl/dist/mapbox-gl.css';
 
+	// https://svelte.dev/tutorial/kit/page-data
+	// and
+	// +page.server.ts plus +page.svelte
+
 	let mapContainer;
 
 	let lng = -7.807195714694519;
@@ -33,9 +37,9 @@
 	});
 </script>
 
-<div id="map-container" style="width: {mapWidth}px; height: {mapHeight}px">
-	<div id="mapbox-map-container" style="width: {mapWidth}px; height: {mapHeight}px"></div>
-	<div id="svg-map-container" style="width: {mapWidth}px; height: {mapHeight}px">
+<div id="map-container" style:width="{mapWidth}px" style:height="{mapHeight}px">
+	<div id="mapbox-map-container" style:width="{mapWidth}px" style:height="{mapHeight}px"></div>
+	<div id="svg-map-container" style:width="{mapWidth}px" style:height="{mapHeight}px">
 		{#if map !== null}
 			<TestComponent bind:svgLayer {map} {mapMoveNotifyToggle} />
 		{/if}

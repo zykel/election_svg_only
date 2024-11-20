@@ -20,6 +20,7 @@
 		"vite": "^5.0.3"
 	},
 	"dependencies": {
+		"@turf/simplify": "^7.1.0",
 		"d3": "^7.9.0",
 		"mapbox-gl": "^3.8.0"
 	}

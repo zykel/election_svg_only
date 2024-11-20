@@ -3,6 +3,7 @@
 	import { onMount, mount } from 'svelte';
 	import mapboxgl from 'mapbox-gl';
 	import 'mapbox-gl/dist/mapbox-gl.css';
+	import { PUBLIC_MAPBOX_API_TOKEN } from '$env/static/public';
 
 	// https://svelte.dev/tutorial/kit/page-data
 	// and
@@ -27,8 +28,7 @@
 	let mapMoveNotifyToggle = $state(false);
 
 	onMount(() => {
-		mapboxgl.accessToken =
-			'pk.eyJ1IjoiY2hvNCIsImEiOiJja3Z0b2ViNTIwdG55MzBseWZ3Mmc0bXluIn0.F3y-oHZn9KCmgPNR_11zzg';
+		mapboxgl.accessToken = PUBLIC_MAPBOX_API_TOKEN;
 
 		map = new mapboxgl.Map({
 			container: 'mapbox-map-container',
@@ -45,7 +45,14 @@
 	<div id="mapbox-map-container" style:width="{mapWidth}px" style:height="{mapHeight}px"></div>
 	<div id="svg-map-container" style:width="{mapWidth}px" style:height="{mapHeight}px">
 		{#if map !== null}
-			<TestComponent bind:svgLayer {map} {mapMoveNotifyToggle} data={data.geodataVoronoi} />
+			<TestComponent
+				bind:svgLayer
+				{map}
+				{mapMoveNotifyToggle}
+				data={data.geodataVoronoi}
+				{mapWidth}
+				{mapHeight}
+			/>
 		{/if}
 	</div>
 </div>

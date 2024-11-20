@@ -1,7 +1,8 @@
 <script>
 	import { geoPath, geoMercator } from 'd3-geo';
+	import simplify from '@turf/simplify';
 
-	let { svgLayer = $bindable(), map, mapMoveNotifyToggle, data } = $props();
+	let { svgLayer = $bindable(), map, mapMoveNotifyToggle, data, mapWidth, mapHeight } = $props();
 
 	let lng = -7.807195714694519;
 	let lat = 53.41035563891312;
@@ -13,38 +14,38 @@
 	// $inspect(pathData);
 
 	console.log(data);
+	const simplifiedFeatures = simplify(data, { tolerance: 0.001, highQuality: true }).features;
 
 	$effect(() => {
 		console.log('updating view');
 		const pathDataTmp = [];
 
 		const mümap = map;
-		debugger;
+		// debugger;
+
+		// TODO: https://gist.github.com/enjalot/1ed5d9795b82f846759f89029b0b8ff3
 
 		// TODO: This is just much more performat: https://observablehq.com/@d3/zoomable-raster-vector?collection=@d3/d3-zoom
-		// const projection = geoMercator()
-		// 	.scale(1 / (2 * Math.PI))
-		// 	.translate([0, 0]);
 
-		// const render = geoPath(projection);
+		const center = map.getCenter();
+		const zoom = map.getZoom();
+		// 512 is hardcoded tile size, might need to be 256 or changed to suit your map config
+		const scale = ((512 * 0.5) / Math.PI) * Math.pow(2, zoom);
 
-		// // const render = geoPath(map.projection);
-		// const müData = data;
-		// const mue = render(data.features);
-		// debugger;
-		data.features.forEach((feature) => {
-			const coordinates = feature.geometry.coordinates[0];
-			const pathString =
-				coordinates
-					.map((coord, i) => {
-						if (typeof coord[0] === 'number' && typeof coord[1] === 'number') {
-							const point = map.project([coord[0], coord[1]]);
-							return `${i === 0 ? 'M' : 'L'}${point.x},${point.y}`;
-						}
-					})
-					.join(' ') + ' Z';
+		const projection = geoMercator()
+			.center([center.lng, center.lat])
+			.translate([mapWidth / 2, mapHeight / 2])
+			.scale(scale);
+
+		const renderPath = geoPath(projection);
+
+		simplifiedFeatures.forEach((feature) => {
+			const pathString = renderPath(feature);
 			pathDataTmp.push(pathString);
 		});
+		// pathDataTmp.push(renderPath(data)); // Works as well, but just one path
+
+		// console.log(pathDataTmp);
 
 		pathData = pathDataTmp;
 
@@ -55,11 +56,16 @@
 </script>
 
 <svg bind:this={svgLayer} class="test-svg" width="100%" height="100%">
-	<rect width="100" height="100" fill="red"> </rect>
-	<circle {cx} {cy} r="10" fill="blue"></circle>
+	<!-- <rect width="100" height="100" fill="red"> </rect>
+	<circle {cx} {cy} r="10" fill="blue"></circle> -->
 	<g class="region-paths-g">
-		{#each pathData as pathString}
-			<path d={pathString} fill="none" stroke="red"></path>
+		{#each pathData as pathString, i}
+			<path
+				d={pathString}
+				fill={['red', 'green', 'blue', 'yellow', 'pink'][i % 5]}
+				opacity="0.2"
+				stroke="red"
+			></path>
 		{/each}
 	</g>
 </svg>

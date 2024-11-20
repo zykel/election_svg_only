@@ -21,15 +21,6 @@
 	onMount(() => {
 		mapboxgl.accessToken =
 			'pk.eyJ1IjoiY2hvNCIsImEiOiJja3Z0b2ViNTIwdG55MzBseWZ3Mmc0bXluIn0.F3y-oHZn9KCmgPNR_11zzg';
-		// map = new mapboxgl.Map({
-		// 	container: mapContainer, // container id
-		// 	style: 'mapbox://styles/cho4/clg3kv3ji003z01mwniqkksw2', // 'mapbox://styles/mapbox/light-v10'
-		// 	// with satellite-based styles, some odd uncatchable fog errors pop up: https://docs.mapbox.com/mapbox-gl-js/style-spec/fog/
-		// 	attributionControl: false,
-		// 	center: [lng, lat],
-		// 	zoom: zoom,
-		// 	projection: 'naturalEarth'
-		// });
 
 		map = new mapboxgl.Map({
 			container: 'mapbox-map-container',
@@ -38,21 +29,9 @@
 			zoom: zoom
 		});
 
-		// const canvasContainer = map.getCanvasContainer();
-		// Do this does not seem to be properly reactive - only the component in the markup fires the mapMoveNotifyToggle
-		// const testSvg = mount(TestComponent, { target: canvasContainer, props: { map, mapMoveNotifyToggle } });
-
-		map.on('move', () => (mapMoveNotifyToggle = !mapMoveNotifyToggle)); // mm.viewReset(map, mapId)
-
-		// TODO: mapManager.js inside C:\Users\benedikt\Documents\phd\projects\exex\story shows an example of how to keep the svg position synced with the mapbox map
+		map.on('move', () => (mapMoveNotifyToggle = !mapMoveNotifyToggle));
 	});
 </script>
-
-<!-- <div id="mapbox-map-container" bind:this={mapContainer}></div>
-
-<TestComponent  /> -->
-
-<!-- 	<Earthquakes /> -->
 
 <div id="map-container" style="width: {mapWidth}px; height: {mapHeight}px">
 	<div id="mapbox-map-container" style="width: {mapWidth}px; height: {mapHeight}px"></div>

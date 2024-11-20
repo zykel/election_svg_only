@@ -45,7 +45,7 @@
 	<div id="mapbox-map-container" style:width="{mapWidth}px" style:height="{mapHeight}px"></div>
 	<div id="svg-map-container" style:width="{mapWidth}px" style:height="{mapHeight}px">
 		{#if map !== null}
-			<TestComponent bind:svgLayer {map} {mapMoveNotifyToggle} />
+			<TestComponent bind:svgLayer {map} {mapMoveNotifyToggle} data={data.geodataVoronoi} />
 		{/if}
 	</div>
 </div>

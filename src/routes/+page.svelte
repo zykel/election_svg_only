@@ -1,5 +1,5 @@
 <script>
-	import TestComponent from '$lib/TestComponent.svelte';
+	import SvgLayer from '$lib/SvgLayer.svelte';
 	import { onMount, mount } from 'svelte';
 	import mapboxgl from 'mapbox-gl';
 	import 'mapbox-gl/dist/mapbox-gl.css';
@@ -45,7 +45,7 @@
 	<div id="mapbox-map-container" style:width="{mapWidth}px" style:height="{mapHeight}px"></div>
 	<div id="svg-map-container" style:width="{mapWidth}px" style:height="{mapHeight}px">
 		{#if map !== null}
-			<TestComponent
+			<SvgLayer
 				bind:svgLayer
 				{map}
 				{mapMoveNotifyToggle}

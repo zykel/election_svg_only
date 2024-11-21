@@ -1,7 +1,6 @@
 <script>
 	import { geoPath, geoMercator, geoTransform } from 'd3-geo';
 	import { selectAll } from 'd3';
-	import simplify from '@turf/simplify';
 	import { onMount } from 'svelte';
 
 	let { svgLayer = $bindable(), map, mapMoveNotifyToggle, data, mapWidth, mapHeight } = $props();
@@ -13,19 +12,11 @@
 	let cy = $state(0);
 
 	let pathData = $state([]);
-	// $inspect(pathData);
 
 	console.log(data);
-	// const simplifiedFeatures = simplify(data, { tolerance: 0.001, highQuality: true }).features;
-	const simplifiedFeatures = data.features;
 
 	$effect(() => {
-		console.log('updating view');
 		const pathDataTmp = [];
-
-		// TODO: https://gist.github.com/enjalot/1ed5d9795b82f846759f89029b0b8ff3
-
-		// TODO: How is this is so much more performat: https://observablehq.com/@d3/zoomable-raster-vector?collection=@d3/d3-zoom
 
 		const getPoint = (coord) => {
 			let { x, y } = map.project([coord[0], coord[1]]);
@@ -40,7 +31,7 @@
 
 		const renderPath = geoPath(projection);
 
-		simplifiedFeatures.forEach((feature) => {
+		data.features.forEach((feature) => {
 			const pathString = renderPath(feature);
 			pathDataTmp.push({ id: feature.id, pathString });
 		});
@@ -65,8 +56,6 @@
 </script>
 
 <svg bind:this={svgLayer} class="test-svg" width="100%" height="100%">
-	<!-- <rect width="100" height="100" fill="red"> </rect>
-	<circle {cx} {cy} r="10" fill="blue"></circle> -->
 	<g class="region-paths-g">
 		{#each pathData as { id, pathString }, i}
 			<path

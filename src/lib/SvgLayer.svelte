@@ -62,7 +62,17 @@
 				id="path-{i}"
 				class="region-path"
 				d={pathString}
-				fill={['red', 'green', 'blue', 'yellow', 'pink'][i % 5]}
+				fill={[
+					'#00C24A',
+					'#009C77',
+					'#01B3DD',
+					'#F2471C',
+					'#A7C54E',
+					'#76267F',
+					'#E2A739',
+					'#E2A739',
+					'#AEAEAE'
+				][i % 9]}
 				opacity="0.2"
 				stroke="white"
 			></path>

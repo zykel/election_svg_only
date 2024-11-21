@@ -1,5 +1,5 @@
 <script>
-	import { geoPath, geoMercator } from 'd3-geo';
+	import { geoPath, geoMercator, geoTransform } from 'd3-geo';
 	import { selectAll } from 'd3';
 	import simplify from '@turf/simplify';
 	import { onMount } from 'svelte';
@@ -23,61 +23,27 @@
 		console.log('updating view');
 		const pathDataTmp = [];
 
-		// debugger;
-
 		// TODO: https://gist.github.com/enjalot/1ed5d9795b82f846759f89029b0b8ff3
 
 		// TODO: How is this is so much more performat: https://observablehq.com/@d3/zoomable-raster-vector?collection=@d3/d3-zoom
 
-		const center = map.getCenter();
-		const zoom = map.getZoom();
-		// 512 is hardcoded tile size, might need to be 256 or changed to suit your map config
-		const scale = ((512 * 0.5) / Math.PI) * Math.pow(2, zoom);
+		const getPoint = (coord) => {
+			let { x, y } = map.project([coord[0], coord[1]]);
+			return [x, y];
+		};
 
-		const projection = geoMercator()
-			.center([center.lng, center.lat])
-			.translate([mapWidth / 2, mapHeight / 2])
-			.scale(scale);
+		const projection = geoTransform({
+			point: function (px, py) {
+				this.stream.point(...getPoint([px, py]));
+			}
+		});
 
 		const renderPath = geoPath(projection);
 
 		simplifiedFeatures.forEach((feature) => {
-			// const pathString = renderPath(feature);
-
-			// const coordinates = feature.geometry.coordinates[0];
-			// const pathString =
-			// 	coordinates
-			// 		.map((coord, index) => {
-			// 			if (typeof coord[0] === 'number' && typeof coord[1] === 'number') {
-			// 				const point = map.project([coord[0], coord[1]]);
-			// 				return `${index === 0 ? 'M' : 'L'}${point.x},${point.y}`;
-			// 			}
-			// 		})
-			// 		.join(' ') + ' Z'; // Close the path
-			// pathDataTmp.push({ id: feature.id, pathString });
-
-			const coordinates = feature.geometry.coordinates;
-			const pathStrings = [];
-
-			coordinates.forEach((polygon) => {
-				// debugger;
-				const polygonCoords = feature.geometry.type === 'MultiPolygon' ? polygon[0] : polygon;
-				const pathString =
-					polygonCoords
-						.map((coord, index) => {
-							if (typeof coord[0] === 'number' && typeof coord[1] === 'number') {
-								const point = map.project([coord[0], coord[1]]);
-								return `${index === 0 ? 'M' : 'L'}${point.x},${point.y}`;
-							}
-						})
-						.join(' ') + ' Z'; // Close the path
-
-				pathDataTmp.push({ id: feature.id, pathString });
-			});
+			const pathString = renderPath(feature);
+			pathDataTmp.push({ id: feature.id, pathString });
 		});
-		// pathDataTmp.push(renderPath(data)); // Works as well, but just one path
-
-		// console.log(pathDataTmp);
 
 		pathData = pathDataTmp;
 

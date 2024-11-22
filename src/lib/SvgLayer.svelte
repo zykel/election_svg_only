@@ -8,6 +8,7 @@
 
 	// Following this https://observablehq.com/@d3/zoomable-raster-vector?collection=@d3/d3-zoom
 
+	// For us : [-98.58333333333333, 39.833333333333336]
 	let lng = -7.807195714694519;
 	let lat = 53.41035563891312;
 	let scale = 1 << 12;
@@ -28,7 +29,6 @@
 		.on('zoom', ({ transform }) => zoomed(transform));
 
 	function zoomed(transform) {
-		console.log('zooming', transform);
 		projection = geoMercator() // redudant?
 			.center([lng, lat]) // redudant?
 			.scale(transform.k)
@@ -36,7 +36,6 @@
 	}
 
 	onMount(() => {
-		console.log(select(svgLayer));
 		zoomHelper(select(svgLayer));
 		zoomHelper.transform(
 			select(svgLayer),
@@ -69,13 +68,7 @@
 	// });
 </script>
 
-<svg
-	onclick={() => console.log('cliked')}
-	bind:this={svgLayer}
-	class="test-svg"
-	width="100%"
-	height="100%"
->
+<svg bind:this={svgLayer} class="test-svg" width="100%" height="100%">
 	<g class="region-paths-g">
 		{#each pathData as { id, pathString }, i}
 			<path

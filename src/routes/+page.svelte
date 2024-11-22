@@ -40,8 +40,4 @@
 		top: 0;
 		left: 0;
 	}
-	#svg-map-container {
-		overflow: hidden;
-		pointer-events: none;
-	}
 </style>

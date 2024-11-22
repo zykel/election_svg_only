@@ -13,47 +13,19 @@
 
 	console.log(data);
 
-	let mapContainer;
-
 	let lng = -7.807195714694519;
 	let lat = 53.41035563891312;
 	let zoom = 5;
 
-	let map = $state(null);
 	let svgLayer = $state(null);
 
 	const mapWidth = 600;
 	const mapHeight = 600;
-
-	let mapMoveNotifyToggle = $state(false);
-
-	onMount(() => {
-		mapboxgl.accessToken = PUBLIC_MAPBOX_API_TOKEN;
-
-		map = new mapboxgl.Map({
-			container: 'mapbox-map-container',
-			style: 'mapbox://styles/mapbox/dark-v10',
-			center: [lng, lat],
-			zoom: zoom
-		});
-
-		map.on('move', () => (mapMoveNotifyToggle = !mapMoveNotifyToggle));
-	});
 </script>
 
 <div id="map-container" style:width="{mapWidth}px" style:height="{mapHeight}px">
-	<div id="mapbox-map-container" style:width="{mapWidth}px" style:height="{mapHeight}px"></div>
 	<div id="svg-map-container" style:width="{mapWidth}px" style:height="{mapHeight}px">
-		{#if map !== null}
-			<SvgLayer
-				bind:svgLayer
-				{map}
-				{mapMoveNotifyToggle}
-				data={data.geodataVoronoi}
-				{mapWidth}
-				{mapHeight}
-			/>
-		{/if}
+		<SvgLayer bind:svgLayer data={data.geodataVoronoi} {mapWidth} {mapHeight} />
 	</div>
 </div>
 

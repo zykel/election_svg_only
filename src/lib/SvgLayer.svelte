@@ -3,55 +3,39 @@
 	import { selectAll } from 'd3';
 	import { onMount } from 'svelte';
 
-	let { svgLayer = $bindable(), map, mapMoveNotifyToggle, data, mapWidth, mapHeight } = $props();
+	let { svgLayer = $bindable(), data, mapWidth, mapHeight } = $props();
 
 	let lng = -7.807195714694519;
 	let lat = 53.41035563891312;
-
-	let cx = $state(0);
-	let cy = $state(0);
+	let scale = 1 << 12;
 
 	let pathData = $state([]);
 
-	console.log(data);
+	const pathDataTmp = [];
 
-	$effect(() => {
-		const pathDataTmp = [];
+	const projection = geoMercator()
+		.scale(scale)
+		.translate([mapWidth / 2, mapHeight / 2])
+		.center([lng, lat]);
 
-		const getPoint = (coord) => {
-			let { x, y } = map.project([coord[0], coord[1]]);
-			return [x, y];
-		};
+	const pathGenerator = geoPath(projection);
 
-		const projection = geoTransform({
-			point: function (px, py) {
-				this.stream.point(...getPoint([px, py]));
-			}
-		});
-
-		const renderPath = geoPath(projection);
-
-		data.features.forEach((feature) => {
-			const pathString = renderPath(feature);
-			pathDataTmp.push({ id: feature.id, pathString });
-		});
-
-		pathData = pathDataTmp;
-
-		mapMoveNotifyToggle;
-		cx = map.project([lng, lat]).x;
-		cy = map.project([lng, lat]).y;
+	data.features.forEach((feature) => {
+		const pathString = pathGenerator(feature);
+		pathDataTmp.push({ id: feature.id, pathString });
 	});
 
+	pathData = pathDataTmp;
+
 	onMount(() => {
-		document.addEventListener('click', (e) => {
-			selectAll('.region-path')
-				.filter((d, i) => {
-					const bbox = document.getElementById(`path-${i}`).getBoundingClientRect();
-					return bbox.height > 500;
-				})
-				.attr('opacity', 0);
-		});
+		// document.addEventListener('click', (e) => {
+		// 	selectAll('.region-path')
+		// 		.filter((d, i) => {
+		// 			const bbox = document.getElementById(`path-${i}`).getBoundingClientRect();
+		// 			return bbox.height > 600;
+		// 		})
+		// 		.attr('opacity', 0);
+		// });
 	});
 </script>
 
@@ -73,7 +57,6 @@
 					'#E2A739',
 					'#AEAEAE'
 				][i % 9]}
-				opacity="0.2"
 				stroke="white"
 			></path>
 		{/each}

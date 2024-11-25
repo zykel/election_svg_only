@@ -49,13 +49,9 @@
 
 		const pathGenerator = geoPath(projection);
 
-		data.features.forEach((feature) => {
-			feature.properties = null;
-			const mue = structuredClone(feature);
-			mue.geometry.coordinates = mue.geometry.coordinates.map((coords) => coords.reverse());
-			const pathString = pathGenerator(mue);
-			// debugger;
-			pathDataTmp.push({ id: feature.id, area_seat: null, pathString });
+		data.features.forEach((feature, i) => {
+			const pathString = pathGenerator(feature);
+			pathDataTmp.push({ id: feature.id, area_seat: feature.properties.area_seat, pathString });
 		});
 
 		return pathDataTmp;

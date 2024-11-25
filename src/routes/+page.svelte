@@ -10,6 +10,9 @@
 	// +page.server.ts plus +page.svelte
 
 	let { data } = $props();
+	data.geodataVoronoi.features = data.geodataVoronoi.features.filter((d) => d.geometry !== null);
+
+	// topology => topojson.feature(topology, topology.objects.states)
 
 	console.log(data);
 

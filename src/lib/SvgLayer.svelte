@@ -3,6 +3,7 @@
 	import { select, selectAll } from 'd3';
 	import { zoom, zoomIdentity } from 'd3-zoom';
 	import { onMount } from 'svelte';
+	import { rewind } from '@turf/rewind';
 
 	let { svgLayer = $bindable(), data, mapWidth, mapHeight } = $props();
 
@@ -21,7 +22,7 @@
 	);
 
 	const zoomHelper = zoom()
-		.scaleExtent([scale, 1 << 20])
+		.scaleExtent([1 << 2, 1 << 20])
 		.extent([
 			[0, 0],
 			[mapWidth, mapHeight]
@@ -49,8 +50,12 @@
 		const pathGenerator = geoPath(projection);
 
 		data.features.forEach((feature) => {
-			const pathString = pathGenerator(feature);
-			pathDataTmp.push({ id: feature.id, pathString });
+			feature.properties = null;
+			const mue = structuredClone(feature);
+			mue.geometry.coordinates = mue.geometry.coordinates.map((coords) => coords.reverse());
+			const pathString = pathGenerator(mue);
+			// debugger;
+			pathDataTmp.push({ id: feature.id, area_seat: null, pathString });
 		});
 
 		return pathDataTmp;
@@ -70,12 +75,22 @@
 
 <svg bind:this={svgLayer} class="test-svg" width="100%" height="100%">
 	<g class="region-paths-g">
-		{#each pathData as { id, pathString }, i}
+		{#each pathData as { id, area_seat, pathString }, i}
 			<path
-				id="path-{i}"
+				id="path-{i}-{area_seat}"
 				class="region-path"
 				d={pathString}
-				fill={[
+				fill={'blue'}
+				stroke="red"
+				fill-rule="nonzero"
+				stroke-width="2"
+				opacity="0.1"
+			></path>
+		{/each}
+	</g>
+</svg>
+
+<!-- {[
 					'#00C24A',
 					'#009C77',
 					'#01B3DD',
@@ -85,12 +100,7 @@
 					'#E2A739',
 					'#E2A739',
 					'#AEAEAE'
-				][i % 9]}
-				stroke="white"
-			></path>
-		{/each}
-	</g>
-</svg>
+				][i % 9]} -->
 
 <style>
 	.test-svg {

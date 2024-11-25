@@ -15,16 +15,18 @@ export const load = async ({ fetch }) => {
 		geodataVoronoi: {
 			type: geodataVoronoi.type,
 			features: geodataVoronoi.features.map((feature, i) => {
-				const mue = structuredClone(feature);
-				if (mue.geometry.type === 'MultiPolygon') {
-					mue.geometry.coordinates = mue.geometry.coordinates.map((coords) => [
+				const featureCloned = structuredClone(feature);
+				if (featureCloned.geometry.type === 'MultiPolygon') {
+					featureCloned.geometry.coordinates = featureCloned.geometry.coordinates.map((coords) => [
 						coords[0].reverse()
 					]);
-				} else if (mue.geometry.type === 'Polygon') {
-					mue.geometry.coordinates = mue.geometry.coordinates.map((coords) => coords.reverse());
+				} else if (featureCloned.geometry.type === 'Polygon') {
+					featureCloned.geometry.coordinates = featureCloned.geometry.coordinates.map((coords) =>
+						coords.reverse()
+					);
 				}
 
-				return mue;
+				return featureCloned;
 			})
 		}
 	};

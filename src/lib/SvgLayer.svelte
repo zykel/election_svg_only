@@ -9,7 +9,6 @@
 	let { svgLayer = $bindable(), data, mapWidth, mapHeight } = $props();
 
 	const mapHelper = $derived(getMapHelper(svgLayer, data, mapWidth, mapHeight));
-	// const mapHelper = new MapHelper(svgLayer, data, mapWidth, mapHeight);
 
 	onMount(() => {
 		mapHelper.setupZoom();

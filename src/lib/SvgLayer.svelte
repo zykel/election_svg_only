@@ -4,17 +4,18 @@
 	import { zoom, zoomIdentity } from 'd3-zoom';
 	import { onMount } from 'svelte';
 	import { rewind } from '@turf/rewind';
-	import { getMapHelper, pathDataMap } from '$lib/helperMap.svelte.js';
+	import { getMapHelper } from '$lib/helperMap.svelte.js';
 
 	let { svgLayer = $bindable(), data, mapWidth, mapHeight } = $props();
 
 	const mapHelper = $derived(getMapHelper(svgLayer, data, mapWidth, mapHeight));
+	// const mapHelper = new MapHelper(svgLayer, data, mapWidth, mapHeight);
 
 	onMount(() => {
 		mapHelper.setupZoom();
 	});
 
-	const pathData = $derived(pathDataMap.value);
+	const pathData = $derived(mapHelper.pathData);
 </script>
 
 <svg bind:this={svgLayer} class="test-svg" width="100%" height="100%">

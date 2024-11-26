@@ -23,6 +23,7 @@
 		"@turf/rewind": "^7.1.0",
 		"@turf/simplify": "^7.1.0",
 		"d3": "^7.9.0",
+		"flubber": "^0.4.2",
 		"mapbox-gl": "^3.8.0",
 		"topojson-client": "^3.1.0",
 		"topojson-simplify": "^3.0.3"

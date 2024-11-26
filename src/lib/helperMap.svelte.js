@@ -39,7 +39,7 @@ export const getMapHelper = (svgLayer, data, mapWidth, mapHeight) => {
 		data.features.forEach((feature, i) => {
 			const pathString = pathGenerator(feature);
 			pathDataTmp.push({
-				id: feature.id,
+				idx: i,
 				area_seat: feature.properties.area_seat,
 				pathString
 			});

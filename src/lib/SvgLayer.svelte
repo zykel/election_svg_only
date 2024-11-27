@@ -12,7 +12,7 @@
 	let animateFast = $state(true);
 
 	const mapHelper = $derived(getMapHelper(svgLayer, data, mapWidth, mapHeight));
-	const parliamentHelper = getParliamentHelper(mapWidth, mapHeight);
+	const parliamentHelper = getParliamentHelper(data, mapWidth, mapHeight);
 
 	onMount(() => {
 		mapHelper.setupZoom();

@@ -26,7 +26,7 @@ export const load = async ({ fetch }) => {
 		// ];
 
 		const nrSeats = geodataVoronoi.features.length;
-		let percentages = parties.map((d, i) => Math.random() + 0.2);
+		let percentages = parties.map((d, i) => Math.random() + 0.1);
 		const percentagesSum = percentages.reduce((a, b) => a + b);
 		percentages = percentages.map((percentage) => percentage / percentagesSum);
 		const partiesWithSeats = parties.map((party, i) => ({
@@ -34,7 +34,10 @@ export const load = async ({ fetch }) => {
 			nrSeatsParty: Math.round(nrSeats * percentages[i])
 		}));
 		const correctedLastSeatNumberDueToRoundingDistortions =
-			nrSeats - partiesWithSeats.slice(0, 8).reduce((a, b) => a + b.nrSeatsParty, 0);
+			nrSeats -
+			partiesWithSeats
+				.slice(0, partiesWithSeats.length - 1)
+				.reduce((a, b) => a + b.nrSeatsParty, 0);
 		partiesWithSeats.at(-1).nrSeatsParty = correctedLastSeatNumberDueToRoundingDistortions;
 		const indexablePartyList = partiesWithSeats
 			.map(({ party, nrSeatsParty }) => [...Array(nrSeatsParty)].map((d) => party))

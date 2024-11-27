@@ -1,6 +1,6 @@
 import { range } from 'd3-array';
 
-export const getParliamentHelper = (mapWidth, mapHeight) => {
+export const getParliamentHelper = (data, mapWidth, mapHeight) => {
 	const nrSeatsPerRow = {
 		0: 22,
 		1: 27,
@@ -32,9 +32,10 @@ export const getParliamentHelper = (mapWidth, mapHeight) => {
 		...getPositionsArray(5)
 	];
 
+	// To ensure that the seats for different parties are in block-like order, sort them by angle
 	positions.sort((a, b) => (a.angle < b.angle ? -1 : 1));
 
-	const pathData = range(174).map((d, idx) => {
+	const pathData = data.features.map((feature, idx) => {
 		const position = positions[idx];
 		const x = position.x;
 		const y = position.y;
@@ -43,7 +44,12 @@ export const getParliamentHelper = (mapWidth, mapHeight) => {
 		const pathString = `M ${x} ${y} A ${r} ${r} 0 1 1 ${x + 0.1} ${y}`;
 
 		// pathString = `M ${x} ${y} A ${r} ${r} 0 1 1 ${x + 0.1} ${y}`;
-		return { idx, area_seat: 'dummy-circle', pathString, party: 'Ind' };
+		return {
+			idx,
+			area_seat: feature.properties.area_seat,
+			pathString,
+			party: feature.properties.party
+		};
 	});
 
 	return {

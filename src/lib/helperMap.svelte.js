@@ -41,7 +41,8 @@ export const getMapHelper = (svgLayer, data, mapWidth, mapHeight) => {
 			pathDataTmp.push({
 				idx: i,
 				area_seat: feature.properties.area_seat,
-				pathString
+				pathString,
+				party: feature.properties.party
 			});
 		});
 

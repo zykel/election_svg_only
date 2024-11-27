@@ -43,7 +43,7 @@ export const getParliamentHelper = (mapWidth, mapHeight) => {
 		const pathString = `M ${x} ${y} A ${r} ${r} 0 1 1 ${x + 0.1} ${y}`;
 
 		// pathString = `M ${x} ${y} A ${r} ${r} 0 1 1 ${x + 0.1} ${y}`;
-		return { idx, area_seat: 'dummy-circle', pathString };
+		return { idx, area_seat: 'dummy-circle', pathString, party: 'Ind' };
 	});
 
 	return {

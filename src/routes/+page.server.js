@@ -1,3 +1,6 @@
+import { get } from 'svelte/store';
+import { parties } from '$lib/p.svelte.js';
+
 export const load = async ({ fetch }) => {
 	// https://mapshaper.org/ to simplify geojson files
 	// const response = await fetch('test_rewind.json');
@@ -9,7 +12,38 @@ export const load = async ({ fetch }) => {
 
 	let geodataVoronoi = await response.json();
 
-	geodataVoronoi;
+	const getRandomIndexablePartyList = () => {
+		// const parties = [
+		// 	'Fianna Fail',
+		// 	'Sinn Fein',
+		// 	'Fine Gael',
+		// 	'Labour',
+		// 	'Green',
+		// 	'Social dems',
+		// 	'Aontu',
+		// 	'People before profit',
+		// 	'Ind'
+		// ];
+
+		const nrSeats = geodataVoronoi.features.length;
+		let percentages = parties.map((d, i) => Math.random() + 0.2);
+		const percentagesSum = percentages.reduce((a, b) => a + b);
+		percentages = percentages.map((percentage) => percentage / percentagesSum);
+		const partiesWithSeats = parties.map((party, i) => ({
+			party,
+			nrSeatsParty: Math.round(nrSeats * percentages[i])
+		}));
+		const correctedLastSeatNumberDueToRoundingDistortions =
+			nrSeats - partiesWithSeats.slice(0, 8).reduce((a, b) => a + b.nrSeatsParty, 0);
+		partiesWithSeats.at(-1).nrSeatsParty = correctedLastSeatNumberDueToRoundingDistortions;
+		const indexablePartyList = partiesWithSeats
+			.map(({ party, nrSeatsParty }) => [...Array(nrSeatsParty)].map((d) => party))
+			.flat();
+
+		return indexablePartyList;
+	};
+
+	const indexablePartyList = getRandomIndexablePartyList();
 
 	return {
 		geodataVoronoi: {
@@ -25,6 +59,8 @@ export const load = async ({ fetch }) => {
 						coords.reverse()
 					);
 				}
+
+				featureCloned.properties.party = indexablePartyList[i];
 
 				return featureCloned;
 			})

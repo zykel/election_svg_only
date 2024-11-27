@@ -8,7 +8,7 @@
 
 	let { svgLayer = $bindable(), data, mapWidth, mapHeight } = $props();
 
-	let showMap = $state(true);
+	let visType = $state('map');
 	let animateFast = $state(true);
 
 	const mapHelper = $derived(getMapHelper(svgLayer, data, mapWidth, mapHeight));
@@ -18,7 +18,14 @@
 		mapHelper.setupZoom();
 	});
 
-	const pathData = $derived(showMap ? mapHelper.pathData : parliamentHelper.pathData);
+	const getPathData = (visType) => {
+		let data = [];
+		if (visType === 'map') data = mapHelper.pathData;
+		if (visType === 'parliament') data = parliamentHelper.pathData;
+		return data;
+	};
+
+	const pathData = $derived(getPathData(visType));
 
 	const colorScale = scaleOrdinal()
 		.domain(parties)
@@ -45,7 +52,17 @@
 </svg>
 <button
 	on:click={() => {
-		animateFast = false;
-		showMap = !showMap;
-	}}>Toggle Map</button
+		if (visType !== 'map') {
+			animateFast = false;
+			visType = 'map';
+		}
+	}}>Map</button
+>
+<button
+	on:click={() => {
+		if (visType !== 'parliament') {
+			animateFast = false;
+			visType = 'parliament';
+		}
+	}}>Parliament</button
 >

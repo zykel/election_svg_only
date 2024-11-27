@@ -22,25 +22,25 @@
 
 	let svgLayer = $state(null);
 
-	const mapWidth = 600;
+	let vw100 = $state(10000);
+
+	const mapWidth = $derived(Math.min(600, vw100));
 	const mapHeight = 600;
 </script>
 
-<div id="map-container" style:width="{mapWidth}px" style:height="{mapHeight}px">
+<div id="main-content" bind:clientWidth={vw100}>
 	<div id="svg-map-container" style:width="{mapWidth}px" style:height="{mapHeight}px">
 		<SvgLayer bind:svgLayer data={data.geodataVoronoi} {mapWidth} {mapHeight} />
 	</div>
 </div>
 
 <style>
-	#map-container {
-		position: relative;
+	#main-content {
+		display: flex;
+		justify-content: center;
 	}
 
 	#mapbox-map-container,
 	#svg-map-container {
-		position: absolute;
-		top: 0;
-		left: 0;
 	}
 </style>

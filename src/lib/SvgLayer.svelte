@@ -6,6 +6,7 @@
 	import SeatPath from '$lib/SeatPath.svelte';
 	import { scaleOrdinal } from 'd3';
 	import { parties } from '$lib/p.svelte.js';
+	import VisTypeButton from './VisTypeButton.svelte';
 
 	let { svgLayer = $bindable(), data, mapWidth, mapHeight } = $props();
 
@@ -53,27 +54,7 @@
 		{/each}
 	</g>
 </svg>
-<button
-	on:click={() => {
-		if (visType !== 'map') {
-			animateFast = false;
-			visType = 'map';
-		}
-	}}>Map</button
->
-<button
-	on:click={() => {
-		if (visType !== 'parliament') {
-			animateFast = false;
-			visType = 'parliament';
-		}
-	}}>Parliament</button
->
-<button
-	on:click={() => {
-		if (visType !== 'barchart') {
-			animateFast = false;
-			visType = 'barchart';
-		}
-	}}>Barchart</button
->
+
+<VisTypeButton visTypeToCheckFor={'map'} bind:visType bind:animateFast />
+<VisTypeButton visTypeToCheckFor={'parliament'} bind:visType bind:animateFast />
+<VisTypeButton visTypeToCheckFor={'barchart'} bind:visType bind:animateFast />

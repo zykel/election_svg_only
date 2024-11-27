@@ -30,6 +30,7 @@ export const load = async ({ fetch }) => {
 				}
 
 				featureCloned.properties.party = indexablePartyList[i];
+				featureCloned.properties.idx = i;
 
 				return featureCloned;
 			})

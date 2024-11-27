@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { getMapHelper } from '$lib/helperMap.svelte.js';
 	import { getParliamentHelper } from '$lib/helperParliament.svelte.js';
+	import { getBarchartHelper } from '$lib/helperBarchart.svelte.js';
 	import SeatPath from '$lib/SeatPath.svelte';
 	import { scaleOrdinal } from 'd3';
 	import { parties } from '$lib/p.svelte.js';
@@ -13,6 +14,7 @@
 
 	const mapHelper = $derived(getMapHelper(svgLayer, data, mapWidth, mapHeight));
 	const parliamentHelper = getParliamentHelper(data, mapWidth, mapHeight);
+	const barchartHelper = getBarchartHelper(data, mapWidth, mapHeight);
 
 	onMount(() => {
 		mapHelper.setupZoom();
@@ -22,6 +24,7 @@
 		let data = [];
 		if (visType === 'map') data = mapHelper.pathData;
 		if (visType === 'parliament') data = parliamentHelper.pathData;
+		if (visType === 'barchart') data = barchartHelper.pathData;
 		return data;
 	};
 
@@ -65,4 +68,12 @@
 			visType = 'parliament';
 		}
 	}}>Parliament</button
+>
+<button
+	on:click={() => {
+		if (visType !== 'barchart') {
+			animateFast = false;
+			visType = 'barchart';
+		}
+	}}>Barchart</button
 >

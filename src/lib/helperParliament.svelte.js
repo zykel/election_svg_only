@@ -1,6 +1,6 @@
 import { range } from 'd3-array';
 
-export const getParliamentHelper = (data, mapWidth, mapHeight) => {
+const getPositions = (mapWidth, mapHeight) => {
 	const nrSeatsPerRow = {
 		0: 22,
 		1: 27,
@@ -23,17 +23,16 @@ export const getParliamentHelper = (data, mapWidth, mapHeight) => {
 		return positions;
 	};
 
-	let positions = [
-		...getPositionsArray(0),
-		...getPositionsArray(1),
-		...getPositionsArray(2),
-		...getPositionsArray(3),
-		...getPositionsArray(4),
-		...getPositionsArray(5)
-	];
+	let positions = rows.map((row) => getPositionsArray(row)).flat();
 
 	// To ensure that the seats for different parties are in block-like order, sort them by angle
 	positions.sort((a, b) => (a.angle < b.angle ? -1 : 1));
+
+	return positions;
+};
+
+export const getParliamentHelper = (data, mapWidth, mapHeight) => {
+	const positions = getPositions(mapWidth, mapHeight);
 
 	const pathData = data.features.map((feature, idx) => {
 		const position = positions[idx];

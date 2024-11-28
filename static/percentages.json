@@ -1,0 +1,20 @@
+[
+	{ "year": 2019, "party": "Fianna Fail", "percentage": 0.111 },
+	{ "year": 2019, "party": "Sinn Fein", "percentage": 0.111 },
+	{ "year": 2019, "party": "Fine Gael", "percentage": 0.111 },
+	{ "year": 2019, "party": "Labour", "percentage": 0.111 },
+	{ "year": 2019, "party": "Green", "percentage": 0.111 },
+	{ "year": 2019, "party": "Social dems", "percentage": 0.111 },
+	{ "year": 2019, "party": "Aontu", "percentage": 0.111 },
+	{ "year": 2019, "party": "People before profit", "percentage": 0.111 },
+	{ "year": 2019, "party": "Ind", "percentage": 0.111 },
+	{ "year": 2024, "party": "Fianna Fail", "percentage": 0.111 },
+	{ "year": 2024, "party": "Sinn Fein", "percentage": 0.111 },
+	{ "year": 2024, "party": "Fine Gael", "percentage": 0.111 },
+	{ "year": 2024, "party": "Labour", "percentage": 0.111 },
+	{ "year": 2024, "party": "Green", "percentage": 0.111 },
+	{ "year": 2024, "party": "Social dems", "percentage": 0.111 },
+	{ "year": 2024, "party": "Aontu", "percentage": 0.111 },
+	{ "year": 2024, "party": "People before profit", "percentage": 0.111 },
+	{ "year": 2024, "party": "Ind", "percentage": "0.111" }
+]

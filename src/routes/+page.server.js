@@ -8,9 +8,11 @@ export const load = async ({ fetch }) => {
 	// const response = await fetch('us-states-10m.json');
 	// const response = await fetch('electoral_map_seats_voronoi_20perc_geo.json');
 	// const response = await fetch('0.json');
-	const response = await fetch('5.json');
+	const responseVoronoi = await fetch('5.json');
+	const responsePercentages = await fetch('percentages.json');
 
-	let geodataVoronoi = await response.json();
+	let geodataVoronoi = await responseVoronoi.json();
+	let dataPercentages = await responsePercentages.json();
 
 	const indexablePartyList = getRandomIndexablePartyList(geodataVoronoi);
 
@@ -34,7 +36,12 @@ export const load = async ({ fetch }) => {
 
 				return featureCloned;
 			})
-		}
+		},
+		dataPercentages: dataPercentages.map(({ year, party, percentage }) => ({
+			year,
+			party,
+			percentage: +Math.random().toFixed(3)
+		}))
 	};
 };
 

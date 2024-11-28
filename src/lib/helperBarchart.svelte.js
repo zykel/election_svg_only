@@ -27,6 +27,7 @@ const getYScale = (data, mapHeight, partySubsets) => {
 };
 
 export const getBarchartHelper = (data, mapWidth, mapHeight) => {
+	console.log('recreating barchart helper');
 	const xScale = getXScale(data, mapWidth);
 	const yScale = getYScale(data, mapHeight);
 

@@ -14,14 +14,16 @@
 	let animateFast = $state(true);
 
 	// TODO: Issue is: I recreate the mapHelper upon browser window resize, but the setupZoom function is not called again (which would also not make a lot of sense because the zoom functionality is already set up). This way, however, the pathData is not updated inside the mapHelper
-	const mapHelper = $derived(getMapHelper(svgLayer, data, mapWidth, mapHeight));
-	// TODO: This is being rerun hard. Why? Which variable change causes it?
-	$inspect(mapHelper); // TODO: WTF only this is being rerun, but all its arguments are not?
+	// TODO: This is being rerun whenever panning/zooming
+	const mapHelper = $derived(getMapHelper(data, mapWidth, mapHeight));
+	$effect(() => {
+		mapHelper.setupZoom(svgLayer);
+	});
 	const parliamentHelper = $derived(getParliamentHelper(data, mapWidth, mapHeight));
 	const barchartHelper = $derived(getBarchartHelper(data, mapWidth, mapHeight));
 
 	onMount(() => {
-		mapHelper.setupZoom();
+		// mapHelper.setupZoom(svgLayer);
 	});
 
 	const getPathData = () => {

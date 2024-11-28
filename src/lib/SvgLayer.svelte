@@ -50,9 +50,17 @@
 			'#AEAEAE'
 		]);
 	// $inspect(pathData);
+
+	const isAnimating = $derived(!animateFast);
 </script>
 
-<svg bind:this={svgLayer} class="test-svg" width="100%" height="100%">
+<svg
+	style:pointer-events={isAnimating ? 'none' : 'auto'}
+	bind:this={svgLayer}
+	class="test-svg"
+	width="100%"
+	height="100%"
+>
 	<g class="seat-paths-g">
 		{#each pathData as { idx, area_seat, pathString, party } (idx)}
 			<SeatPath {idx} {area_seat} {pathString} fill={colorScale(party)} bind:animateFast />
@@ -60,6 +68,6 @@
 	</g>
 </svg>
 
-<VisTypeButton visTypeToCheckFor={'map'} bind:visType bind:animateFast />
-<VisTypeButton visTypeToCheckFor={'parliament'} bind:visType bind:animateFast />
-<VisTypeButton visTypeToCheckFor={'barchart'} bind:visType bind:animateFast />
+<VisTypeButton visTypeToCheckFor={'map'} bind:visType bind:animateFast {isAnimating} />
+<VisTypeButton visTypeToCheckFor={'parliament'} bind:visType bind:animateFast {isAnimating} />
+<VisTypeButton visTypeToCheckFor={'barchart'} bind:visType bind:animateFast {isAnimating} />

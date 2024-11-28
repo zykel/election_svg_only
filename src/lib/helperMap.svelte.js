@@ -66,7 +66,6 @@ export const getMapHelper = (data, mapWidth, mapHeight) => {
 
 		let reset = false;
 		if (mapWidthPrev !== mapWidth) {
-			console.log(mapWidthPrev);
 			mapWidthPrev = mapWidth;
 			reset = true;
 		}

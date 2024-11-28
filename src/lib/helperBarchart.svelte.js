@@ -1,10 +1,8 @@
 import { range } from 'd3-array';
-import { parties } from '$lib/p.svelte.js';
+import { parties, margin } from '$lib/p.svelte.js';
 import { scaleBand } from 'd3';
 
-const margin = 20;
-
-const getXScale = (data, mapWidth) => {
+const getXScale = (mapWidth) => {
 	const scale = scaleBand()
 		.domain(parties)
 		.range([margin, mapWidth - margin])
@@ -27,8 +25,7 @@ const getYScale = (data, mapHeight, partySubsets) => {
 };
 
 export const getBarchartHelper = (data, mapWidth, mapHeight) => {
-	console.log('recreating barchart helper');
-	const xScale = getXScale(data, mapWidth);
+	const xScale = getXScale(mapWidth);
 	const yScale = getYScale(data, mapHeight);
 
 	const partySubsets = {};
@@ -43,7 +40,6 @@ export const getBarchartHelper = (data, mapWidth, mapHeight) => {
 			(d) => d.properties.idx === feature.properties.idx
 		);
 		const y = yScale(subsetIdx);
-		if (y === undefined) debugger;
 		const width = xScale.bandwidth();
 		const height = yScale.bandwidth();
 		// create an svg path to depict a rectangle at x, y with width and height

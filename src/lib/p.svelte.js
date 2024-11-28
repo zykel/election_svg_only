@@ -9,3 +9,5 @@ export const parties = [
 	'People before profit',
 	'Ind'
 ];
+
+export const margin = 20;

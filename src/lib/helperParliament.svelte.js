@@ -32,7 +32,6 @@ const getPositions = (mapWidth, mapHeight) => {
 };
 
 export const getParliamentHelper = (data, mapWidth, mapHeight) => {
-	console.log('recreating parliament helper');
 	const positions = getPositions(mapWidth, mapHeight);
 
 	const pathData = data.features.map((feature, idx) => {

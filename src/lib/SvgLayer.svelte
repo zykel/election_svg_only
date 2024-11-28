@@ -3,39 +3,53 @@
 	import { getMapHelper } from '$lib/helperMap.svelte.js';
 	import { getParliamentHelper } from '$lib/helperParliament.svelte.js';
 	import { getBarchartHelper } from '$lib/helperBarchart.svelte.js';
+	import { getPercentagesHelper } from '$lib/helperPercentages.svelte.js';
 	import SeatPath from '$lib/SeatPath.svelte';
+	import PercentageRect from '$lib/PercentageRect.svelte';
 	import { scaleOrdinal } from 'd3';
-	import { parties } from '$lib/p.svelte.js';
+	import { parties, margin } from '$lib/p.svelte.js';
 	import VisTypeButton from './VisTypeButton.svelte';
 
-	let { svgLayer = $bindable(), data, mapWidth, mapHeight } = $props();
+	let { svgLayer = $bindable(), dataSeats, dataPercentages, mapWidth, mapHeight } = $props();
 
+	$inspect(dataSeats);
 	let visType = $state('map');
 	let animateFast = $state(true);
 
-	// TODO: Issue is: I recreate the mapHelper upon browser window resize, but the setupZoom function is not called again (which would also not make a lot of sense because the zoom functionality is already set up). This way, however, the pathData is not updated inside the mapHelper
-	// TODO: This is being rerun whenever panning/zooming
-	const mapHelper = $derived(getMapHelper(data, mapWidth, mapHeight));
+	const mapHelper = $derived(getMapHelper(dataSeats, mapWidth, mapHeight));
 	$effect(() => {
 		if (visType === 'map') mapHelper.setupZoom(svgLayer);
 		else mapHelper.removeZoom();
 	});
-	const parliamentHelper = $derived(getParliamentHelper(data, mapWidth, mapHeight));
-	const barchartHelper = $derived(getBarchartHelper(data, mapWidth, mapHeight));
+	const parliamentHelper = $derived(getParliamentHelper(dataSeats, mapWidth, mapHeight));
+	const barchartHelper = $derived(getBarchartHelper(dataSeats, mapWidth, mapHeight));
+	const percentagesHelper = $derived(
+		getPercentagesHelper(dataSeats, dataPercentages, mapWidth, mapHeight)
+	);
 
 	onMount(() => {
 		// mapHelper.setupZoom(svgLayer);
 	});
 
 	const getPathData = () => {
-		let data = [];
-		if (visType === 'map') data = mapHelper.pathData;
-		if (visType === 'parliament') data = parliamentHelper.pathData;
-		if (visType === 'barchart') data = barchartHelper.pathData;
-		return data;
+		let pathDataTmp = [];
+		if (visType === 'map') pathDataTmp = mapHelper.pathData;
+		if (visType === 'parliament') pathDataTmp = parliamentHelper.pathData;
+		if (visType === 'barchart') pathDataTmp = barchartHelper.pathData;
+		if (visType === 'percentages') pathDataTmp = percentagesHelper.pathData;
+		return pathDataTmp;
+	};
+
+	const getRectData = () => {
+		let rectDataTmp = [];
+		if (visType === 'percentages') rectDataTmp = percentagesHelper.rectData;
+		else rectDataTmp = percentagesHelper.rectDataFlat;
+		return rectDataTmp;
 	};
 
 	const pathData = $derived(getPathData());
+	const rectData = $derived(getRectData());
+	$inspect(rectData);
 
 	const colorScale = scaleOrdinal()
 		.domain(parties)
@@ -66,9 +80,25 @@
 		{#each pathData as { idx, area_seat, pathString, party } (idx)}
 			<SeatPath {idx} {area_seat} {pathString} fill={colorScale(party)} bind:animateFast />
 		{/each}
+		{#each rectData as { year, party, percentage, x, y, opacity, width, height, idx } (idx)}
+			<PercentageRect
+				{year}
+				{party}
+				{percentage}
+				{x}
+				{y}
+				y0={mapHeight - margin}
+				{opacity}
+				{width}
+				{height}
+				fill={colorScale(party)}
+				bind:animateFast
+			/>
+		{/each}
 	</g>
 </svg>
 
 <VisTypeButton visTypeToCheckFor={'map'} bind:visType bind:animateFast {isAnimating} />
 <VisTypeButton visTypeToCheckFor={'parliament'} bind:visType bind:animateFast {isAnimating} />
 <VisTypeButton visTypeToCheckFor={'barchart'} bind:visType bind:animateFast {isAnimating} />
+<VisTypeButton visTypeToCheckFor={'percentages'} bind:visType bind:animateFast {isAnimating} />

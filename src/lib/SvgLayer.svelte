@@ -17,7 +17,8 @@
 	// TODO: This is being rerun whenever panning/zooming
 	const mapHelper = $derived(getMapHelper(data, mapWidth, mapHeight));
 	$effect(() => {
-		mapHelper.setupZoom(svgLayer);
+		if (visType === 'map') mapHelper.setupZoom(svgLayer);
+		else mapHelper.removeZoom();
 	});
 	const parliamentHelper = $derived(getParliamentHelper(data, mapWidth, mapHeight));
 	const barchartHelper = $derived(getBarchartHelper(data, mapWidth, mapHeight));

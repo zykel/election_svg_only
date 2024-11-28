@@ -19,12 +19,10 @@ let mapWidthPrev = 0;
 let mapHeightPrev = 0;
 
 export const getMapHelper = (data, mapWidth, mapHeight) => {
-	zoomHelper
-		.extent([
-			[0, 0],
-			[mapWidth, mapHeight]
-		])
-		.on('zoom', ({ transform }) => zoomed(transform));
+	zoomHelper.extent([
+		[0, 0],
+		[mapWidth, mapHeight]
+	]);
 
 	projection
 		.scale(scale)
@@ -62,6 +60,8 @@ export const getMapHelper = (data, mapWidth, mapHeight) => {
 
 	// Construct functions and variables to access from outside
 	function setupZoom(svgLayer) {
+		zoomHelper.on('zoom', ({ transform }) => zoomed(transform));
+
 		zoomHelper(select(svgLayer));
 
 		let reset = false;
@@ -85,8 +85,14 @@ export const getMapHelper = (data, mapWidth, mapHeight) => {
 		);
 	}
 
+	function removeZoom(svgLayer) {
+		// To also reset zoom: https://stackoverflow.com/questions/18502904/d3-remove-zoom-completely
+		zoomHelper.on('zoom', null);
+	}
+
 	return {
 		setupZoom,
+		removeZoom,
 		get pathData() {
 			return getPathData();
 		}

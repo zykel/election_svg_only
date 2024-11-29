@@ -10,4 +10,4 @@ export const parties = [
 	'Ind'
 ];
 
-export const margin = 20;
+export const margin = 100;

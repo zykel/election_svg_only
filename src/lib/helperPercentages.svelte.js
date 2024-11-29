@@ -1,14 +1,12 @@
 import { range } from 'd3-array';
-import { parties } from '$lib/p.svelte.js';
+import { parties, margin } from '$lib/p.svelte.js';
 import { scaleBand, max, scaleLinear } from 'd3';
-
-const margin = 20;
 
 const getXScale = (mapWidth) => {
 	const scale = scaleBand()
 		.domain(parties)
 		.range([margin, mapWidth - margin])
-		.paddingInner(0.5);
+		.paddingInner(0.7);
 
 	return scale;
 };
@@ -43,7 +41,8 @@ export const getPercentagesHelper = (dataSeats, dataPercentages, mapWidth, mapHe
 	});
 
 	const rectData = dataPercentages.map(({ year, party, percentage }, idx) => {
-		const x = xScale(party) + (year == 2019 ? 0 : xScale.bandwidth() / 2);
+		const x =
+			xScale(party) + (year == 2019 ? -xScale.bandwidth() * 0.35 : +xScale.bandwidth() * 0.35);
 		const y = yScale(percentage);
 		const width = xScale.bandwidth();
 		const height = yScale(0) - y;

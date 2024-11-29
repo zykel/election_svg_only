@@ -6,7 +6,7 @@ const getXScale = (mapWidth) => {
 	const scale = scaleBand()
 		.domain(parties)
 		.range([margin, mapWidth - margin])
-		.paddingInner(0.1);
+		.paddingInner(0.2);
 
 	return scale;
 };

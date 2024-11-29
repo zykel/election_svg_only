@@ -24,7 +24,6 @@
 	let percentageRect = $state(null);
 
 	$effect(() => {
-		console.log('running', y);
 		percentageRect.style.display = 'block';
 		if (percentageRect) {
 			gsap.to(percentageRect, {

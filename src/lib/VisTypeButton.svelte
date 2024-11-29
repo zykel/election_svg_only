@@ -2,6 +2,7 @@
 	let {
 		visTypeToCheckFor,
 		visType = $bindable(),
+		visTypePrev = $bindable(),
 		animateFast = $bindable(),
 		isAnimating
 	} = $props();
@@ -12,6 +13,7 @@
 	onclick={() => {
 		if (visType !== visTypeToCheckFor && !isAnimating) {
 			animateFast = false;
+			visTypePrev = visType;
 			visType = visTypeToCheckFor;
 		}
 	}}>{visTypeToCheckFor}</button

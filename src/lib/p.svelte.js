@@ -11,3 +11,5 @@ export const parties = [
 ];
 
 export const margin = 100;
+
+export const duration = 2;

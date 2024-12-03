@@ -5,6 +5,8 @@
 	import MorphSVGPlugin from 'gsap-trial/dist/MorphSVGPlugin';
 	import { cubicInOut } from 'svelte/easing';
 	import { tweened } from 'svelte/motion';
+	import { duration } from '$lib/p.svelte.js';
+
 	let {
 		year,
 		party,
@@ -27,7 +29,7 @@
 		percentageRect.style.display = 'block';
 		if (percentageRect) {
 			gsap.to(percentageRect, {
-				duration: 2,
+				duration,
 				attr: { y, height },
 				ease: 'power1.inOut',
 				// delay: 1.5,

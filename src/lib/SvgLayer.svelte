@@ -23,7 +23,6 @@
 	$inspect(dataSeats);
 	let visType = $state('map');
 	let visTypePrev = $state(null);
-	let animateFast = $state(true);
 
 	const mapHelper = $derived(getMapHelper(dataSeats, dataBoundaries, mapWidth, mapHeight));
 	$effect(() => {
@@ -87,8 +86,8 @@
 		]);
 	// $inspect(pathData);
 
-	const isAnimating = $derived(!animateFast);
 	let tl = $state(null);
+	const isAnimating = $derived(tl !== null);
 </script>
 
 <svg
@@ -100,15 +99,7 @@
 >
 	<g class="seat-paths-g">
 		{#each pathData as { idx, area_seat, party, pathString, opacity = 1 } (idx)}
-			<SeatPath
-				{tl}
-				{idx}
-				{area_seat}
-				{pathString}
-				{opacity}
-				fill={colorScale(party)}
-				bind:animateFast
-			/>
+			<SeatPath {tl} {idx} {area_seat} {pathString} {opacity} fill={colorScale(party)} />
 		{/each}
 		{#each rectData as { year, party, percentage, x, y, opacity, width, height, idx } (idx)}
 			<PercentageRect
@@ -123,7 +114,6 @@
 				{width}
 				{height}
 				fill={colorScale(party)}
-				bind:animateFast
 			/>
 		{/each}
 	</g>
@@ -136,35 +126,19 @@
 	</g>
 </svg>
 
-<VisTypeButton
-	visTypeToCheckFor={'map'}
-	bind:visType
-	bind:visTypePrev
-	bind:animateFast
-	bind:tl
-	{isAnimating}
-/>
+<VisTypeButton visTypeToCheckFor={'map'} bind:visType bind:visTypePrev bind:tl {isAnimating} />
 <VisTypeButton
 	visTypeToCheckFor={'parliament'}
 	bind:visType
 	bind:visTypePrev
-	bind:animateFast
 	bind:tl
 	{isAnimating}
 />
-<VisTypeButton
-	visTypeToCheckFor={'barchart'}
-	bind:visType
-	bind:visTypePrev
-	bind:animateFast
-	bind:tl
-	{isAnimating}
-/>
+<VisTypeButton visTypeToCheckFor={'barchart'} bind:visType bind:visTypePrev bind:tl {isAnimating} />
 <VisTypeButton
 	visTypeToCheckFor={'percentages'}
 	bind:visType
 	bind:visTypePrev
-	bind:animateFast
 	bind:tl
 	{isAnimating}
 />

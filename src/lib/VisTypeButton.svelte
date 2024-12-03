@@ -5,7 +5,6 @@
 		visTypeToCheckFor,
 		visType = $bindable(),
 		visTypePrev = $bindable(),
-		animateFast = $bindable(),
 		tl = $bindable(),
 		isAnimating
 	} = $props();
@@ -15,7 +14,6 @@
 	style:color={visType === visTypeToCheckFor || isAnimating ? 'gray' : 'black'}
 	onclick={() => {
 		if (visType !== visTypeToCheckFor && !isAnimating) {
-			animateFast = false;
 			visTypePrev = visType;
 			visType = visTypeToCheckFor;
 			tl = gsap.timeline({

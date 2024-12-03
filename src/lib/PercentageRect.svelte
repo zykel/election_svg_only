@@ -7,20 +7,7 @@
 	import { tweened } from 'svelte/motion';
 	import { duration } from '$lib/p.svelte.js';
 
-	let {
-		tl,
-		year,
-		party,
-		percentage,
-		x,
-		y,
-		y0,
-		opacity,
-		width,
-		height,
-		fill,
-		animateFast = $bindable()
-	} = $props();
+	let { tl, year, party, percentage, x, y, y0, opacity, width, height, fill } = $props();
 
 	// gsap.to("#path", {duration: 2, morphSVG: "M10 315 L 110 215 A 30 50 0 0 1 162.55 162.45 L 172.55 152.45 A 30 50 -45 0 1 215.1 109.9 L 315 10"});
 

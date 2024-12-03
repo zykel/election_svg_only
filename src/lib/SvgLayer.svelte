@@ -9,6 +9,7 @@
 	import { scaleOrdinal } from 'd3';
 	import { parties, margin } from '$lib/p.svelte.js';
 	import VisTypeButton from './VisTypeButton.svelte';
+	import gsap from 'gsap-trial/dist/gsap';
 
 	let {
 		svgLayer = $bindable(),
@@ -87,6 +88,7 @@
 	// $inspect(pathData);
 
 	const isAnimating = $derived(!animateFast);
+	let tl = $state(null);
 </script>
 
 <svg
@@ -99,6 +101,7 @@
 	<g class="seat-paths-g">
 		{#each pathData as { idx, area_seat, party, pathString, opacity = 1 } (idx)}
 			<SeatPath
+				{tl}
 				{idx}
 				{area_seat}
 				{pathString}
@@ -109,6 +112,7 @@
 		{/each}
 		{#each rectData as { year, party, percentage, x, y, opacity, width, height, idx } (idx)}
 			<PercentageRect
+				{tl}
 				{year}
 				{party}
 				{percentage}
@@ -137,6 +141,7 @@
 	bind:visType
 	bind:visTypePrev
 	bind:animateFast
+	bind:tl
 	{isAnimating}
 />
 <VisTypeButton
@@ -144,6 +149,7 @@
 	bind:visType
 	bind:visTypePrev
 	bind:animateFast
+	bind:tl
 	{isAnimating}
 />
 <VisTypeButton
@@ -151,6 +157,7 @@
 	bind:visType
 	bind:visTypePrev
 	bind:animateFast
+	bind:tl
 	{isAnimating}
 />
 <VisTypeButton
@@ -158,5 +165,6 @@
 	bind:visType
 	bind:visTypePrev
 	bind:animateFast
+	bind:tl
 	{isAnimating}
 />

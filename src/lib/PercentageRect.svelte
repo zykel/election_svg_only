@@ -8,6 +8,7 @@
 	import { duration } from '$lib/p.svelte.js';
 
 	let {
+		tl,
 		year,
 		party,
 		percentage,
@@ -27,16 +28,20 @@
 
 	$effect(() => {
 		percentageRect.style.display = 'block';
-		if (percentageRect) {
-			gsap.to(percentageRect, {
-				duration,
-				attr: { y, height },
-				ease: 'power1.inOut',
-				// delay: 1.5,
-				onComplete: () => {
-					if (y === 0) percentageRect.style.display = 'none';
-				}
-			});
+		if (percentageRect && tl !== null) {
+			tl.to(
+				percentageRect,
+				{
+					duration,
+					attr: { y, height },
+					ease: 'power1.inOut',
+					// delay: 1.5,
+					onComplete: () => {
+						if (y === 0) percentageRect.style.display = 'none';
+					}
+				},
+				0
+			);
 		}
 	});
 

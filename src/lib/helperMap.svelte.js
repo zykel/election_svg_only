@@ -6,6 +6,7 @@ const lng = -7.807195714694519;
 const lat = 53.41035563891312;
 
 let pathData = $state([]);
+let regionBoundaryData = $state([]);
 
 let translateX = $state(0);
 let translateY = $state(0);
@@ -18,7 +19,7 @@ const zoomHelper = zoom().scaleExtent([1 << 2, 1 << 20]);
 let mapWidthPrev = 0;
 let mapHeightPrev = 0;
 
-export const getMapHelper = (data, mapWidth, mapHeight) => {
+export const getMapHelper = (dataVoronoi, dataRegionBoundaries, mapWidth, mapHeight) => {
 	zoomHelper.extent([
 		[0, 0],
 		[mapWidth, mapHeight]
@@ -38,6 +39,7 @@ export const getMapHelper = (data, mapWidth, mapHeight) => {
 		translateY = transform.y;
 		projection.scale(scale).translate([transform.x, transform.y]);
 		pathData = getPathData();
+		regionBoundaryData = getRegionBoundaryData();
 	}
 
 	function getPathData() {
@@ -45,7 +47,7 @@ export const getMapHelper = (data, mapWidth, mapHeight) => {
 
 		const pathGenerator = geoPath(projection);
 
-		data.features.forEach((feature, i) => {
+		dataVoronoi.features.forEach((feature, i) => {
 			const pathString = pathGenerator(feature);
 			pathDataTmp.push({
 				idx: i,
@@ -56,6 +58,23 @@ export const getMapHelper = (data, mapWidth, mapHeight) => {
 		});
 
 		return pathDataTmp;
+	}
+
+	function getRegionBoundaryData() {
+		const regionBoundaryData = [];
+
+		const pathGenerator = geoPath(projection);
+
+		dataRegionBoundaries.features.forEach((feature, i) => {
+			const pathString = pathGenerator(feature);
+			regionBoundaryData.push({
+				idx: i,
+				consituency: feature.properties.consituency,
+				pathString
+			});
+		});
+
+		return regionBoundaryData;
 	}
 
 	// Construct functions and variables to access from outside
@@ -94,6 +113,9 @@ export const getMapHelper = (data, mapWidth, mapHeight) => {
 		removeZoom,
 		get pathData() {
 			return getPathData();
+		},
+		get regionBoundaryData() {
+			return getRegionBoundaryData();
 		}
 	};
 };

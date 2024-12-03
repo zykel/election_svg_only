@@ -20,7 +20,6 @@
 					attr: { d: pathString, opacity }
 				});
 			} else {
-				console.log('animating', opacity);
 				gsap.to(seatPath, {
 					duration: 2,
 					morphSVG: pathString,
@@ -55,6 +54,6 @@
 	d={pathStringInitial}
 	{fill}
 	stroke="white"
-	stroke-width="1"
+	stroke-width="0.5"
 	opacity="1"
 ></path>

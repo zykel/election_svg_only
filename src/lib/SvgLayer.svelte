@@ -10,14 +10,21 @@
 	import { parties, margin } from '$lib/p.svelte.js';
 	import VisTypeButton from './VisTypeButton.svelte';
 
-	let { svgLayer = $bindable(), dataSeats, dataPercentages, mapWidth, mapHeight } = $props();
+	let {
+		svgLayer = $bindable(),
+		dataSeats,
+		dataBoundaries,
+		dataPercentages,
+		mapWidth,
+		mapHeight
+	} = $props();
 
 	$inspect(dataSeats);
 	let visType = $state('map');
 	let visTypePrev = $state(null);
 	let animateFast = $state(true);
 
-	const mapHelper = $derived(getMapHelper(dataSeats, mapWidth, mapHeight));
+	const mapHelper = $derived(getMapHelper(dataSeats, dataBoundaries, mapWidth, mapHeight));
 	$effect(() => {
 		if (visType === 'map') mapHelper.setupZoom(svgLayer);
 		else mapHelper.removeZoom();
@@ -47,6 +54,11 @@
 		return pathDataTmp;
 	};
 
+	const getRegionBoundaryData = () => {
+		// TODO: maybe redundant
+		return mapHelper.regionBoundaryData;
+	};
+
 	const getRectData = () => {
 		let rectDataTmp = [];
 		if (visType === 'percentages') rectDataTmp = percentagesHelper.rectData;
@@ -55,6 +67,8 @@
 	};
 
 	const pathData = $derived(getPathData());
+	const regionBoundaryData = $derived(getRegionBoundaryData());
+	$inspect(pathData);
 	const rectData = $derived(getRectData());
 
 	const colorScale = scaleOrdinal()
@@ -108,6 +122,13 @@
 				bind:animateFast
 			/>
 		{/each}
+	</g>
+	<g class="axes-g">
+		{#if visType === 'map'}
+			{#each regionBoundaryData as { pathString, idx, constituency } (idx)}
+				<path d={pathString} fill="none" stroke="#000" stroke-width="1" />
+			{/each}
+		{/if}
 	</g>
 </svg>
 

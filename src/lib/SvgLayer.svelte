@@ -8,8 +8,10 @@
 	import PercentageRect from '$lib/PercentageRect.svelte';
 	import { scaleOrdinal } from 'd3';
 	import { parties, margin } from '$lib/p.svelte.js';
+	import { delay, delayPercentageRects } from '$lib/fn.svelte.js';
 	import VisTypeButton from './VisTypeButton.svelte';
 	import gsap from 'gsap-trial/dist/gsap';
+	import BoundaryPath from './BoundaryPath.svelte';
 
 	let {
 		svgLayer = $bindable(),
@@ -99,8 +101,18 @@
 >
 	<g class="seat-paths-g">
 		{#each pathData as { idx, area_seat, party, pathString, opacity = 1 } (idx)}
-			<SeatPath {tl} {idx} {area_seat} {pathString} {opacity} fill={colorScale(party)} />
+			<SeatPath
+				{tl}
+				{idx}
+				{area_seat}
+				{pathString}
+				{opacity}
+				fill={colorScale(party)}
+				delayAnimation={delay(visType, visTypePrev, ['map', 'parliament', 'barchart'])}
+			/>
 		{/each}
+	</g>
+	<g class="percentage-rects-g">
 		{#each rectData as { year, party, percentage, x, y, opacity, width, height, idx } (idx)}
 			<PercentageRect
 				{tl}
@@ -114,15 +126,21 @@
 				{width}
 				{height}
 				fill={colorScale(party)}
+				delayAnimation={delay(visType, visTypePrev, ['percentages'])}
 			/>
 		{/each}
 	</g>
 	<g class="axes-g">
-		{#if visType === 'map'}
-			{#each regionBoundaryData as { pathString, idx, constituency } (idx)}
-				<path d={pathString} fill="none" stroke="#000" stroke-width="1" />
-			{/each}
-		{/if}
+		{#each regionBoundaryData as { pathString, idx, constituency } (idx)}
+			<BoundaryPath
+				{tl}
+				{idx}
+				{pathString}
+				{constituency}
+				opacity={visType === 'map' ? 1 : 0}
+				delayAnimation={delay(visType, visTypePrev, ['map'])}
+			/>
+		{/each}
 	</g>
 </svg>
 

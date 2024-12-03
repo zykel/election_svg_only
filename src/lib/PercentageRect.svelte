@@ -5,9 +5,10 @@
 	import MorphSVGPlugin from 'gsap-trial/dist/MorphSVGPlugin';
 	import { cubicInOut } from 'svelte/easing';
 	import { tweened } from 'svelte/motion';
-	import { duration } from '$lib/p.svelte.js';
+	import { duration, delay } from '$lib/p.svelte.js';
 
-	let { tl, year, party, percentage, x, y, y0, opacity, width, height, fill } = $props();
+	let { tl, year, party, percentage, x, y, y0, opacity, width, height, fill, delayAnimation } =
+		$props();
 
 	// gsap.to("#path", {duration: 2, morphSVG: "M10 315 L 110 215 A 30 50 0 0 1 162.55 162.45 L 172.55 152.45 A 30 50 -45 0 1 215.1 109.9 L 315 10"});
 
@@ -22,7 +23,7 @@
 					duration,
 					attr: { y, height },
 					ease: 'power1.inOut',
-					// delay: 1.5,
+					delay: delayAnimation ? delay : 0,
 					onComplete: () => {
 						if (y === 0) percentageRect.style.display = 'none';
 					}

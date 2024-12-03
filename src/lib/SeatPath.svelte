@@ -5,9 +5,9 @@
 	import MorphSVGPlugin from 'gsap-trial/dist/MorphSVGPlugin';
 	import { cubicInOut } from 'svelte/easing';
 	import { tweened } from 'svelte/motion';
-	import { duration } from '$lib/p.svelte.js';
+	import { duration, delay } from '$lib/p.svelte.js';
 
-	let { tl, idx, area_seat, pathString, fill, opacity } = $props();
+	let { tl, idx, area_seat, pathString, fill, opacity, delayAnimation } = $props();
 
 	// gsap.to("#path", {duration: 2, morphSVG: "M10 315 L 110 215 A 30 50 0 0 1 162.55 162.45 L 172.55 152.45 A 30 50 -45 0 1 215.1 109.9 L 315 10"});
 
@@ -28,7 +28,8 @@
 						duration,
 						morphSVG: pathString,
 						attr: { opacity },
-						ease: 'power1.inOut'
+						ease: 'power1.inOut',
+						delay: delayAnimation ? delay : 0
 					},
 					0
 				);

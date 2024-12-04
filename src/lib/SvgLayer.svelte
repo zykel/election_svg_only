@@ -121,6 +121,7 @@
 				bind:hoverDataSeats
 				{visType}
 				{party}
+				{isAnimating}
 			/>
 		{/each}
 	</g>

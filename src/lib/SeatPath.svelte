@@ -18,7 +18,8 @@
 		zooming,
 		hoverDataSeats = $bindable(),
 		visType,
-		party
+		party,
+		isAnimating
 	} = $props();
 
 	// gsap.to("#path", {duration: 2, morphSVG: "M10 315 L 110 215 A 30 50 0 0 1 162.55 162.45 L 172.55 152.45 A 30 50 -45 0 1 215.1 109.9 L 315 10"});
@@ -102,7 +103,7 @@
 	stroke={getStroke(hoverDataSeats, seatPath)}
 	stroke-width={getStrokeWidth(hoverDataSeats, seatPath)}
 	style:cursor={visType !== 'map' ? 'pointer' : zooming ? 'grabbing' : 'grab'}
-	style:pointer-events={visType === 'percentages' ? 'none' : 'auto'}
+	style:pointer-events={visType === 'percentages' || isAnimating ? 'none' : 'auto'}
 ></path>
 
 <style>

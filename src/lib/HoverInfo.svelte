@@ -57,26 +57,24 @@
 </script>
 
 {#if hoverData !== null}
-	{#if hoverData.type === 'seat'}
-		<rect {x} {y} {width} {height} fill="white" stroke="black" stroke-width={strokeWidth} />
-		<rect
-			{x}
-			{y}
-			width={5}
-			{height}
-			fill={colorScale(hoverData.party)}
-			stroke="black"
-			stroke-width={strokeWidth}
-		/>
-		<g bind:this={textGroup} class="hover-text-g">
-			<text bind:this={textTitle} class="title-text" x={x + 10} y={y + 20}>{hoverData.party}</text>
-			{#if hoverData.area_seat !== null}
-				<text bind:this={textBody} x={x + 10} y={y + 40}
-					>{hoverData.area_seat.split('_')[0]} ({hoverData.area_seat.split('_')[1]})</text
-				>
-			{/if}
-		</g>
-	{/if}
+	<rect {x} {y} {width} {height} fill="white" stroke="black" stroke-width={strokeWidth} />
+	<rect
+		{x}
+		{y}
+		width={5}
+		{height}
+		fill={colorScale(hoverData.party)}
+		stroke="black"
+		stroke-width={strokeWidth}
+	/>
+	<g bind:this={textGroup} class="hover-text-g">
+		<text bind:this={textTitle} class="title-text" x={x + 10} y={y + 20}>{hoverData.party}</text>
+		{#if hoverData.type === 'seat'}
+			<text bind:this={textBody} x={x + 10} y={y + 40}
+				>{hoverData.area_seat.split('_')[0]} ({hoverData.area_seat.split('_')[1]})</text
+			>
+		{/if}
+	</g>
 {/if}
 
 <style>

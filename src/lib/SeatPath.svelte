@@ -6,6 +6,7 @@
 	import { cubicInOut } from 'svelte/easing';
 	import { tweened } from 'svelte/motion';
 	import { duration, delay, colorScale } from '$lib/p.svelte.js';
+	import { pointer } from 'd3';
 
 	let {
 		tl,
@@ -15,7 +16,7 @@
 		opacity,
 		delayAnimation,
 		zooming,
-		hoverData = $bindable(),
+		hoverDataSeats = $bindable(),
 		visType,
 		party
 	} = $props();
@@ -26,11 +27,19 @@
 
 	const pathStringInitial = pathString;
 
+	const getOpacity = (hoverDataSeats, seatPath) => {
+		if (hoverDataSeats !== null && hoverDataSeats.node !== seatPath) {
+			return opacity * 0.7;
+		} else {
+			return opacity;
+		}
+	};
+
 	$effect(() => {
 		if (seatPath) {
 			if (tl === null) {
 				gsap.set(seatPath, {
-					attr: { d: pathString, opacity }
+					attr: { d: pathString, opacity: getOpacity(hoverDataSeats, seatPath) }
 				});
 			} else {
 				tl.to(
@@ -59,48 +68,41 @@
 	// });
 
 	// d={$pathTween}
-	const getOpacity = (hoverData, seatPath) => {
-		if (hoverData !== null && hoverData.node !== seatPath) {
-			return 0.7;
-		} else {
-			return 1;
-		}
-	};
-	const getStroke = (hoverData, seatPath) => {
-		if (hoverData !== null && hoverData.node === seatPath) {
+	const getStroke = (hoverDataSeats, seatPath) => {
+		if (hoverDataSeats !== null && hoverDataSeats.node === seatPath) {
 			return 'white';
 		} else {
 			return 'white';
 		}
 	};
-	const getStrokeWidth = (hoverData, seatPath) => {
+	const getStrokeWidth = (hoverDataSeats, seatPath) => {
 		return 0.5;
-		if (hoverData !== null && hoverData.node === seatPath) {
+		if (hoverDataSeats !== null && hoverDataSeats.node === seatPath) {
 			return 2;
 		} else {
 			return 0.5;
 		}
 	};
 
-	const updateHoverData = () => {
+	const updatehoverDataSeats = () => {
 		if (!zooming) {
-			hoverData = { type: 'seat', idx, party, area_seat, node: seatPath };
+			hoverDataSeats = { type: 'seat', idx, party, area_seat, node: seatPath };
 		}
 	};
 </script>
 
 <path
 	bind:this={seatPath}
-	onpointermove={updateHoverData}
-	onpointerenter={updateHoverData}
+	onpointermove={updatehoverDataSeats}
+	onpointerenter={updatehoverDataSeats}
 	id="path-{idx}-{area_seat}"
 	class="seat-path"
 	d={pathStringInitial}
 	fill={colorScale(party)}
-	stroke={getStroke(hoverData, seatPath)}
-	stroke-width={getStrokeWidth(hoverData, seatPath)}
-	style:opacity={getOpacity(hoverData, seatPath)}
+	stroke={getStroke(hoverDataSeats, seatPath)}
+	stroke-width={getStrokeWidth(hoverDataSeats, seatPath)}
 	style:cursor={visType !== 'map' ? 'pointer' : zooming ? 'grabbing' : 'grab'}
+	style:pointer-events={visType === 'percentages' ? 'none' : 'auto'}
 ></path>
 
 <style>

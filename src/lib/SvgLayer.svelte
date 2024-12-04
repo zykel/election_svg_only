@@ -76,10 +76,12 @@
 	let tl = $state(null);
 	const isAnimating = $derived(tl !== null);
 
-	let hoverData = $state(null);
+	let hoverDataSeats = $state(null);
+	let hoverDataPercentages = $state(null);
 	$effect(() => {
 		if (zooming) {
-			hoverData = null;
+			hoverDataSeats = null;
+			hoverDataPercentages = null;
 		}
 	});
 </script>
@@ -98,10 +100,12 @@
 		height={mapHeight}
 		fill="white"
 		onpointermove={() => {
-			hoverData = null;
+			hoverDataSeats = null;
+			hoverDataPercentages = null;
 		}}
 		onpointerdown={() => {
-			hoverData = null;
+			hoverDataSeats = null;
+			hoverDataPercentages = null;
 		}}
 	></rect>
 	<g class="seat-paths-g">
@@ -114,7 +118,7 @@
 				{opacity}
 				delayAnimation={delay(visType, visTypePrev, ['map', 'parliament', 'barchart'])}
 				{zooming}
-				bind:hoverData
+				bind:hoverDataSeats
 				{visType}
 				{party}
 			/>
@@ -135,6 +139,7 @@
 				{height}
 				fill={colorScale(party)}
 				delayAnimation={delay(visType, visTypePrev, ['percentages'])}
+				bind:hoverDataPercentages
 			/>
 		{/each}
 	</g>
@@ -151,7 +156,8 @@
 		{/each}
 	</g>
 	<g class="hover-info-g">
-		<HoverInfo {hoverData} {mapWidth} {mapHeight} />
+		<HoverInfo hoverData={hoverDataSeats} {mapWidth} {mapHeight} />
+		<HoverInfo hoverData={hoverDataPercentages} {mapWidth} {mapHeight} />
 	</g>
 </svg>
 

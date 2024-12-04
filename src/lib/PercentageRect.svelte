@@ -7,8 +7,21 @@
 	import { tweened } from 'svelte/motion';
 	import { duration, delay } from '$lib/p.svelte.js';
 
-	let { tl, year, party, percentage, x, y, y0, opacity, width, height, fill, delayAnimation } =
-		$props();
+	let {
+		tl,
+		year,
+		party,
+		percentage,
+		x,
+		y,
+		y0,
+		opacity,
+		width,
+		height,
+		fill,
+		delayAnimation,
+		hoverDataPercentages = $bindable()
+	} = $props();
 
 	// gsap.to("#path", {duration: 2, morphSVG: "M10 315 L 110 215 A 30 50 0 0 1 162.55 162.45 L 172.55 152.45 A 30 50 -45 0 1 215.1 109.9 L 315 10"});
 
@@ -44,20 +57,37 @@
 	// });
 
 	// d={$pathTween}
+
+	const getOpacity = (hoverDataPercentages, percentageRect) => {
+		if (hoverDataPercentages !== null) {
+			if (hoverDataPercentages.node === percentageRect) {
+				return 1;
+			} else {
+				return opacity * 0.7;
+			}
+		} else {
+			return opacity;
+		}
+	};
+
+	const updatehoverDataPercentages = () => {
+		hoverDataPercentages = { type: 'percentage', party, node: percentageRect };
+	};
 </script>
 
-<!-- d={showMap ? pathString : $pathTween} -->
 <rect
 	bind:this={percentageRect}
-	id="rect-percentage-{party}"
-	class="percentage-rect"
+	onpointermove={updatehoverDataPercentages}
+	onpointerenter={updatehoverDataPercentages}
+	class="percentage-rect-{party}"
 	{x}
 	y={y0}
 	{width}
 	height={0}
 	{fill}
-	{opacity}
 	stroke="white"
 	stroke-width="1"
 	style:display="none"
+	opacity={getOpacity(hoverDataPercentages, percentageRect)}
+	style:cursor="pointer"
 ></rect>

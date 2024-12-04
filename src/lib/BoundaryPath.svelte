@@ -44,7 +44,7 @@
 	class="boundary-path"
 	d={pathString}
 	fill="none"
-	stroke="black"
-	stroke-width="1"
+	stroke="white"
+	stroke-width="1.5"
 	opacity="1"
 ></path>

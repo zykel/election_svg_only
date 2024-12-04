@@ -26,10 +26,15 @@
 
 	const mapWidth = $derived(Math.min(600, vw100));
 	const mapHeight = 600;
+	const legendHeight = 200;
 </script>
 
 <div id="main-content" bind:clientWidth={vw100}>
-	<div id="svg-map-container" style:width="{mapWidth}px" style:height="{mapHeight}px">
+	<div
+		id="svg-map-container"
+		style:width="{mapWidth}px"
+		style:height="{mapHeight + legendHeight}px"
+	>
 		<SvgLayer
 			bind:svgLayer
 			dataSeats={data.geodataVoronoi}
@@ -37,6 +42,7 @@
 			dataPercentages={data.dataPercentages}
 			{mapWidth}
 			{mapHeight}
+			{legendHeight}
 		/>
 	</div>
 </div>

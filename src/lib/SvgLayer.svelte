@@ -13,6 +13,7 @@
 	import gsap from 'gsap-trial/dist/gsap';
 	import BoundaryPath from './BoundaryPath.svelte';
 	import HoverInfo from '$lib/HoverInfo.svelte';
+	import Legend from '$lib/Legend.svelte';
 
 	let {
 		svgLayer = $bindable(),
@@ -20,7 +21,8 @@
 		dataBoundaries,
 		dataPercentages,
 		mapWidth,
-		mapHeight
+		mapHeight,
+		legendHeight
 	} = $props();
 
 	let visType = $state('map');
@@ -89,7 +91,7 @@
 <svg
 	style:pointer-events={isAnimating ? 'none' : 'auto'}
 	bind:this={svgLayer}
-	class="test-svg"
+	class="main-svg"
 	width="100%"
 	height="100%"
 >
@@ -160,7 +162,11 @@
 		<HoverInfo hoverData={hoverDataSeats} {mapWidth} {mapHeight} />
 		<HoverInfo hoverData={hoverDataPercentages} {mapWidth} {mapHeight} />
 	</g>
+	<g class="legend-g" transform="translate(0, {mapHeight})">
+		<Legend legendWidth={mapWidth} {legendHeight} {visType} {dataSeats} {dataPercentages} />
+	</g>
 </svg>
+<svg class="legend-svg"> </svg>
 
 <VisTypeButton visTypeToCheckFor={'map'} bind:visType bind:visTypePrev bind:tl {isAnimating} />
 <VisTypeButton

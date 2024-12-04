@@ -7,11 +7,12 @@
 	import SeatPath from '$lib/SeatPath.svelte';
 	import PercentageRect from '$lib/PercentageRect.svelte';
 	import { scaleOrdinal } from 'd3';
-	import { parties, margin } from '$lib/p.svelte.js';
+	import { parties, colorScale, margin } from '$lib/p.svelte.js';
 	import { delay, delayPercentageRects } from '$lib/fn.svelte.js';
 	import VisTypeButton from './VisTypeButton.svelte';
 	import gsap from 'gsap-trial/dist/gsap';
 	import BoundaryPath from './BoundaryPath.svelte';
+	import HoverInfo from '$lib/HoverInfo.svelte';
 
 	let {
 		svgLayer = $bindable(),
@@ -22,7 +23,6 @@
 		mapHeight
 	} = $props();
 
-	$inspect(dataSeats);
 	let visType = $state('map');
 	let visTypePrev = $state(null);
 
@@ -31,6 +31,7 @@
 		if (visType === 'map') mapHelper.setupZoom(svgLayer);
 		else mapHelper.removeZoom();
 	});
+	const zooming = $derived(mapHelper.zooming);
 	const parliamentHelper = $derived(getParliamentHelper(dataSeats, mapWidth, mapHeight));
 	const barchartHelper = $derived(getBarchartHelper(dataSeats, mapWidth, mapHeight));
 	const percentagesHelper = $derived(
@@ -70,26 +71,17 @@
 
 	const pathData = $derived(getPathData());
 	const regionBoundaryData = $derived(getRegionBoundaryData());
-	$inspect(pathData);
 	const rectData = $derived(getRectData());
-
-	const colorScale = scaleOrdinal()
-		.domain(parties)
-		.range([
-			'#00C24A',
-			'#009C77',
-			'#01B3DD',
-			'#F2471C',
-			'#A7C54E',
-			'#76267F',
-			'#E2A739',
-			'#E2A739',
-			'#AEAEAE'
-		]);
-	// $inspect(pathData);
 
 	let tl = $state(null);
 	const isAnimating = $derived(tl !== null);
+
+	let hoverData = $state(null);
+	$effect(() => {
+		if (zooming) {
+			hoverData = null;
+		}
+	});
 </script>
 
 <svg
@@ -99,6 +91,19 @@
 	width="100%"
 	height="100%"
 >
+	<rect
+		x="0"
+		y="0"
+		width={mapWidth}
+		height={mapHeight}
+		fill="white"
+		onpointermove={() => {
+			hoverData = null;
+		}}
+		onpointerdown={() => {
+			hoverData = null;
+		}}
+	></rect>
 	<g class="seat-paths-g">
 		{#each pathData as { idx, area_seat, party, pathString, opacity = 1 } (idx)}
 			<SeatPath
@@ -107,8 +112,11 @@
 				{area_seat}
 				{pathString}
 				{opacity}
-				fill={colorScale(party)}
 				delayAnimation={delay(visType, visTypePrev, ['map', 'parliament', 'barchart'])}
+				{zooming}
+				bind:hoverData
+				{visType}
+				{party}
 			/>
 		{/each}
 	</g>
@@ -141,6 +149,9 @@
 				delayAnimation={delay(visType, visTypePrev, ['map'])}
 			/>
 		{/each}
+	</g>
+	<g class="hover-info-g">
+		<HoverInfo {hoverData} {mapWidth} {mapHeight} />
 	</g>
 </svg>
 

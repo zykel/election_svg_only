@@ -19,6 +19,8 @@ const zoomHelper = zoom().scaleExtent([1 << 2, 1 << 20]);
 let mapWidthPrev = 0;
 let mapHeightPrev = 0;
 
+let zooming = $state(false);
+
 export const getMapHelper = (dataVoronoi, dataRegionBoundaries, mapWidth, mapHeight) => {
 	zoomHelper.extent([
 		[0, 0],
@@ -33,6 +35,8 @@ export const getMapHelper = (dataVoronoi, dataRegionBoundaries, mapWidth, mapHei
 		]);
 
 	function zoomed(transform) {
+		zooming = true;
+
 		scale = transform.k;
 
 		translateX = transform.x;
@@ -79,7 +83,10 @@ export const getMapHelper = (dataVoronoi, dataRegionBoundaries, mapWidth, mapHei
 
 	// Construct functions and variables to access from outside
 	function setupZoom(svgLayer) {
-		zoomHelper.on('zoom', ({ transform }) => zoomed(transform));
+		zoomHelper
+			.on('zoom', ({ transform }) => zoomed(transform))
+			// .on('start', () => (zooming = true))
+			.on('end', () => (zooming = false));
 
 		zoomHelper(select(svgLayer));
 
@@ -105,7 +112,8 @@ export const getMapHelper = (dataVoronoi, dataRegionBoundaries, mapWidth, mapHei
 
 	function removeZoom(svgLayer) {
 		// To also reset zoom: https://stackoverflow.com/questions/18502904/d3-remove-zoom-completely
-		zoomHelper.on('zoom', null);
+		zoomHelper.on('zoom', null).on('start', null).on('end', null);
+		zooming = false;
 	}
 
 	return {
@@ -116,6 +124,9 @@ export const getMapHelper = (dataVoronoi, dataRegionBoundaries, mapWidth, mapHei
 		},
 		get regionBoundaryData() {
 			return getRegionBoundaryData();
+		},
+		get zooming() {
+			return zooming;
 		}
 	};
 };

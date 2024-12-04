@@ -20,6 +20,7 @@
 		dataSeats,
 		dataBoundaries,
 		dataPercentages,
+		titleHeight,
 		mapWidth,
 		mapHeight,
 		legendHeight
@@ -88,12 +89,33 @@
 	});
 </script>
 
+<VisTypeButton visTypeToCheckFor={'map'} bind:visType bind:visTypePrev bind:tl {isAnimating} />
+<VisTypeButton
+	visTypeToCheckFor={'parliament'}
+	bind:visType
+	bind:visTypePrev
+	bind:tl
+	{isAnimating}
+/>
+<VisTypeButton visTypeToCheckFor={'barchart'} bind:visType bind:visTypePrev bind:tl {isAnimating} />
+<VisTypeButton
+	visTypeToCheckFor={'percentages'}
+	bind:visType
+	bind:visTypePrev
+	bind:tl
+	{isAnimating}
+/>
+
+<svg class="title-svg" width="100%" height={titleHeight}>
+	<rect x="0" y="0" width="100%" height={titleHeight} fill="lightgray"></rect>
+	<text x="10" y="30">Irection</text>
+</svg>
 <svg
 	style:pointer-events={isAnimating ? 'none' : 'auto'}
 	bind:this={svgLayer}
 	class="main-svg"
 	width="100%"
-	height="100%"
+	height={mapHeight + legendHeight}
 >
 	<rect
 		x="0"
@@ -166,21 +188,3 @@
 		<Legend legendWidth={mapWidth} {legendHeight} {visType} {dataSeats} {dataPercentages} />
 	</g>
 </svg>
-<svg class="legend-svg"> </svg>
-
-<VisTypeButton visTypeToCheckFor={'map'} bind:visType bind:visTypePrev bind:tl {isAnimating} />
-<VisTypeButton
-	visTypeToCheckFor={'parliament'}
-	bind:visType
-	bind:visTypePrev
-	bind:tl
-	{isAnimating}
-/>
-<VisTypeButton visTypeToCheckFor={'barchart'} bind:visType bind:visTypePrev bind:tl {isAnimating} />
-<VisTypeButton
-	visTypeToCheckFor={'percentages'}
-	bind:visType
-	bind:visTypePrev
-	bind:tl
-	{isAnimating}
-/>

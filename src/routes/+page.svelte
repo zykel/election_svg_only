@@ -24,6 +24,7 @@
 
 	let vw100 = $state(10000);
 
+	const titleHeight = 50;
 	const mapWidth = $derived(Math.min(600, vw100));
 	const mapHeight = 600;
 	const legendHeight = 200;
@@ -40,6 +41,7 @@
 			dataSeats={data.geodataVoronoi}
 			dataBoundaries={data.geodataRegionBoundaries}
 			dataPercentages={data.dataPercentages}
+			{titleHeight}
 			{mapWidth}
 			{mapHeight}
 			{legendHeight}

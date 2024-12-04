@@ -81,27 +81,18 @@
 			return 0.5;
 		}
 	};
+
+	const updateHoverData = () => {
+		if (!zooming) {
+			hoverData = { type: 'seat', idx, party, area_seat, node: seatPath };
+		}
+	};
 </script>
 
-<!-- d={showMap ? pathString : $pathTween} -->
-<!-- 
-	onpointermove={() => {
-		if (!zooming) {
-			hoverData = { type: 'seat', idx, party, area_seat, node: seatPath };
-		}
-	}} -->
 <path
 	bind:this={seatPath}
-	onpointermove={() => {
-		if (!zooming) {
-			hoverData = { type: 'seat', idx, party, area_seat, node: seatPath };
-		}
-	}}
-	onpointerenter={() => {
-		if (!zooming) {
-			hoverData = { type: 'seat', idx, party, area_seat, node: seatPath };
-		}
-	}}
+	onpointermove={updateHoverData}
+	onpointerenter={updateHoverData}
 	id="path-{idx}-{area_seat}"
 	class="seat-path"
 	d={pathStringInitial}

@@ -18,8 +18,19 @@
 		return y;
 	};
 
-	const getWidth = (textGroup, hoverData) => {
-		let width = 200;
+	const getWidth = (textTitle, textBody, hoverData) => {
+		let width = 300;
+		if (textTitle !== null) {
+			width = textTitle.getBBox().width + 20;
+		}
+		if (textBody !== null) {
+			width = Math.max(width, textBody.getBBox().width + 20);
+		}
+		return width;
+	};
+
+	const getWidthG = (textGroup, hoverData) => {
+		let width = 300;
 		if (textGroup !== null) {
 			width = textGroup.getBBox().width + 20;
 		}
@@ -27,9 +38,12 @@
 	};
 
 	let textGroup = $state(null);
+	let textTitle = $state(null);
+	let textBody = $state(null);
+	const width = $derived(getWidth(textTitle, textBody, hoverData));
 
 	const hoverBoxMargin = 5;
-	const width = $derived(getWidth(textGroup, hoverData));
+	// const width = 200;
 	const height = 50;
 	const strokeWidth = 0;
 
@@ -55,9 +69,9 @@
 			stroke-width={strokeWidth}
 		/>
 		<g bind:this={textGroup} class="hover-text-g">
-			<text class="title-text" x={x + 10} y={y + 20}>{hoverData.party}</text>
+			<text bind:this={textTitle} class="title-text" x={x + 10} y={y + 20}>{hoverData.party}</text>
 			{#if hoverData.area_seat !== null}
-				<text x={x + 10} y={y + 40}
+				<text bind:this={textBody} x={x + 10} y={y + 40}
 					>{hoverData.area_seat.split('_')[0]} ({hoverData.area_seat.split('_')[1]})</text
 				>
 			{/if}
@@ -72,7 +86,8 @@
 	text {
 		font-family: 'Roboto', sans-serif;
 	}
-	rect {
+	rect,
+	text {
 		pointer-events: none;
 	}
 </style>

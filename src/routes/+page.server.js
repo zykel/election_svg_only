@@ -11,10 +11,14 @@ export const load = async ({ fetch }) => {
 	const responseVoronoi = await fetch('electoral_map_seats_voronoi_5.json');
 	const responseRegionBoundaries = await fetch('electoral_map_5.json');
 	const responsePercentages = await fetch('percentages.json');
+	const responsePartyCounts2019 = await fetch('party_counts_2019.json');
 
 	let geodataVoronoi = await responseVoronoi.json();
 	let geodataRegionBoundaries = await responseRegionBoundaries.json();
 	let dataPercentages = await responsePercentages.json();
+	let dataSeatCounts2019 = await responsePartyCounts2019.json();
+
+	debugger;
 
 	const indexablePartyList = getRandomIndexablePartyList(geodataVoronoi);
 
@@ -56,7 +60,8 @@ export const load = async ({ fetch }) => {
 				return featureCloned;
 			})
 		},
-		dataPercentages
+		dataPercentages,
+		dataSeatCounts2019
 	};
 };
 

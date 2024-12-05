@@ -14,7 +14,7 @@
 
 	// topology => topojson.feature(topology, topology.objects.states)
 
-	console.log(data);
+	// console.log(data);
 
 	let lng = -7.807195714694519;
 	let lat = 53.41035563891312;
@@ -41,6 +41,7 @@
 			dataSeats={data.geodataVoronoi}
 			dataBoundaries={data.geodataRegionBoundaries}
 			dataPercentages={data.dataPercentages}
+			dataSeatCounts2019={data.dataSeatCounts2019}
 			{titleHeight}
 			{mapWidth}
 			{mapHeight}

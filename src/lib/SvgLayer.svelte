@@ -20,6 +20,7 @@
 		dataSeats,
 		dataBoundaries,
 		dataPercentages,
+		dataSeatCounts2019,
 		titleHeight,
 		mapWidth,
 		mapHeight,
@@ -185,6 +186,13 @@
 		<HoverInfo hoverData={hoverDataPercentages} {mapWidth} {mapHeight} />
 	</g>
 	<g class="legend-g" transform="translate(0, {mapHeight})">
-		<Legend legendWidth={mapWidth} {legendHeight} {visType} {dataSeats} {dataPercentages} />
+		<Legend
+			legendWidth={mapWidth}
+			{legendHeight}
+			{visType}
+			{dataSeats}
+			{dataPercentages}
+			{dataSeatCounts2019}
+		/>
 	</g>
 </svg>

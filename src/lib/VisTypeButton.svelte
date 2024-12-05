@@ -18,7 +18,6 @@
 			visType = visTypeToCheckFor;
 			tl = gsap.timeline({
 				onComplete: () => {
-					console.log('Timeline completed');
 					// Do something at the end of the timeline
 					tl = null;
 				}

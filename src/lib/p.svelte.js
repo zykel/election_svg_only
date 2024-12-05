@@ -32,9 +32,6 @@ const getAbbrevToParty = () => {
 };
 export const abbrevToParty = getAbbrevToParty();
 
-console.log('partyToAbbrev', partyToAbbrev);
-console.log('abbrevToParty', abbrevToParty);
-
 const colors = [
 	'#00C24A',
 	'#009C77',

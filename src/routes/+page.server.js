@@ -56,11 +56,7 @@ export const load = async ({ fetch }) => {
 				return featureCloned;
 			})
 		},
-		dataPercentages: dataPercentages.map(({ year, party, percentage }) => ({
-			year,
-			party,
-			percentage: +Math.random().toFixed(3)
-		}))
+		dataPercentages
 	};
 };
 

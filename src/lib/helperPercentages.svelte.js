@@ -42,11 +42,11 @@ export const getPercentagesHelper = (dataSeats, dataPercentages, mapWidth, mapHe
 
 	const rectData = dataPercentages.map(({ year, party, percentage }, idx) => {
 		const x =
-			xScale(party) + (year == 2019 ? -xScale.bandwidth() * 0.35 : +xScale.bandwidth() * 0.35);
+			xScale(party) + (year == 2020 ? -xScale.bandwidth() * 0.35 : +xScale.bandwidth() * 0.35);
 		const y = yScale(percentage);
 		const width = xScale.bandwidth();
 		const height = yScale(0) - y;
-		const opacity = year == 2019 ? 0.7 : 1;
+		const opacity = year == 2020 ? 0.7 : 1;
 		// create the attribute information for a rect
 		return {
 			idx,
@@ -62,11 +62,11 @@ export const getPercentagesHelper = (dataSeats, dataPercentages, mapWidth, mapHe
 	});
 
 	const rectDataFlat = dataPercentages.map(({ year, party, percentage }, idx) => {
-		const x = xScale(party) + (year == 2019 ? 0 : xScale.bandwidth() / 2);
+		const x = xScale(party) + (year == 2020 ? 0 : xScale.bandwidth() / 2);
 		const y = yScale(0);
 		const width = xScale.bandwidth();
 		const height = 0;
-		const opacity = year == 2019 ? 0.7 : 1;
+		const opacity = year == 2020 ? 0.7 : 1;
 		// create the attribute information for a rect
 		return {
 			idx,

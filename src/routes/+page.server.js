@@ -1,5 +1,5 @@
 import { get } from 'svelte/store';
-import { parties } from '$lib/p.svelte.js';
+import { parties, abbrevToParty } from '$lib/p.svelte.js';
 
 export const load = async ({ fetch }) => {
 	// https://mapshaper.org/ to simplify geojson files
@@ -33,7 +33,7 @@ export const load = async ({ fetch }) => {
 				// 	);
 				// }
 
-				featureCloned.properties.party = indexablePartyList[i];
+				featureCloned.properties.party = abbrevToParty[featureCloned.properties.party];
 				featureCloned.properties.idx = i;
 
 				return featureCloned;

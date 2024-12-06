@@ -25,7 +25,8 @@
 	let vw100 = $state(10000);
 
 	const titleHeight = 50;
-	const mapWidth = $derived(Math.min(600, vw100));
+	const mainContainerWidth = $derived(Math.min(600, vw100));
+	const mapWidth = 430;
 	const mapHeight = 600;
 	const legendHeight = 200;
 </script>
@@ -33,7 +34,7 @@
 <div id="main-content" bind:clientWidth={vw100}>
 	<div
 		id="svg-map-container"
-		style:width="{mapWidth}px"
+		style:width="{mainContainerWidth}px"
 		style:height="{mapHeight + legendHeight}px"
 	>
 		<SvgLayer

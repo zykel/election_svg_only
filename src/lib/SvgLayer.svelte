@@ -97,7 +97,7 @@
 	style:pointer-events={isAnimating ? 'none' : 'auto'}
 	bind:this={svgLayer}
 	class="main-svg"
-	width="100%"
+	width={mapWidth}
 	height={mapHeight}
 >
 	<rect

@@ -14,6 +14,8 @@
 	import BoundaryPath from './BoundaryPath.svelte';
 	import HoverInfo from '$lib/HoverInfo.svelte';
 	import Legend from '$lib/Legend.svelte';
+	import LegendGrid from '$lib/LegendGrid.svelte';
+	import TitleBar from '$lib/TitleBar.svelte';
 
 	let {
 		svgLayer = $bindable(),
@@ -90,33 +92,13 @@
 	});
 </script>
 
-<VisTypeButton visTypeToCheckFor={'map'} bind:visType bind:visTypePrev bind:tl {isAnimating} />
-<VisTypeButton
-	visTypeToCheckFor={'parliament'}
-	bind:visType
-	bind:visTypePrev
-	bind:tl
-	{isAnimating}
-/>
-<VisTypeButton visTypeToCheckFor={'barchart'} bind:visType bind:visTypePrev bind:tl {isAnimating} />
-<VisTypeButton
-	visTypeToCheckFor={'percentages'}
-	bind:visType
-	bind:visTypePrev
-	bind:tl
-	{isAnimating}
-/>
-
-<svg class="title-svg" width="100%" height={titleHeight}>
-	<rect x="0" y="0" width="100%" height={titleHeight} fill="lightgray"></rect>
-	<text x="10" y="30">Irection</text>
-</svg>
+<TitleBar bind:visType bind:visTypePrev bind:tl {isAnimating} />
 <svg
 	style:pointer-events={isAnimating ? 'none' : 'auto'}
 	bind:this={svgLayer}
 	class="main-svg"
 	width="100%"
-	height={mapHeight + legendHeight}
+	height={mapHeight}
 >
 	<rect
 		x="0"
@@ -185,14 +167,12 @@
 		<HoverInfo hoverData={hoverDataSeats} {mapWidth} {mapHeight} />
 		<HoverInfo hoverData={hoverDataPercentages} {mapWidth} {mapHeight} />
 	</g>
-	<g class="legend-g" transform="translate(0, {mapHeight})">
-		<Legend
-			legendWidth={mapWidth}
-			{legendHeight}
-			{visType}
-			{dataSeats}
-			{dataPercentages}
-			{dataSeatCounts2019}
-		/>
-	</g>
 </svg>
+<LegendGrid
+	legendWidth={mapWidth}
+	{legendHeight}
+	{visType}
+	{dataSeats}
+	{dataPercentages}
+	{dataSeatCounts2019}
+/>

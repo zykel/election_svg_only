@@ -52,9 +52,39 @@ export const getBarchartHelper = (data, mapWidth, mapHeight) => {
 		};
 	});
 
+	const barchartLabelData = parties.map((party) => {
+		const x = xScale(0);
+		const y = yScale(party) + yScale.bandwidth() / 2;
+		// create the attribute information for a rect
+		return {
+			party,
+			x,
+			y
+		};
+	});
+
+	const barchartValueLabelData = parties.map((party) => {
+		const value = data.features.filter((d) => d.properties.party === party).length;
+		const x = xScale(value - 1);
+		const y = yScale(party) + yScale.bandwidth() / 2;
+		// create the attribute information for a rect
+		return {
+			value,
+			party,
+			x,
+			y
+		};
+	});
+
 	return {
 		get pathData() {
 			return pathData;
+		},
+		get barchartLabelData() {
+			return barchartLabelData;
+		},
+		get barchartValueLabelData() {
+			return barchartValueLabelData;
 		}
 	};
 };

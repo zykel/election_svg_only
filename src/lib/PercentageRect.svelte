@@ -14,7 +14,7 @@
 		percentage,
 		x,
 		y,
-		y0,
+		x0,
 		opacity,
 		width,
 		height,
@@ -34,11 +34,11 @@
 				percentageRect,
 				{
 					duration,
-					attr: { y, height },
+					attr: { width },
 					ease: 'power1.inOut',
 					delay: delayAnimation ? delay : 0,
 					onComplete: () => {
-						if (y === 0) percentageRect.style.display = 'none';
+						if (width === 0) percentageRect.style.display = 'none';
 					}
 				},
 				0
@@ -81,9 +81,9 @@
 	onpointerenter={updatehoverDataPercentages}
 	class="percentage-rect-{party}"
 	{x}
-	y={y0}
-	{width}
-	height={0}
+	{y}
+	width={0}
+	{height}
 	{fill}
 	stroke="white"
 	stroke-width="1"

@@ -48,7 +48,7 @@
 	.legend-grid-container {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
-		padding-bottom: 2rem;
+		padding-bottom: 10px;
 	}
 	.legend-grid-item {
 		margin: 10px;

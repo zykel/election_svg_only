@@ -17,6 +17,8 @@
 	import LegendGrid from '$lib/LegendGrid.svelte';
 	import TitleBar from '$lib/TitleBar.svelte';
 	import ParliamentSeatNumber from '$lib/ParliamentSeatNumber.svelte';
+	import BarchartLabel from '$lib/BarchartLabel.svelte';
+	import BarchartValueLabel from '$lib/BarchartValueLabel.svelte';
 
 	let {
 		svgLayer = $bindable(),
@@ -76,9 +78,20 @@
 		return rectDataTmp;
 	};
 
+	// const archartValueLabelData
+	// const getBarchartLabelData = () => {
+	// 	return barchartHelper.barchartLabelData;
+	// };
+	// const getRectLabelData = () => {
+	// 	return percentagesHelper.rectLabelData;
+	// };
+
 	const pathData = $derived(getPathData());
 	const regionBoundaryData = $derived(getRegionBoundaryData());
 	const rectData = $derived(getRectData());
+	const barchartValueLabelData = $derived(barchartHelper.barchartValueLabelData);
+	const barchartLabelData = $derived(barchartHelper.barchartLabelData);
+	const rectLabelData = $derived(percentagesHelper.rectLabelData);
 
 	let tl = $state(null);
 	const isAnimating = $derived(tl !== null);
@@ -146,7 +159,7 @@
 						{percentage}
 						{x}
 						{y}
-						y0={mapHeight - margin}
+						x0={margin}
 						{opacity}
 						{width}
 						{height}
@@ -174,6 +187,38 @@
 					opacity={visType === 'parliament' ? 1 : 0}
 					delayAnimation={delay(visType, visTypePrev, ['parliament'])}
 				/>
+
+				{#each barchartValueLabelData as { x, y, party, value } (party)}
+					<BarchartValueLabel
+						{tl}
+						{x}
+						{y}
+						{party}
+						{value}
+						opacity={visType === 'barchart' ? 1 : 0}
+						delayAnimation={delay(visType, visTypePrev, ['barchart'])}
+					/>
+				{/each}
+				{#each barchartLabelData as { x, y, party } (party)}
+					<BarchartLabel
+						{tl}
+						{x}
+						{y}
+						{party}
+						opacity={visType === 'barchart' ? 1 : 0}
+						delayAnimation={delay(visType, visTypePrev, ['barchart'])}
+					/>
+				{/each}
+				{#each rectLabelData as { x, y, party } (party)}
+					<BarchartLabel
+						{tl}
+						{x}
+						{y}
+						{party}
+						opacity={visType === 'percentages' ? 1 : 0}
+						delayAnimation={delay(visType, visTypePrev, ['percentages'])}
+					/>
+				{/each}
 			</g>
 			<g class="hover-info-g">
 				<HoverInfo hoverData={hoverDataSeats} {mapWidth} {mapHeight} />

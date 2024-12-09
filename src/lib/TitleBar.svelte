@@ -12,7 +12,7 @@
 
 <div class="title-bar-container">
 	<div class="title-text-container">
-		<h1>Irection</h1>
+		<h1>Ire-lection</h1>
 	</div>
 
 	<div class="title-button-container">

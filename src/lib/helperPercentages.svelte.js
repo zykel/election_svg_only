@@ -2,34 +2,34 @@ import { range } from 'd3-array';
 import { parties, margin } from '$lib/p.svelte.js';
 import { scaleBand, max, scaleLinear } from 'd3';
 
-const getXScale = (mapWidth) => {
-	const scale = scaleBand()
-		.domain(parties)
-		.range([margin, mapWidth - margin])
-		.paddingInner(0.7);
-
-	return scale;
-};
-
-const getYScale = (data, mapHeight) => {
+const getXScale = (data, mapWidth) => {
 	// Get maximum number of entries for a party inside data
 	const maxPercentage = max(data, (d) => d.percentage);
 
 	const scale = scaleLinear()
 		.domain([0, maxPercentage])
-		.range([mapHeight - margin, margin]);
+		.range([margin, mapWidth - margin]);
+
+	return scale;
+};
+
+const getYScale = (mapHeight) => {
+	const scale = scaleBand()
+		.domain([...parties].reverse())
+		.range([mapHeight - 2 * margin, 2 * margin])
+		.paddingInner(0.55);
 
 	return scale;
 };
 
 export const getPercentagesHelper = (dataSeats, dataPercentages, mapWidth, mapHeight) => {
-	const xScale = getXScale(mapWidth);
-	const yScale = getYScale(dataPercentages, mapHeight);
+	const xScale = getXScale(dataPercentages, mapWidth);
+	const yScale = getYScale(mapHeight);
 
 	const pathData = dataSeats.features.map((feature, idx) => {
-		const x = xScale(feature.properties.party);
+		const x = yScale(feature.properties.party);
 		const y = mapHeight - margin;
-		const width = xScale.bandwidth();
+		const width = yScale.bandwidth();
 		// create an svg path to depict a rectangle at x, y with width and height
 		const pathString = `M ${x} ${y} h ${width} h ${0} h ${-width + 1} Z`;
 		return {
@@ -41,11 +41,11 @@ export const getPercentagesHelper = (dataSeats, dataPercentages, mapWidth, mapHe
 	});
 
 	const rectData = dataPercentages.map(({ year, party, percentage }, idx) => {
-		const x =
-			xScale(party) + (year == 2020 ? -xScale.bandwidth() * 0.35 : +xScale.bandwidth() * 0.35);
-		const y = yScale(percentage);
-		const width = xScale.bandwidth();
-		const height = yScale(0) - y;
+		const x = xScale(0);
+		const y =
+			yScale(party) + (year == 2020 ? -yScale.bandwidth() * 0.35 : +yScale.bandwidth() * 0.35);
+		const width = xScale(percentage);
+		const height = yScale.bandwidth();
 		const opacity = year == 2020 ? 0.7 : 1;
 		// create the attribute information for a rect
 		return {
@@ -62,10 +62,11 @@ export const getPercentagesHelper = (dataSeats, dataPercentages, mapWidth, mapHe
 	});
 
 	const rectDataFlat = dataPercentages.map(({ year, party, percentage }, idx) => {
-		const x = xScale(party) + (year == 2020 ? 0 : xScale.bandwidth() / 2);
-		const y = yScale(0);
-		const width = xScale.bandwidth();
-		const height = 0;
+		const x = xScale(0);
+		const y =
+			yScale(party) + (year == 2020 ? -yScale.bandwidth() * 0.35 : +yScale.bandwidth() * 0.35);
+		const width = 0;
+		const height = yScale.bandwidth();
 		const opacity = year == 2020 ? 0.7 : 1;
 		// create the attribute information for a rect
 		return {
@@ -81,6 +82,17 @@ export const getPercentagesHelper = (dataSeats, dataPercentages, mapWidth, mapHe
 		};
 	});
 
+	const rectLabelData = parties.map((party) => {
+		const x = xScale(0);
+		const y = yScale(party) + yScale.bandwidth() / 2;
+		// create the attribute information for a rect
+		return {
+			party,
+			x,
+			y
+		};
+	});
+
 	return {
 		get pathData() {
 			return pathData;
@@ -90,6 +102,9 @@ export const getPercentagesHelper = (dataSeats, dataPercentages, mapWidth, mapHe
 		},
 		get rectDataFlat() {
 			return rectDataFlat;
+		},
+		get rectLabelData() {
+			return rectLabelData;
 		}
 	};
 };

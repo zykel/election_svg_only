@@ -1,13 +1,4 @@
 [
-	{ "year": 2024, "party": "Fianna Fáil", "percentage": 0.219 },
-	{ "year": 2024, "party": "Sinn Féin", "percentage": 0.19 },
-	{ "year": 2024, "party": "Fine Gael", "percentage": 0.208 },
-	{ "year": 2024, "party": "Green", "percentage": 0.03 },
-	{ "year": 2024, "party": "Labour", "percentage": 0.047 },
-	{ "year": 2024, "party": "Social Democrats", "percentage": 0.048 },
-	{ "year": 2024, "party": "People Before Profit", "percentage": 0.028 },
-	{ "year": 2024, "party": "Aontú", "percentage": 0.039 },
-	{ "year": 2024, "party": "Ind / Other", "percentage": 0.191 },
 	{ "year": 2020, "party": "Fianna Fáil", "percentage": 0.222 },
 	{ "year": 2020, "party": "Sinn Féin", "percentage": 0.245 },
 	{ "year": 2020, "party": "Fine Gael", "percentage": 0.209 },
@@ -16,5 +7,14 @@
 	{ "year": 2020, "party": "Social Democrats", "percentage": 0.029 },
 	{ "year": 2020, "party": "People Before Profit", "percentage": 0.026 },
 	{ "year": 2020, "party": "Aontú", "percentage": 0.019 },
-	{ "year": 2020, "party": "Ind / Other", "percentage": 0.135 }
+	{ "year": 2020, "party": "Ind / Other", "percentage": 0.135 },
+	{ "year": 2024, "party": "Fianna Fáil", "percentage": 0.219 },
+	{ "year": 2024, "party": "Sinn Féin", "percentage": 0.19 },
+	{ "year": 2024, "party": "Fine Gael", "percentage": 0.208 },
+	{ "year": 2024, "party": "Green", "percentage": 0.03 },
+	{ "year": 2024, "party": "Labour", "percentage": 0.047 },
+	{ "year": 2024, "party": "Social Democrats", "percentage": 0.048 },
+	{ "year": 2024, "party": "People Before Profit", "percentage": 0.028 },
+	{ "year": 2024, "party": "Aontú", "percentage": 0.039 },
+	{ "year": 2024, "party": "Ind / Other", "percentage": 0.191 }
 ]

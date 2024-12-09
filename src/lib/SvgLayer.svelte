@@ -221,8 +221,14 @@
 				{/each}
 			</g>
 			<g class="hover-info-g">
-				<HoverInfo hoverData={hoverDataSeats} {mapWidth} {mapHeight} />
-				<HoverInfo hoverData={hoverDataPercentages} {mapWidth} {mapHeight} />
+				<HoverInfo data={dataSeats} hoverData={hoverDataSeats} {mapWidth} {mapHeight} {visType} />
+				<HoverInfo
+					data={dataPercentages}
+					hoverData={hoverDataPercentages}
+					{mapWidth}
+					{mapHeight}
+					{visType}
+				/>
 			</g>
 		</svg>
 	</div>

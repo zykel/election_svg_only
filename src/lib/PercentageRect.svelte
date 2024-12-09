@@ -71,7 +71,7 @@
 	};
 
 	const updatehoverDataPercentages = () => {
-		hoverDataPercentages = { type: 'percentage', party, node: percentageRect };
+		hoverDataPercentages = { type: 'percentage', party, node: percentageRect, year };
 	};
 </script>
 

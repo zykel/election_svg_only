@@ -51,6 +51,7 @@ export const colorScale = scaleOrdinal()
 export const margin = 100;
 
 export const duration = 2;
+export const durationFast = 0.2;
 export const delay = 1.5;
 
 export const rem = $state({ value: 16 });

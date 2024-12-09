@@ -16,6 +16,7 @@
 	import Legend from '$lib/Legend.svelte';
 	import LegendGrid from '$lib/LegendGrid.svelte';
 	import TitleBar from '$lib/TitleBar.svelte';
+	import ParliamentSeatNumber from '$lib/ParliamentSeatNumber.svelte';
 
 	let {
 		svgLayer = $bindable(),
@@ -166,6 +167,13 @@
 						delayAnimation={delay(visType, visTypePrev, ['map'])}
 					/>
 				{/each}
+				<ParliamentSeatNumber
+					{tl}
+					{mapWidth}
+					{mapHeight}
+					opacity={visType === 'parliament' ? 1 : 0}
+					delayAnimation={delay(visType, visTypePrev, ['parliament'])}
+				/>
 			</g>
 			<g class="hover-info-g">
 				<HoverInfo hoverData={hoverDataSeats} {mapWidth} {mapHeight} />

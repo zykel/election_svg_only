@@ -92,87 +92,122 @@
 	});
 </script>
 
-<TitleBar bind:visType bind:visTypePrev bind:tl {isAnimating} />
-<svg
-	style:pointer-events={isAnimating ? 'none' : 'auto'}
-	bind:this={svgLayer}
-	class="main-svg"
-	width={mapWidth}
-	height={mapHeight}
->
-	<rect
-		x="0"
-		y="0"
-		width={mapWidth}
-		height={mapHeight}
-		fill="white"
-		onpointermove={() => {
-			hoverDataSeats = null;
-			hoverDataPercentages = null;
-		}}
-		onpointerdown={() => {
-			hoverDataSeats = null;
-			hoverDataPercentages = null;
-		}}
-	></rect>
-	<g class="seat-paths-g">
-		{#each pathData as { idx, area_seat, party, pathString, opacity = 1 } (idx)}
-			<SeatPath
-				{tl}
-				{idx}
-				{area_seat}
-				{pathString}
-				{opacity}
-				delayAnimation={delay(visType, visTypePrev, ['map', 'parliament', 'barchart'])}
-				{zooming}
-				bind:hoverDataSeats
-				{visType}
-				{party}
-				{isAnimating}
-			/>
-		{/each}
-	</g>
-	<g class="percentage-rects-g">
-		{#each rectData as { year, party, percentage, x, y, opacity, width, height, idx } (idx)}
-			<PercentageRect
-				{tl}
-				{year}
-				{party}
-				{percentage}
-				{x}
-				{y}
-				y0={mapHeight - margin}
-				{opacity}
-				{width}
-				{height}
-				fill={colorScale(party)}
-				delayAnimation={delay(visType, visTypePrev, ['percentages'])}
-				bind:hoverDataPercentages
-			/>
-		{/each}
-	</g>
-	<g class="axes-g">
-		{#each regionBoundaryData as { pathString, idx, constituency } (idx)}
-			<BoundaryPath
-				{tl}
-				{idx}
-				{pathString}
-				{constituency}
-				opacity={visType === 'map' ? 1 : 0}
-				delayAnimation={delay(visType, visTypePrev, ['map'])}
-			/>
-		{/each}
-	</g>
-	<g class="hover-info-g">
-		<HoverInfo hoverData={hoverDataSeats} {mapWidth} {mapHeight} />
-		<HoverInfo hoverData={hoverDataPercentages} {mapWidth} {mapHeight} />
-	</g>
-</svg>
-<LegendGrid
-	legendWidth={mapWidth}
-	{legendHeight}
-	{visType}
-	{dataSeats}
-	{dataPercentages}
-	{dataSeatCounts2019}
-/>
+<div class="main-container">
+	<div class="top-container">
+		<TitleBar bind:visType bind:visTypePrev bind:tl {isAnimating} />
+	</div>
+	<div class="middle-container">
+		<svg
+			style:pointer-events={isAnimating ? 'none' : 'auto'}
+			bind:this={svgLayer}
+			class="main-svg"
+			viewBox={`0 0 ${mapWidth} ${mapHeight}`}
+			preserveAspectRatio="xMidYMid meet"
+		>
+			<rect
+				x="0"
+				y="0"
+				width={mapWidth}
+				height={mapHeight}
+				fill="white"
+				onpointermove={() => {
+					hoverDataSeats = null;
+					hoverDataPercentages = null;
+				}}
+				onpointerdown={() => {
+					hoverDataSeats = null;
+					hoverDataPercentages = null;
+				}}
+			></rect>
+			<g class="seat-paths-g">
+				{#each pathData as { idx, area_seat, party, pathString, opacity = 1 } (idx)}
+					<SeatPath
+						{tl}
+						{idx}
+						{area_seat}
+						{pathString}
+						{opacity}
+						delayAnimation={delay(visType, visTypePrev, ['map', 'parliament', 'barchart'])}
+						{zooming}
+						bind:hoverDataSeats
+						{visType}
+						{party}
+						{isAnimating}
+					/>
+				{/each}
+			</g>
+			<g class="percentage-rects-g">
+				{#each rectData as { year, party, percentage, x, y, opacity, width, height, idx } (idx)}
+					<PercentageRect
+						{tl}
+						{year}
+						{party}
+						{percentage}
+						{x}
+						{y}
+						y0={mapHeight - margin}
+						{opacity}
+						{width}
+						{height}
+						fill={colorScale(party)}
+						delayAnimation={delay(visType, visTypePrev, ['percentages'])}
+						bind:hoverDataPercentages
+					/>
+				{/each}
+			</g>
+			<g class="axes-g">
+				{#each regionBoundaryData as { pathString, idx, constituency } (idx)}
+					<BoundaryPath
+						{tl}
+						{idx}
+						{pathString}
+						{constituency}
+						opacity={visType === 'map' ? 1 : 0}
+						delayAnimation={delay(visType, visTypePrev, ['map'])}
+					/>
+				{/each}
+			</g>
+			<g class="hover-info-g">
+				<HoverInfo hoverData={hoverDataSeats} {mapWidth} {mapHeight} />
+				<HoverInfo hoverData={hoverDataPercentages} {mapWidth} {mapHeight} />
+			</g>
+		</svg>
+	</div>
+	<div class="bottom-container">
+		<LegendGrid
+			legendWidth={mapWidth}
+			{legendHeight}
+			{visType}
+			{dataSeats}
+			{dataPercentages}
+			{dataSeatCounts2019}
+		/>
+	</div>
+</div>
+
+<style>
+	.main-container {
+		display: flex;
+		flex-direction: column;
+		height: 100vh;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.top-container,
+	.bottom-container {
+		/* flex: 0 1 auto; Allow the divs to take up their natural height */
+		width: 100%;
+	}
+	.middle-container {
+		/* flex: 1 1 auto; Allow the SVG to grow and shrink */
+		height: 70%;
+		display: flex;
+		justify-content: center; /* Center the SVG horizontally */
+		align-items: center; /* Center the SVG vertically */
+	}
+	.main-svg {
+		height: 100%;
+		width: 100%;
+		/* object-fit: contain; */
+	}
+</style>

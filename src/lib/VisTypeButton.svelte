@@ -23,5 +23,5 @@
 				}
 			});
 		}
-	}}>{visTypeToCheckFor}</button
+	}}>{visTypeToCheckFor[0]}</button
 >

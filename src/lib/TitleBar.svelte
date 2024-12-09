@@ -48,7 +48,6 @@
 		align-items: center;
 		background-color: lightgray;
 		padding: 10px;
-		width: 100%;
 		font-family: 'Roboto', sans-serif;
 	}
 

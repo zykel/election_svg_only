@@ -48,7 +48,7 @@ export const colorScale = scaleOrdinal()
 	.domain([...parties, ...partyAbbreviations])
 	.range([...colors, ...colors]);
 
-export const margin = 100;
+export const margin = 20;
 
 export const duration = 2;
 export const durationFast = 0.2;

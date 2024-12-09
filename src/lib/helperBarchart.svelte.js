@@ -2,16 +2,7 @@ import { range } from 'd3-array';
 import { parties, margin } from '$lib/p.svelte.js';
 import { scaleBand } from 'd3';
 
-const getXScale = (mapWidth) => {
-	const scale = scaleBand()
-		.domain(parties)
-		.range([margin, mapWidth - margin])
-		.paddingInner(0.2);
-
-	return scale;
-};
-
-const getYScale = (data, mapHeight, partySubsets) => {
+const getXScale = (data, mapWidth) => {
 	// Get maximum number of entries for a party inside data
 	const maxEntries = Math.max(
 		...parties.map((party) => data.features.filter((d) => d.properties.party === party).length)
@@ -19,14 +10,23 @@ const getYScale = (data, mapHeight, partySubsets) => {
 
 	const scale = scaleBand()
 		.domain(range(maxEntries))
-		.range([mapHeight - margin, margin]);
+		.range([margin, mapWidth - margin]);
+
+	return scale;
+};
+
+const getYScale = (mapHeight) => {
+	const scale = scaleBand()
+		.domain([...parties].reverse())
+		.range([mapHeight - 2 * margin, 2 * margin])
+		.paddingInner(0.2);
 
 	return scale;
 };
 
 export const getBarchartHelper = (data, mapWidth, mapHeight) => {
-	const xScale = getXScale(mapWidth);
-	const yScale = getYScale(data, mapHeight);
+	const xScale = getXScale(data, mapWidth);
+	const yScale = getYScale(mapHeight);
 
 	const partySubsets = {};
 	parties.forEach(
@@ -34,12 +34,12 @@ export const getBarchartHelper = (data, mapWidth, mapHeight) => {
 	);
 
 	const pathData = data.features.map((feature, idx) => {
-		const x = xScale(feature.properties.party);
 		// Find the index that the current data point has inside the partySubset
 		const subsetIdx = partySubsets[feature.properties.party].findIndex(
 			(d) => d.properties.idx === feature.properties.idx
 		);
-		const y = yScale(subsetIdx);
+		const x = xScale(subsetIdx);
+		const y = yScale(feature.properties.party);
 		const width = xScale.bandwidth();
 		const height = yScale.bandwidth();
 		// create an svg path to depict a rectangle at x, y with width and height

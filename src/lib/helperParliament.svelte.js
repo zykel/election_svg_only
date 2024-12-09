@@ -28,14 +28,14 @@ const getPositions = (mapWidth, mapHeight) => {
 		const yOffset = rowDistance;
 		const positionsStraightLeft = range(nrSeatsStraightSide).map((seatNr) => {
 			const x = positionsCurved[0].x;
-			const y = positionsCurved[0].y + yOffset * seatNr;
+			const y = positionsCurved[0].y + yOffset * (seatNr + 1);
 			// Just for ordering purposes
 			const angle = -Math.PI - (1 + seatNr + 0.1 * row);
 			return { seatNr, x, y, angle, row };
 		});
 		const positionsStraightRight = range(nrSeatsStraightSide).map((seatNr) => {
 			const x = positionsCurved[positionsCurved.length - 1].x;
-			const y = positionsCurved[0].y + yOffset * seatNr;
+			const y = positionsCurved[0].y + yOffset * (seatNr + 1);
 			// Just for ordering purposes
 			const angle = 1 + seatNr + 0.1 * row;
 			return { seatNr, x, y, angle, row };

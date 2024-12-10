@@ -258,6 +258,9 @@
 					/>
 				</g>
 			</g>
+			{#if hoverDataSeats !== null}
+				<use href="#path-{hoverDataSeats.idx}-{hoverDataSeats.area_seat}" />
+			{/if}
 			<g class="hover-info-g">
 				<HoverInfo data={dataSeats} hoverData={hoverDataSeats} {mapWidth} {mapHeight} {visType} />
 				<HoverInfo

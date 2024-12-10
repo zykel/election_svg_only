@@ -28,19 +28,20 @@
 
 	const pathStringInitial = pathString;
 
-	const getOpacity = (hoverDataSeats, seatPath) => {
-		if (hoverDataSeats !== null && hoverDataSeats.node !== seatPath) {
-			return opacity * 0.7;
-		} else {
-			return opacity;
-		}
-	};
+	// const getOpacity = (hoverDataSeats, seatPath) => {
+	// 	return opacity;
+	// 	if (hoverDataSeats !== null && hoverDataSeats.node !== seatPath) {
+	// 		return opacity * 0.7;
+	// 	} else {
+	// 		return opacity;
+	// 	}
+	// };
 
 	$effect(() => {
 		if (seatPath) {
 			if (tl === null) {
 				gsap.set(seatPath, {
-					attr: { d: pathString, opacity: getOpacity(hoverDataSeats, seatPath) }
+					attr: { d: pathString, opacity: opacity }
 				});
 			} else {
 				tl.to(
@@ -69,21 +70,21 @@
 	// });
 
 	// d={$pathTween}
-	const getStroke = (hoverDataSeats, seatPath) => {
-		if (hoverDataSeats !== null && hoverDataSeats.node === seatPath) {
-			return 'white';
-		} else {
-			return 'white';
-		}
-	};
-	const getStrokeWidth = (hoverDataSeats, seatPath) => {
-		return 0.5;
-		if (hoverDataSeats !== null && hoverDataSeats.node === seatPath) {
-			return 2;
-		} else {
-			return 0.5;
-		}
-	};
+	// const getStroke = (hoverDataSeats, seatPath) => {
+	// 	if (hoverDataSeats !== null && hoverDataSeats.node === seatPath) {
+	// 		return 'white';
+	// 	} else {
+	// 		return 'white';
+	// 	}
+	// };
+	// const getStrokeWidth = (hoverDataSeats, seatPath) => {
+	// 	return 0.5;
+	// 	if (hoverDataSeats !== null && hoverDataSeats.node === seatPath) {
+	// 		return 2;
+	// 	} else {
+	// 		return 0.5;
+	// 	}
+	// };
 
 	const updatehoverDataSeats = () => {
 		if (!zooming) {
@@ -100,8 +101,8 @@
 	class="seat-path"
 	d={pathStringInitial}
 	fill={colorScale(party)}
-	stroke={getStroke(hoverDataSeats, seatPath)}
-	stroke-width={getStrokeWidth(hoverDataSeats, seatPath)}
+	stroke={hoverDataSeats !== null && hoverDataSeats.node === seatPath ? 'black' : 'white'}
+	stroke-width={hoverDataSeats !== null && hoverDataSeats.node === seatPath ? 2 : 0.5}
 	style:cursor={visType !== 'map' ? 'pointer' : zooming ? 'grabbing' : 'grab'}
 	style:pointer-events={visType === 'percentages' || isAnimating ? 'none' : 'auto'}
 ></path>

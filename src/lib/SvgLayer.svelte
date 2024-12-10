@@ -169,7 +169,7 @@
 					/>
 				{/each}
 			</g>
-			<g class="axes-g">
+			<g class="axes-g" pointer-events="none">
 				{#each regionBoundaryData as { pathString, idx, constituency } (idx)}
 					<BoundaryPath
 						{tl}

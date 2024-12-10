@@ -49,15 +49,27 @@
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		padding-bottom: 10px;
+		font-family: 'Roboto', sans-serif;
 	}
 	.legend-grid-item {
 		margin: 10px;
+		display: flex;
+		flex-direction: column;
 	}
 	.legend-party-title {
 		font-weight: bold;
 	}
 	p {
 		margin: 3px 0px;
-		font-family: 'Roboto', sans-serif;
+	}
+	@media (max-width: 400px) {
+		.legend-grid-container {
+			font-size: 14px;
+			/* grid-template-columns: repeat(2, 1fr); Change to 2 columns */
+		}
+
+		.legend-grid-item {
+			margin: 5px;
+		}
 	}
 </style>

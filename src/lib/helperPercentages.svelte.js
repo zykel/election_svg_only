@@ -5,6 +5,7 @@ import { scaleBand, max, scaleLinear } from 'd3';
 const getXScale = (data, mapWidth) => {
 	// Get maximum number of entries for a party inside data
 	const maxPercentage = max(data, (d) => d.percentage);
+	console.log('maxPercentage', maxPercentage);
 
 	const scale = scaleLinear()
 		.domain([0, maxPercentage])
@@ -41,10 +42,11 @@ export const getPercentagesHelper = (dataSeats, dataPercentages, mapWidth, mapHe
 	});
 
 	const rectData = dataPercentages.map(({ year, party, percentage }, idx) => {
+		console.log(year, party, percentage);
 		const x = xScale(0);
 		const y =
 			yScale(party) + (year == 2020 ? -yScale.bandwidth() * 0.35 : +yScale.bandwidth() * 0.35);
-		const width = xScale(percentage);
+		const width = xScale(percentage) - xScale(0);
 		const height = yScale.bandwidth();
 		const opacity = year == 2020 ? 0.7 : 1;
 		// create the attribute information for a rect

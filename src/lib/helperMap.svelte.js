@@ -2,15 +2,15 @@ import { geoPath, geoMercator, geoTransform } from 'd3-geo';
 import { select, selectAll } from 'd3';
 import { zoom, zoomIdentity } from 'd3-zoom';
 
-const lng = -7.807195714694519;
-const lat = 53.41035563891312;
+const lng = -8.20195714694519;
+const lat = 53.44035563891312;
 
 let pathData = $state([]);
 let regionBoundaryData = $state([]);
 
 let translateX = $state(0);
 let translateY = $state(0);
-let scale = $state(1 << 12);
+let scale = $state(Math.pow(2, 12.3));
 
 const projection = geoMercator().center([lng, lat]);
 

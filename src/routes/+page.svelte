@@ -26,7 +26,7 @@
 
 	const titleHeight = 50;
 	const mainContainerWidth = $derived(Math.min(600, vw100));
-	const mapWidth = 430;
+	const mapWidth = 450;
 	const mapHeight = 600;
 	const legendHeight = 200;
 </script>
@@ -52,6 +52,11 @@
 </div>
 
 <style>
+	:global(body) {
+		font-family: 'Roboto', sans-serif;
+		margin: 0px;
+	}
+
 	#main-content {
 		display: flex;
 		justify-content: center;

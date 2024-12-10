@@ -54,4 +54,10 @@
 	h1 {
 		margin: 0.2rem 0;
 	}
+
+	@media (max-width: 400px) {
+		.title-bar-container {
+			padding: 5px;
+		}
+	}
 </style>

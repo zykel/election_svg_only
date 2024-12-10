@@ -58,7 +58,12 @@
 	const getBodyText = () => {
 		if (hoverData === null) return '';
 		if (['map', 'parliament', 'barchart'].includes(visType)) {
-			return `${hoverData.area_seat.split('_')[0]} (${hoverData.area_seat.split('_')[1]})`;
+			const mühoverData = hoverData;
+			const müdata = data;
+			const seatProperties = data.features.find(
+				(d) => d.properties.idx === hoverData.idx
+			).properties;
+			return `${seatProperties.first_name} ${hoverData.area_seat.split('_')[0]} (${hoverData.area_seat.split('_')[1]})`;
 			// return data.features.filter((d) => d.properties.party === hoverData.party).length;
 		} else {
 			return `${hoverData.year}: ${(data.find((d) => d.year === hoverData.year && d.party === hoverData.party).percentage * 100).toFixed(1)}%`;
@@ -80,7 +85,13 @@
 		stroke-width={strokeWidth}
 	/>
 	<g bind:this={textGroup} class="hover-text-g">
-		<text bind:this={textTitle} class="title-text" x={x + 10} y={y + 20}>{hoverData.party}</text>
+		<text
+			bind:this={textTitle}
+			class="title-text"
+			x={x + 10}
+			y={y + 20}
+			fill={colorScale(hoverData.party)}>{hoverData.party}</text
+		>
 		<text bind:this={textBody} x={x + 10} y={y + 40}>{bodyText}</text>
 	</g>
 {/if}

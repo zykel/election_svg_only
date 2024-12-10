@@ -49,7 +49,7 @@
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		padding: 10px;
-		font-family: 'Roboto', sans-serif;
+		font-family: 'Inter', sans-serif;
 	}
 	.legend-grid-item {
 		margin: 10px;

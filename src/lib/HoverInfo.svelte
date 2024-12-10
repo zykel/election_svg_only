@@ -90,7 +90,7 @@
 		font-weight: bold;
 	}
 	text {
-		font-family: 'Roboto', sans-serif;
+		font-family: 'Inter', sans-serif;
 	}
 	rect,
 	text {

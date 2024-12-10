@@ -5,6 +5,7 @@
 	let { tl, x, y, party, value, opacity, delayAnimation } = $props();
 
 	let textNode = $state(null);
+	let textNodeWhite = $state(null);
 
 	$effect(() => {
 		if (textNode) {
@@ -30,15 +31,53 @@
 			}
 		}
 	});
+	$effect(() => {
+		if (textNodeWhite) {
+			textNodeWhite.style.display = 'block';
+			if (tl === null) {
+				gsap.set(textNodeWhite, {
+					attr: { opacity }
+				});
+			} else {
+				tl.to(
+					textNodeWhite,
+					{
+						duration: durationFast,
+						attr: { opacity },
+						ease: 'power1.inOut',
+						delay: delayAnimation ? duration : 0,
+						onComplete: () => {
+							if (opacity === 0) textNodeWhite.style.display = 'none';
+						}
+					},
+					0
+				);
+			}
+		}
+	});
 
 	const fontSize = 24;
 </script>
 
 <text
-	bind:this={textNode}
-	x={x + 15}
-	y={y + fontSize * 0.35}
+	bind:this={textNodeWhite}
+	x={x + 12}
+	y={y + fontSize * 0.4}
 	font-size={fontSize}
+	font-weight="bold"
+	stroke="white"
+	stroke-width="4"
+	fill={colorScale(party)}
+	text-anchor="start"
+>
+	{value}
+</text>
+<text
+	bind:this={textNode}
+	x={x + 12}
+	y={y + fontSize * 0.4}
+	font-size={fontSize}
+	font-weight="bold"
 	fill={colorScale(party)}
 	text-anchor="start"
 >
@@ -47,6 +86,6 @@
 
 <style>
 	text {
-		font-family: 'Roboto', sans-serif;
+		font-family: 'Inter', sans-serif;
 	}
 </style>

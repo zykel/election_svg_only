@@ -91,6 +91,7 @@
 	const rectData = $derived(getRectData());
 	const barchartValueLabelData = $derived(barchartHelper.barchartValueLabelData);
 	const barchartLabelData = $derived(barchartHelper.barchartLabelData);
+	const rectValueLabelData = $derived(percentagesHelper.rectValueLabelData);
 	const rectLabelData = $derived(percentagesHelper.rectLabelData);
 
 	let tl = $state(null);
@@ -170,55 +171,77 @@
 				{/each}
 			</g>
 			<g class="axes-g" pointer-events="none">
-				{#each regionBoundaryData as { pathString, idx, constituency } (idx)}
-					<BoundaryPath
+				<g class="region-boundaries-g">
+					{#each regionBoundaryData as { pathString, idx, constituency } (idx)}
+						<BoundaryPath
+							{tl}
+							{idx}
+							{pathString}
+							{constituency}
+							opacity={visType === 'map' ? 1 : 0}
+							delayAnimation={delay(visType, visTypePrev, ['map'])}
+						/>
+					{/each}
+				</g>
+				<g class="parliament-seat-number-g">
+					<ParliamentSeatNumber
 						{tl}
-						{idx}
-						{pathString}
-						{constituency}
-						opacity={visType === 'map' ? 1 : 0}
-						delayAnimation={delay(visType, visTypePrev, ['map'])}
+						{mapWidth}
+						{mapHeight}
+						opacity={visType === 'parliament' ? 1 : 0}
+						delayAnimation={delay(visType, visTypePrev, ['parliament'])}
 					/>
-				{/each}
-				<ParliamentSeatNumber
-					{tl}
-					{mapWidth}
-					{mapHeight}
-					opacity={visType === 'parliament' ? 1 : 0}
-					delayAnimation={delay(visType, visTypePrev, ['parliament'])}
-				/>
-
-				{#each barchartValueLabelData as { x, y, party, value } (party)}
-					<BarchartValueLabel
-						{tl}
-						{x}
-						{y}
-						{party}
-						{value}
-						opacity={visType === 'barchart' ? 1 : 0}
-						delayAnimation={delay(visType, visTypePrev, ['barchart'])}
-					/>
-				{/each}
-				{#each barchartLabelData as { x, y, party } (party)}
-					<BarchartLabel
-						{tl}
-						{x}
-						{y}
-						{party}
-						opacity={visType === 'barchart' ? 1 : 0}
-						delayAnimation={delay(visType, visTypePrev, ['barchart'])}
-					/>
-				{/each}
-				{#each rectLabelData as { x, y, party } (party)}
-					<BarchartLabel
-						{tl}
-						{x}
-						{y}
-						{party}
-						opacity={visType === 'percentages' ? 1 : 0}
-						delayAnimation={delay(visType, visTypePrev, ['percentages'])}
-					/>
-				{/each}
+				</g>
+				<g class="barchart-value-label-g">
+					{#each barchartValueLabelData as { x, y, party, value } (party)}
+						<BarchartValueLabel
+							{tl}
+							{x}
+							{y}
+							{party}
+							{value}
+							opacity={visType === 'barchart' ? 1 : 0}
+							delayAnimation={delay(visType, visTypePrev, ['barchart'])}
+						/>
+					{/each}
+				</g>
+				<g class="barchart-partyname-label-g">
+					{#each barchartLabelData as { x, y, party } (party)}
+						<BarchartLabel
+							{tl}
+							{x}
+							{y}
+							{party}
+							opacity={visType === 'barchart' ? 1 : 0}
+							delayAnimation={delay(visType, visTypePrev, ['barchart'])}
+						/>
+					{/each}
+				</g>
+				<g class="percentages-value-label-g">
+					{#each rectValueLabelData as { x, y, party, value } (party)}
+						<BarchartValueLabel
+							{tl}
+							{x}
+							{y}
+							{party}
+							{value}
+							opacity={visType === 'percentages' ? 1 : 0}
+							delayAnimation={delay(visType, visTypePrev, ['percentages'])}
+						/>
+					{/each}
+				</g>
+				<g class="percentages-partyname-label-g">
+					{#each rectLabelData as { x, y, party } (party)}
+						<BarchartLabel
+							{tl}
+							{x}
+							{y}
+							{party}
+							opacity={visType === 'percentages' ? 1 : 0}
+							delayAnimation={delay(visType, visTypePrev, ['percentages'])}
+						/>
+					{/each}
+				</g>
 			</g>
 			<g class="hover-info-g">
 				<HoverInfo data={dataSeats} hoverData={hoverDataSeats} {mapWidth} {mapHeight} {visType} />

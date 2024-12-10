@@ -49,7 +49,7 @@
 
 <style>
 	:global(body) {
-		font-family: 'Roboto', sans-serif;
+		font-family: 'Inter', sans-serif;
 		margin: 0px;
 	}
 

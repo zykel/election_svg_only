@@ -95,6 +95,20 @@ export const getPercentagesHelper = (dataSeats, dataPercentages, mapWidth, mapHe
 		};
 	});
 
+	const rectValueLabelData = dataPercentages
+		.filter((d) => d.year === 2024)
+		.map(({ party, percentage }) => {
+			const x = xScale(percentage);
+			const y = yScale(party) + yScale.bandwidth() * 0.35 + yScale.bandwidth() / 2;
+			// create the attribute information for a rect
+			return {
+				party,
+				value: (percentage * 100).toFixed(1) + '%',
+				x,
+				y
+			};
+		});
+
 	return {
 		get pathData() {
 			return pathData;
@@ -107,6 +121,9 @@ export const getPercentagesHelper = (dataSeats, dataPercentages, mapWidth, mapHe
 		},
 		get rectLabelData() {
 			return rectLabelData;
+		},
+		get rectValueLabelData() {
+			return rectValueLabelData;
 		}
 	};
 };

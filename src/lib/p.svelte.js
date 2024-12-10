@@ -4,15 +4,15 @@ export const parties = [
 	'Fianna Fáil',
 	'Sinn Féin',
 	'Fine Gael',
-	'Green',
 	'Labour',
 	'Social Democrats',
 	'People Before Profit',
 	'Aontú',
+	'Green',
 	'Ind / Other'
 ];
 
-export const partyAbbreviations = ['FF', 'SF', 'FG', 'Gre', 'Lab', 'SD', 'PBP', 'Aon', 'Ind'];
+export const partyAbbreviations = ['FF', 'SF', 'FG', 'Lab', 'SD', 'PBP', 'Aon', 'Gre', 'Ind'];
 
 const getPartyToAbbrev = () => {
 	const partyToAbbrev = {};
@@ -36,11 +36,11 @@ const colors = [
 	'#00C24A',
 	'#009C77',
 	'#01B3DD',
-	'#A7C54E',
 	'#F2471C',
-	'#76267F',
+	'#6d2c7b',
+	'#d63954',
 	'#E2A739',
-	'#E2A739',
+	'#A7C54E',
 	'#AEAEAE'
 ];
 

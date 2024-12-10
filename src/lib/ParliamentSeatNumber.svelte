@@ -61,12 +61,12 @@
 <style>
 	.parliament-legend-number {
 		fill: rgb(132, 132, 132);
-		font-family: 'Roboto', sans-serif;
+		font-family: 'Inter', sans-serif;
 		font-weight: bold;
 	}
 	.parliament-legend-word {
 		fill: rgb(132, 132, 132);
-		font-family: 'Roboto', sans-serif;
+		font-family: 'Inter', sans-serif;
 		font-weight: bold;
 	}
 </style>

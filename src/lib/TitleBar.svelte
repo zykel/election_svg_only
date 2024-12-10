@@ -12,7 +12,7 @@
 
 <div class="title-bar-container">
 	<div class="title-text-container">
-		<h1>Ire-lection</h1>
+		<h1>Toghchán '24</h1>
 	</div>
 
 	<div class="title-button-container">
@@ -48,7 +48,7 @@
 		align-items: center;
 		background-color: lightgray;
 		padding: 10px;
-		font-family: 'Roboto', sans-serif;
+		font-family: 'Inter', sans-serif;
 	}
 
 	h1 {

@@ -2,28 +2,30 @@
 	import gsap from 'gsap-trial/dist/gsap';
 	import { colorScale, partyToAbbrev, duration, durationFast, delay } from '$lib/p.svelte.js';
 
-	let { tl, x, y, party, value, opacity, delayAnimation } = $props();
+	let { tl, rectData, opacity, delayAnimation } = $props();
 
-	let textNode = $state(null);
-	let textNodeWhite = $state(null);
+	let text20 = $state(null);
+	let text24 = $state(null);
+
+	console.log(rectData);
 
 	$effect(() => {
-		if (textNode) {
-			textNode.style.display = 'block';
+		if (text20) {
+			text20.style.display = 'block';
 			if (tl === null) {
-				gsap.set(textNode, {
+				gsap.set(text20, {
 					attr: { opacity }
 				});
 			} else {
 				tl.to(
-					textNode,
+					text20,
 					{
 						duration: durationFast,
 						attr: { opacity },
 						ease: 'power1.inOut',
 						delay: delayAnimation ? duration : 0,
 						onComplete: () => {
-							if (opacity === 0) textNode.style.display = 'none';
+							if (opacity === 0) text20.style.display = 'none';
 						}
 					},
 					0
@@ -32,22 +34,22 @@
 		}
 	});
 	$effect(() => {
-		if (textNodeWhite) {
-			textNodeWhite.style.display = 'block';
+		if (text24) {
+			text24.style.display = 'block';
 			if (tl === null) {
-				gsap.set(textNodeWhite, {
+				gsap.set(text24, {
 					attr: { opacity }
 				});
 			} else {
 				tl.to(
-					textNodeWhite,
+					text24,
 					{
 						duration: durationFast,
 						attr: { opacity },
 						ease: 'power1.inOut',
 						delay: delayAnimation ? duration : 0,
 						onComplete: () => {
-							if (opacity === 0) textNodeWhite.style.display = 'none';
+							if (opacity === 0) text24.style.display = 'none';
 						}
 					},
 					0
@@ -56,30 +58,28 @@
 		}
 	});
 
-	const fontSize = 24;
+	const fontSize = 16;
 </script>
 
 <text
-	bind:this={textNodeWhite}
-	x={x + 10}
-	y={y + fontSize * 0.4}
+	bind:this={text20}
+	x={rectData.find((d) => d.year === 2020).x + 1}
+	y={rectData.find((d) => d.year === 2020).y + fontSize - 2}
 	font-size={fontSize}
-	stroke="white"
-	stroke-width="4"
-	fill={colorScale(party)}
+	fill="gray"
 	text-anchor="start"
 >
-	{value}
+	2020
 </text>
 <text
-	bind:this={textNode}
-	x={x + 10}
-	y={y + fontSize * 0.4}
+	bind:this={text24}
+	x={rectData.find((d) => d.year === 2024).x + 1}
+	y={rectData.find((d) => d.year === 2024).y + fontSize - 2}
 	font-size={fontSize}
-	fill={colorScale(party)}
+	fill="black"
 	text-anchor="start"
 >
-	{value}
+	2024
 </text>
 
 <style>

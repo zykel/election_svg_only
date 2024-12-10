@@ -19,6 +19,7 @@
 	import ParliamentSeatNumber from '$lib/ParliamentSeatNumber.svelte';
 	import BarchartLabel from '$lib/BarchartLabel.svelte';
 	import BarchartValueLabel from '$lib/BarchartValueLabel.svelte';
+	import PercentagesYearLabels from '$lib/PercentagesYearLabels.svelte';
 
 	let {
 		svgLayer = $bindable(),
@@ -241,6 +242,14 @@
 							delayAnimation={delay(visType, visTypePrev, ['percentages'])}
 						/>
 					{/each}
+				</g>
+				<g class="percentages-year-label-g">
+					<PercentagesYearLabels
+						{tl}
+						{rectData}
+						opacity={visType === 'percentages' ? 1 : 0}
+						delayAnimation={delay(visType, visTypePrev, ['percentages'])}
+					/>
 				</g>
 			</g>
 			<g class="hover-info-g">

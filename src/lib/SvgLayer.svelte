@@ -261,17 +261,16 @@
 			{#if hoverDataSeats !== null}
 				<use href="#path-{hoverDataSeats.idx}-{hoverDataSeats.area_seat}" />
 			{/if}
-			<g class="hover-info-g">
-				<HoverInfo data={dataSeats} hoverData={hoverDataSeats} {mapWidth} {mapHeight} {visType} />
-				<HoverInfo
-					data={dataPercentages}
-					hoverData={hoverDataPercentages}
-					{mapWidth}
-					{mapHeight}
-					{visType}
-				/>
-			</g>
 		</svg>
+
+		<HoverInfo data={dataSeats} hoverData={hoverDataSeats} {mapWidth} {mapHeight} {visType} />
+		<HoverInfo
+			data={dataPercentages}
+			hoverData={hoverDataPercentages}
+			{mapWidth}
+			{mapHeight}
+			{visType}
+		/>
 	</div>
 	<div class="bottom-container">
 		<LegendGrid
@@ -304,6 +303,7 @@
 		display: flex;
 		justify-content: center; /* Center the SVG horizontally */
 		align-items: center; /* Center the SVG vertically */
+		position: relative;
 	}
 	.main-svg {
 		height: 100%;

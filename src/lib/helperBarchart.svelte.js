@@ -65,7 +65,7 @@ export const getBarchartHelper = (data, mapWidth, mapHeight) => {
 
 	const barchartValueLabelData = parties.map((party) => {
 		const value = data.features.filter((d) => d.properties.party === party).length;
-		const x = xScale(value - 1);
+		const x = xScale(value - 1) + xScale.bandwidth();
 		const y = yScale(party) + yScale.bandwidth() / 2;
 		// create the attribute information for a rect
 		return {

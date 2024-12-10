@@ -2,7 +2,7 @@
 	import gsap from 'gsap-trial/dist/gsap';
 	import { duration, durationFast, delay } from '$lib/p.svelte.js';
 
-	let { tl, mapWidth, mapHeight, opacity, delayAnimation } = $props();
+	let { tl, mapWidth, mapHeight, opacity, delayAnimation, changingVisCategory = false } = $props();
 
 	const yAnchor = mapHeight * 0.9;
 
@@ -25,7 +25,7 @@
 						duration: durationFast,
 						attr: { opacity },
 						ease: 'power1.inOut',
-						delay: delayAnimation ? duration : 0,
+						delay: delayAnimation ? (changingVisCategory ? 2 * duration : duration) : 0,
 						onComplete: () => {
 							if (opacity === 0) textG.style.display = 'none';
 						}

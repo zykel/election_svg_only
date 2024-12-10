@@ -3,7 +3,15 @@
 	import gsap from 'gsap-trial/dist/gsap';
 	import { duration, delay } from '$lib/p.svelte.js';
 
-	let { tl, idx, pathString, constituency, opacity, delayAnimation } = $props();
+	let {
+		tl,
+		idx,
+		pathString,
+		constituency,
+		opacity,
+		delayAnimation,
+		changingVisCategory = false
+	} = $props();
 
 	let boundaryPath = $state(null);
 
@@ -26,7 +34,7 @@
 						duration: 0,
 						attr: { opacity },
 						ease: 'power1.inOut',
-						delay: delayAnimation ? duration : 0,
+						delay: delayAnimation ? (changingVisCategory ? 2 * duration : duration) : 0,
 						onComplete: () => {
 							if (opacity === 0) boundaryPath.style.display = 'none';
 						}

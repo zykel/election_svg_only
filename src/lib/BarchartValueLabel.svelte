@@ -2,7 +2,7 @@
 	import gsap from 'gsap-trial/dist/gsap';
 	import { colorScale, partyToAbbrev, duration, durationFast, delay } from '$lib/p.svelte.js';
 
-	let { tl, x, y, party, value, opacity, delayAnimation } = $props();
+	let { tl, x, y, party, value, opacity, delayAnimation, changingVisCategory = false } = $props();
 
 	let textNode = $state(null);
 	let textNodeWhite = $state(null);
@@ -21,7 +21,7 @@
 						duration: durationFast,
 						attr: { opacity },
 						ease: 'power1.inOut',
-						delay: delayAnimation ? duration : 0,
+						delay: delayAnimation ? (changingVisCategory ? 2 * duration : duration) : 0,
 						onComplete: () => {
 							if (opacity === 0) textNode.style.display = 'none';
 						}
@@ -45,7 +45,7 @@
 						duration: durationFast,
 						attr: { opacity },
 						ease: 'power1.inOut',
-						delay: delayAnimation ? duration : 0,
+						delay: delayAnimation ? (changingVisCategory ? 2 * duration : duration) : 0,
 						onComplete: () => {
 							if (opacity === 0) textNodeWhite.style.display = 'none';
 						}

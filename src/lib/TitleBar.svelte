@@ -46,7 +46,7 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		background-color: lightgray;
+		background-color: #e1e1e1;
 		padding: 10px;
 		font-family: 'Inter', sans-serif;
 	}

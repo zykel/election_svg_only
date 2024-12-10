@@ -181,6 +181,7 @@
 							{constituency}
 							opacity={visType === 'map' ? 1 : 0}
 							delayAnimation={delay(visType, visTypePrev, ['map'])}
+							changingVisCategory={visType === 'map' && visTypePrev === 'percentages'}
 						/>
 					{/each}
 				</g>
@@ -191,6 +192,7 @@
 						{mapHeight}
 						opacity={visType === 'parliament' ? 1 : 0}
 						delayAnimation={delay(visType, visTypePrev, ['parliament'])}
+						changingVisCategory={visType === 'parliament' && visTypePrev === 'percentages'}
 					/>
 				</g>
 				<g class="barchart-value-label-g">
@@ -203,6 +205,7 @@
 							{value}
 							opacity={visType === 'barchart' ? 1 : 0}
 							delayAnimation={delay(visType, visTypePrev, ['barchart'])}
+							changingVisCategory={visType === 'barchart' && visTypePrev === 'percentages'}
 						/>
 					{/each}
 				</g>
@@ -215,6 +218,7 @@
 							{party}
 							opacity={visType === 'barchart' ? 1 : 0}
 							delayAnimation={delay(visType, visTypePrev, ['barchart'])}
+							changingVisCategory={visType === 'barchart' && visTypePrev === 'percentages'}
 						/>
 					{/each}
 				</g>
@@ -228,6 +232,7 @@
 							{value}
 							opacity={visType === 'percentages' ? 1 : 0}
 							delayAnimation={delay(visType, visTypePrev, ['percentages'])}
+							changingVisCategory={visType === 'percentages' && visTypePrev !== 'percentages'}
 						/>
 					{/each}
 				</g>
@@ -240,6 +245,7 @@
 							{party}
 							opacity={visType === 'percentages' ? 1 : 0}
 							delayAnimation={delay(visType, visTypePrev, ['percentages'])}
+							changingVisCategory={visType === 'percentages' && visTypePrev !== 'percentages'}
 						/>
 					{/each}
 				</g>

@@ -59,6 +59,7 @@
 	// d={$pathTween}
 
 	const getOpacity = (hoverDataPercentages, percentageRect) => {
+		return opacity;
 		if (hoverDataPercentages !== null) {
 			if (hoverDataPercentages.node === percentageRect) {
 				return 1;
@@ -85,9 +86,13 @@
 	width={0}
 	{height}
 	{fill}
-	stroke="white"
-	stroke-width="1"
+	stroke={hoverDataPercentages !== null && hoverDataPercentages.node === percentageRect
+		? 'black'
+		: 'white'}
+	stroke-width={hoverDataPercentages !== null && hoverDataPercentages.node === percentageRect
+		? 2
+		: 1}
 	style:display="none"
-	opacity={getOpacity(hoverDataPercentages, percentageRect)}
+	fill-opacity={getOpacity(hoverDataPercentages, percentageRect)}
 	style:cursor="pointer"
 ></rect>

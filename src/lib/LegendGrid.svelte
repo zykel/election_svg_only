@@ -71,5 +71,9 @@
 		.legend-grid-item {
 			margin: 5px;
 		}
+
+		p {
+			margin: 1px 0px;
+		}
 	}
 </style>

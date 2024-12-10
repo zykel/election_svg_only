@@ -17,7 +17,7 @@ const getXScale = (data, mapWidth) => {
 const getYScale = (mapHeight) => {
 	const scale = scaleBand()
 		.domain([...parties].reverse())
-		.range([mapHeight - 2 * margin, 2 * margin])
+		.range([mapHeight - margin, margin])
 		.paddingInner(0.55);
 
 	return scale;
@@ -48,7 +48,7 @@ export const getPercentagesHelper = (dataSeats, dataPercentages, mapWidth, mapHe
 			yScale(party) + (year == 2020 ? -yScale.bandwidth() * 0.35 : +yScale.bandwidth() * 0.35);
 		const width = xScale(percentage) - xScale(0);
 		const height = yScale.bandwidth();
-		const opacity = year == 2020 ? 0.7 : 1;
+		const opacity = year == 2020 ? 0.4 : 1;
 		// create the attribute information for a rect
 		return {
 			idx,

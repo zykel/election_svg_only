@@ -36,7 +36,7 @@
 
 <text
 	bind:this={textNode}
-	x={x - 5}
+	x={x - 10}
 	y={y + fontSize * 0.35}
 	font-size={fontSize}
 	fill={colorScale(party)}

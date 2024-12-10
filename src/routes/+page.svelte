@@ -32,11 +32,7 @@
 </script>
 
 <div id="main-content" bind:clientWidth={vw100}>
-	<div
-		id="svg-map-container"
-		style:width="{mainContainerWidth}px"
-		style:height="{mapHeight + legendHeight}px"
-	>
+	<div id="svg-map-container" style:width="{mainContainerWidth}px">
 		<SvgLayer
 			bind:svgLayer
 			dataSeats={data.geodataVoronoi}

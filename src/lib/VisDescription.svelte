@@ -9,7 +9,8 @@
 				'In the map view, the constituencies were divided based on the seats they correspond to.';
 		}
 		if (visType === 'parliament') {
-			text = 'In this view, each circle displays one of the 174 seats in the Irish parliament.';
+			text =
+				'In this view, each circle corresponds to one of the 174 seats in the Irish parliament.';
 		}
 		if (visType === 'barchart') {
 			text =

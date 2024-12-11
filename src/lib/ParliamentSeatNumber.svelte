@@ -4,7 +4,7 @@
 
 	let { tl, mapWidth, mapHeight, opacity, delayAnimation, changingVisCategory = false } = $props();
 
-	const yAnchor = mapHeight * 0.9;
+	const yAnchor = mapHeight * 0.94;
 
 	const fontsizeNumber = 57;
 	const fontsizeWord = (fontsizeNumber / 3) * 2;

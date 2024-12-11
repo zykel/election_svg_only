@@ -109,7 +109,17 @@
 </script>
 
 <div class="main-container">
-	<div class="top-container">
+	<div
+		class="top-container"
+		onpointermove={() => {
+			hoverDataSeats = null;
+			hoverDataPercentages = null;
+		}}
+		onpointerdown={() => {
+			hoverDataSeats = null;
+			hoverDataPercentages = null;
+		}}
+	>
 		<TitleBar
 			bind:visType
 			bind:visTypePrev
@@ -119,7 +129,18 @@
 			bind:hoverDataPercentages
 		/>
 	</div>
-	<VisDescription {visType} />
+	<div
+		onpointermove={() => {
+			hoverDataSeats = null;
+			hoverDataPercentages = null;
+		}}
+		onpointerdown={() => {
+			hoverDataSeats = null;
+			hoverDataPercentages = null;
+		}}
+	>
+		<VisDescription {visType} />
+	</div>
 	<div class="middle-container">
 		<svg
 			style:pointer-events={isAnimating ? 'none' : 'auto'}
@@ -280,7 +301,17 @@
 			{visType}
 		/>
 	</div>
-	<div class="bottom-container">
+	<div
+		class="bottom-container"
+		onpointermove={() => {
+			hoverDataSeats = null;
+			hoverDataPercentages = null;
+		}}
+		onpointerdown={() => {
+			hoverDataSeats = null;
+			hoverDataPercentages = null;
+		}}
+	>
 		<LegendGrid
 			legendWidth={mapWidth}
 			{visType}

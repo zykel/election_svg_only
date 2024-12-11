@@ -22,7 +22,7 @@ const getPositions = (mapWidth, mapHeight) => {
 		const positionsCurved = range(nrSeatsCurved).map((seatNr) => {
 			const angle = (seatNr / (nrSeatsCurved - 1)) * Math.PI - Math.PI;
 			const x = mapWidth / 2 + r * Math.cos(angle);
-			const y = mapHeight * 0.5 + r * Math.sin(angle);
+			const y = mapHeight * 0.42 + r * Math.sin(angle);
 			return { seatNr, x, y, angle, row };
 		});
 		const yOffset = rowDistance;

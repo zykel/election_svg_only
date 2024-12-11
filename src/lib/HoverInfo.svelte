@@ -20,6 +20,9 @@
 
 	let hoverInfoNode = $state(null);
 
+	const minWidth = 150;
+	const maxWidth = 200;
+
 	const getWidth = (textTitle, textBody, hoverData) => {
 		let width = 300;
 		if (textTitle !== null) {
@@ -61,12 +64,23 @@
 		return hovernodeClientRect.x - svgClientRect.x + hovernodeClientRect.width / 2;
 	};
 
-	const getY = () => {
+	const getYAndOffset = () => {
 		if (hoverData === null) return 0;
-		return hovernodeClientRect.y - svgClientRect.y - 5;
+		let y = hovernodeClientRect.y - svgClientRect.y - 5;
+		let offsetY = '-100%';
+		if (y - 200 < 0) {
+			y += hovernodeClientRect.height + 2 * 5;
+			offsetY = '0%';
+			if (y > svgClientRect.height - 200) {
+				y = 0;
+				offsetY = '110%';
+			}
+		}
+
+		return { y, offsetY };
 	};
 	let cx = $derived(getX());
-	let y = $derived(getY());
+	let { y, offsetY } = $derived(getYAndOffset());
 	let x = $derived(
 		Math.max(hoverBoxMargin, Math.min(mapWidth - width - hoverBoxMargin, cx - width / 2))
 	);
@@ -89,10 +103,24 @@
 	const bodyText = $derived(getBodyText());
 
 	const getOffsetX = () => {
-		if (hoverInfoNode === null) return 0;
-		return -hoverInfoNode.getBoundingClientRect().width / 2;
+		if (hoverInfoNode === null) return '0%';
+		let offset = '-50%';
+		if (cx - maxWidth / 2 < 0) offset = '0%';
+		if (cx + maxWidth / 2 > svgClientRect.width) offset = '-100%';
+
+		// deal with case where all borders are out of view
+		return offset;
 	};
 	const offsetX = $derived(getOffsetX());
+
+	const getOffsetY = () => {
+		if (hoverInfoNode === null) return '0%';
+		let offset = '-100%';
+		if (y - 200 < 0) offset = '0%';
+
+		// deal with case where all borders are out of view
+		return offset;
+	};
 	// calc(-{hoverInfoNode?.getBoundingClientRect().width}px * 0.5)
 </script>
 
@@ -101,11 +129,13 @@
 		bind:this={hoverInfoNode}
 		class="hover-info"
 		style="left: {cx}px; top: {y}px;"
-		style:transform="translate(0%, -100%)"
+		style:transform="translate({offsetX}, {offsetY})"
 	>
 		<div class="hover-info-color" style="background-color: {colorScale(hoverData.party)};"></div>
-		<div class="hover-info-content">
-			<p class="title-text" style="color: {colorScale(hoverData.party)};">{hoverData.party}</p>
+		<div class="hover-info-content" style:min-width="{minWidth}px" style:max-width="{maxWidth}px">
+			<p class="title-text" style="color: {colorScale(hoverData.party)};">
+				{hoverData.party}
+			</p>
 			<p>{bodyText}</p>
 		</div>
 	</div>

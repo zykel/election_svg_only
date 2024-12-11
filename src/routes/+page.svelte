@@ -26,7 +26,7 @@
 
 	const titleHeight = 50;
 	const mainContainerWidth = $derived(Math.min(600, vw100));
-	const mapWidth = 450;
+	const mapWidth = $derived(Math.max(450, mainContainerWidth));
 	const mapHeight = 600;
 	const legendHeight = 200;
 </script>

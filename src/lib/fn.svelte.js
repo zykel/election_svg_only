@@ -28,5 +28,10 @@ export const normalizeName = (name) => {
 		.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
 		.join('Mc');
 
+	nameTransformed = nameTransformed
+		.split('Mac')
+		.map((word, i) => (i > 0 ? ' ' : '') + word.charAt(0).toUpperCase() + word.slice(1))
+		.join('Mac');
+
 	return nameTransformed;
 };

@@ -6,7 +6,9 @@
 		visType = $bindable(),
 		visTypePrev = $bindable(),
 		tl = $bindable(),
-		isAnimating
+		isAnimating,
+		hoverDataSeats = $bindable(),
+		hoverDataPercentages = $bindable()
 	} = $props();
 </script>
 
@@ -16,6 +18,12 @@
 		if (visType !== visTypeToCheckFor && !isAnimating) {
 			visTypePrev = visType;
 			visType = visTypeToCheckFor;
+			// Set hoverData to 0 if the vis category changes
+			if ([visType, visTypePrev].includes('percentages')) {
+				hoverDataSeats = null;
+				hoverDataPercentages = null;
+			}
+
 			tl = gsap.timeline({
 				onComplete: () => {
 					// Do something at the end of the timeline

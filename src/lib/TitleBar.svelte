@@ -6,7 +6,9 @@
 		visType = $bindable(),
 		visTypePrev = $bindable(),
 		tl = $bindable(),
-		isAnimating
+		isAnimating,
+		hoverDataSeats = $bindable(),
+		hoverDataPercentages = $bindable()
 	} = $props();
 </script>
 
@@ -16,13 +18,23 @@
 	</div>
 
 	<div class="title-button-container">
-		<VisTypeButton visTypeToCheckFor={'map'} bind:visType bind:visTypePrev bind:tl {isAnimating} />
+		<VisTypeButton
+			visTypeToCheckFor={'map'}
+			bind:visType
+			bind:visTypePrev
+			bind:tl
+			{isAnimating}
+			bind:hoverDataSeats
+			bind:hoverDataPercentages
+		/>
 		<VisTypeButton
 			visTypeToCheckFor={'parliament'}
 			bind:visType
 			bind:visTypePrev
 			bind:tl
 			{isAnimating}
+			bind:hoverDataSeats
+			bind:hoverDataPercentages
 		/>
 		<VisTypeButton
 			visTypeToCheckFor={'barchart'}
@@ -30,6 +42,8 @@
 			bind:visTypePrev
 			bind:tl
 			{isAnimating}
+			bind:hoverDataSeats
+			bind:hoverDataPercentages
 		/>
 		<VisTypeButton
 			visTypeToCheckFor={'percentages'}
@@ -37,6 +51,8 @@
 			bind:visTypePrev
 			bind:tl
 			{isAnimating}
+			bind:hoverDataSeats
+			bind:hoverDataPercentages
 		/>
 	</div>
 </div>
@@ -46,8 +62,8 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		background-color: #e1e1e1;
-		padding: 10px;
+		background-color: hsl(144 48% 71% / 1); /*#aedbb5;*/
+		padding: 10px 15px;
 		font-family: 'Inter', sans-serif;
 	}
 
@@ -57,7 +73,7 @@
 
 	@media (max-width: 400px) {
 		.title-bar-container {
-			padding: 5px;
+			padding: 5px 15px;
 		}
 	}
 </style>

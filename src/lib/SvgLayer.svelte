@@ -20,6 +20,7 @@
 	import BarchartLabel from '$lib/BarchartLabel.svelte';
 	import BarchartValueLabel from '$lib/BarchartValueLabel.svelte';
 	import PercentagesYearLabels from '$lib/PercentagesYearLabels.svelte';
+	import VisDescription from '$lib/VisDescription.svelte';
 
 	let {
 		svgLayer = $bindable(),
@@ -29,8 +30,7 @@
 		dataSeatCounts2019,
 		titleHeight,
 		mapWidth,
-		mapHeight,
-		legendHeight
+		mapHeight
 	} = $props();
 
 	let visType = $state('map');
@@ -110,8 +110,16 @@
 
 <div class="main-container">
 	<div class="top-container">
-		<TitleBar bind:visType bind:visTypePrev bind:tl {isAnimating} />
+		<TitleBar
+			bind:visType
+			bind:visTypePrev
+			bind:tl
+			{isAnimating}
+			bind:hoverDataSeats
+			bind:hoverDataPercentages
+		/>
 	</div>
+	<VisDescription {visType} />
 	<div class="middle-container">
 		<svg
 			style:pointer-events={isAnimating ? 'none' : 'auto'}
@@ -275,7 +283,6 @@
 	<div class="bottom-container">
 		<LegendGrid
 			legendWidth={mapWidth}
-			{legendHeight}
 			{visType}
 			{dataSeats}
 			{dataPercentages}
@@ -289,8 +296,10 @@
 		display: flex;
 		flex-direction: column;
 		height: 100vh;
+		max-height: 1000px;
 		justify-content: space-between;
 		align-items: center;
+		background: white;
 	}
 	.top-container,
 	.bottom-container {
@@ -299,7 +308,7 @@
 	}
 	.middle-container {
 		/* flex: 1 1 auto; Allow the SVG to grow and shrink */
-		height: 70%;
+		height: 55%;
 		display: flex;
 		justify-content: center; /* Center the SVG horizontally */
 		align-items: center; /* Center the SVG vertically */

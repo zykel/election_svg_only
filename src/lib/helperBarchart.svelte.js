@@ -18,7 +18,7 @@ const getXScale = (data, mapWidth) => {
 const getYScale = (mapHeight) => {
 	const scale = scaleBand()
 		.domain([...parties].reverse())
-		.range([mapHeight - margin, margin])
+		.range([mapHeight - margin / 2, margin / 2])
 		.paddingInner(0.2);
 
 	return scale;

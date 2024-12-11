@@ -1,8 +1,7 @@
 <script>
 	import { parties, colorScale } from '$lib/p.svelte.js';
 
-	let { legendHeight, legendWidth, visType, dataSeats, dataPercentages, dataSeatCounts2019 } =
-		$props();
+	let { legendWidth, visType, dataSeats, dataPercentages, dataSeatCounts2019 } = $props();
 
 	const margin = 10;
 

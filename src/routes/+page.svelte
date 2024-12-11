@@ -28,7 +28,6 @@
 	const mainContainerWidth = $derived(Math.min(600, vw100));
 	const mapWidth = $derived(Math.max(450, mainContainerWidth));
 	const mapHeight = 600;
-	const legendHeight = 200;
 </script>
 
 <div id="main-content" bind:clientWidth={vw100}>
@@ -42,7 +41,6 @@
 			{titleHeight}
 			{mapWidth}
 			{mapHeight}
-			{legendHeight}
 		/>
 	</div>
 </div>
@@ -51,14 +49,11 @@
 	:global(body) {
 		font-family: 'Inter', sans-serif;
 		margin: 0px;
+		background: hsl(144 48% 71% / 0.2); /*#aedbb55e; #abffbc36; */
 	}
 
 	#main-content {
 		display: flex;
 		justify-content: center;
-	}
-
-	#mapbox-map-container,
-	#svg-map-container {
 	}
 </style>

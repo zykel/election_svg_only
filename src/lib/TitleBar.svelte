@@ -1,5 +1,6 @@
 <script>
 	import VisTypeButton from '$lib/VisTypeButton.svelte';
+	import VisTypeButtonSvg from '$lib/VisTypeButtonSvg.svelte';
 
 	let {
 		visTypeToCheckFor,
@@ -18,7 +19,7 @@
 	</div>
 
 	<div class="title-button-container">
-		<VisTypeButton
+		<!-- <VisTypeButton
 			visTypeToCheckFor={'map'}
 			bind:visType
 			bind:visTypePrev
@@ -44,9 +45,9 @@
 			{isAnimating}
 			bind:hoverDataSeats
 			bind:hoverDataPercentages
-		/>
-		<VisTypeButton
-			visTypeToCheckFor={'percentages'}
+		/> -->
+		<VisTypeButtonSvg
+			visTypeToCheckFor={'barchart'}
 			bind:visType
 			bind:visTypePrev
 			bind:tl
@@ -54,6 +55,15 @@
 			bind:hoverDataSeats
 			bind:hoverDataPercentages
 		/>
+		<!-- <VisTypeButton
+			visTypeToCheckFor={'percentages'}
+			bind:visType
+			bind:visTypePrev
+			bind:tl
+			{isAnimating}
+			bind:hoverDataSeats
+			bind:hoverDataPercentages
+		/> -->
 	</div>
 </div>
 
@@ -63,8 +73,12 @@
 		justify-content: space-between;
 		align-items: center;
 		background-color: hsl(144 48% 71% / 1); /*#aedbb5;*/
-		padding: 10px 15px;
+		padding: 0px 15px;
 		font-family: 'Inter', sans-serif;
+	}
+
+	.title-button-container {
+		height: 3.5rem;
 	}
 
 	h1 {
@@ -73,7 +87,7 @@
 
 	@media (max-width: 400px) {
 		.title-bar-container {
-			padding: 5px 15px;
+			padding: 0px 15px;
 		}
 	}
 </style>

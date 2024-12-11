@@ -49,7 +49,6 @@ const getPositions = (mapWidth, mapHeight) => {
 	// To ensure that the seats for different parties are in block-like order, sort them by angle
 	positions.sort((a, b) => (a.angle < b.angle ? -1 : 1));
 
-	console.log('positions length', positions.length);
 	return positions;
 };
 

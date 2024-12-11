@@ -7,8 +7,6 @@
 	let text20 = $state(null);
 	let text24 = $state(null);
 
-	console.log(rectData);
-
 	$effect(() => {
 		if (text20) {
 			text20.style.display = 'block';

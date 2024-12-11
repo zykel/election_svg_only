@@ -1,5 +1,6 @@
 <script>
 	import { colorScale } from './p.svelte';
+	import { normalizeName } from '$lib/fn.svelte.js';
 
 	let { data, hoverData, mapWidth, mapHeight, visType } = $props();
 
@@ -69,9 +70,15 @@
 				(d) => d.properties.idx === hoverData.idx
 			).properties;
 			return `
-				<span>${hoverData.area_seat.split('_')[0]}</span><br>
-				<span>Seat ${seatProperties.placement.split('/')[0]} of ${seatProperties.placement.split('/')[1]}</span><br>
-				<span>${seatProperties.first_name} ${seatProperties.surname}</span>
+				<p class="hoverinfo-bodyline">
+					${hoverData.area_seat.split('_')[0]}
+				</p>
+				<p class="hoverinfo-bodyline">
+					Seat ${seatProperties.placement.split('/')[0]} of ${seatProperties.placement.split('/')[1]}
+				</p>
+				<p class="hoverinfo-bodyline">
+					${seatProperties.first_name} ${normalizeName(seatProperties.surname)}
+				</p>
 				
 			`;
 		} else {
@@ -103,25 +110,25 @@
 	.hover-info {
 		position: absolute;
 		background-color: white;
-		border: 1px solid black;
-		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+		box-shadow: 0 0 7px 1px rgb(0 0 0 / 40%);
 		pointer-events: none;
 		display: flex;
 	}
 	.hover-info-color {
-		width: 5px;
-		height: 100%;
+		width: 6px;
 	}
 	.hover-info-content {
-		padding: 10px;
+		padding: 10px 15px;
 		flex-grow: 1;
+	}
+	p {
+		margin: 0px 0px 9px 0px;
 	}
 	.title-text {
 		font-weight: bold;
-		margin: 0;
+		margin-top: 3px;
 	}
-	p {
-		font-family: 'Inter', sans-serif;
+	:global(.hoverinfo-bodyline) {
 		margin: 3px 0;
 	}
 

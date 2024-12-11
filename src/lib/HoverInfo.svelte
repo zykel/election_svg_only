@@ -13,7 +13,6 @@
 	let textBody = $state(null);
 
 	const hoverBoxMargin = 5;
-	// const width = 200;
 	const height = 50;
 	const strokeWidth = 0;
 
@@ -26,16 +25,23 @@
 
 	const getX = () => {
 		if (hoverData === null) return 0;
-		return hovernodeClientRect.x - svgClientRect.x + hovernodeClientRect.width / 2;
+		let x = hovernodeClientRect.x - svgClientRect.x + hovernodeClientRect.width / 2;
+		// Deal with case where all borders are out of view
+		if (x < 0) x += hovernodeClientRect.width / 2;
+		if (x > svgClientRect.width) x -= hovernodeClientRect.width / 2;
+
+		return x;
 	};
+	let x = $derived(getX());
 
 	const getYAndOffset = () => {
-		if (hoverData === null) return 0;
+		if (hoverData === null) return { y: 0, offsetY: '0%' };
 		let y = hovernodeClientRect.y - svgClientRect.y - 5;
 		let offsetY = '-100%';
 		if (y - 200 < 0) {
 			y += hovernodeClientRect.height + 2 * 5;
 			offsetY = '0%';
+			// Deal with case where all borders are out of view
 			if (y > svgClientRect.height - 200) {
 				y = 0;
 				offsetY = '110%';
@@ -44,8 +50,17 @@
 
 		return { y, offsetY };
 	};
-	let x = $derived(getX());
 	let { y, offsetY } = $derived(getYAndOffset());
+
+	const getOffsetX = () => {
+		if (hoverInfoNode === null) return '0%';
+		let offset = '-50%';
+		if (x - maxWidth / 2 < 0) offset = '0%';
+		if (x + maxWidth / 2 > svgClientRect.width) offset = '-100%';
+
+		return offset;
+	};
+	const offsetX = $derived(getOffsetX());
 
 	const getBodyText = () => {
 		if (hoverData === null) return '';
@@ -63,27 +78,6 @@
 	};
 
 	const bodyText = $derived(getBodyText());
-
-	const getOffsetX = () => {
-		if (hoverInfoNode === null) return '0%';
-		let offset = '-50%';
-		if (x - maxWidth / 2 < 0) offset = '0%';
-		if (x + maxWidth / 2 > svgClientRect.width) offset = '-100%';
-
-		// deal with case where all borders are out of view
-		return offset;
-	};
-	const offsetX = $derived(getOffsetX());
-
-	const getOffsetY = () => {
-		if (hoverInfoNode === null) return '0%';
-		let offset = '-100%';
-		if (y - 200 < 0) offset = '0%';
-
-		// deal with case where all borders are out of view
-		return offset;
-	};
-	// calc(-{hoverInfoNode?.getBoundingClientRect().width}px * 0.5)
 </script>
 
 {#if hoverData !== null}

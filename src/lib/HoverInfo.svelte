@@ -3,49 +3,14 @@
 
 	let { data, hoverData, mapWidth, mapHeight, visType } = $props();
 
-	// const getY = (hoverData) => {
-	// 	let y = 0;
-	// 	if (hoverData !== null) {
-	// 		y = hoverData.node.getBBox().y - height - hoverBoxMargin;
-	// 		if (y < hoverBoxMargin) {
-	// 			y = hoverData.node.getBBox().y + hoverData.node.getBBox().height + hoverBoxMargin;
-	// 		}
-	// 		if (y + height > mapHeight - hoverBoxMargin) {
-	// 			y = hoverBoxMargin;
-	// 		}
-	// 	}
-
-	// 	return y;
-	// };
-
 	let hoverInfoNode = $state(null);
 
 	const minWidth = 150;
 	const maxWidth = 200;
 
-	const getWidth = (textTitle, textBody, hoverData) => {
-		let width = 300;
-		if (textTitle !== null) {
-			width = textTitle.getBBox().width + 20;
-		}
-		if (textBody !== null) {
-			width = Math.max(width, textBody.getBBox().width + 20);
-		}
-		return width;
-	};
-
-	const getWidthG = (textGroup, hoverData) => {
-		let width = 300;
-		if (textGroup !== null) {
-			width = textGroup.getBBox().width + 20;
-		}
-		return width;
-	};
-
 	let textGroup = $state(null);
 	let textTitle = $state(null);
 	let textBody = $state(null);
-	const width = $derived(getWidth(textTitle, textBody, hoverData));
 
 	const hoverBoxMargin = 5;
 	// const width = 200;
@@ -79,11 +44,8 @@
 
 		return { y, offsetY };
 	};
-	let cx = $derived(getX());
+	let x = $derived(getX());
 	let { y, offsetY } = $derived(getYAndOffset());
-	let x = $derived(
-		Math.max(hoverBoxMargin, Math.min(mapWidth - width - hoverBoxMargin, cx - width / 2))
-	);
 
 	const getBodyText = () => {
 		if (hoverData === null) return '';
@@ -105,8 +67,8 @@
 	const getOffsetX = () => {
 		if (hoverInfoNode === null) return '0%';
 		let offset = '-50%';
-		if (cx - maxWidth / 2 < 0) offset = '0%';
-		if (cx + maxWidth / 2 > svgClientRect.width) offset = '-100%';
+		if (x - maxWidth / 2 < 0) offset = '0%';
+		if (x + maxWidth / 2 > svgClientRect.width) offset = '-100%';
 
 		// deal with case where all borders are out of view
 		return offset;
@@ -128,7 +90,7 @@
 	<div
 		bind:this={hoverInfoNode}
 		class="hover-info"
-		style="left: {cx}px; top: {y}px;"
+		style="left: {x}px; top: {y}px;"
 		style:transform="translate({offsetX}, {offsetY})"
 	>
 		<div class="hover-info-color" style="background-color: {colorScale(hoverData.party)};"></div>

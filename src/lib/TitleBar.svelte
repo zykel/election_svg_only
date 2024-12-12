@@ -1,6 +1,7 @@
 <script>
 	import VisTypeButton from '$lib/VisTypeButton.svelte';
-	import VisTypeButtonSvg from '$lib/VisTypeButtonSvg.svelte';
+	import VisTypeButtonPercentages from '$lib/VisTypeButtonPercentages.svelte';
+	import VisTypeButtonBarchart from '$lib/VisTypeButtonBarchart.svelte';
 
 	let {
 		visTypeToCheckFor,
@@ -11,6 +12,10 @@
 		hoverDataSeats = $bindable(),
 		hoverDataPercentages = $bindable()
 	} = $props();
+
+	const color = 'gray';
+	const w = 80;
+	const h = 100;
 </script>
 
 <div class="title-bar-container">
@@ -46,7 +51,7 @@
 			bind:hoverDataSeats
 			bind:hoverDataPercentages
 		/> -->
-		<VisTypeButtonSvg
+		<VisTypeButtonBarchart
 			visTypeToCheckFor={'barchart'}
 			bind:visType
 			bind:visTypePrev
@@ -54,6 +59,21 @@
 			{isAnimating}
 			bind:hoverDataSeats
 			bind:hoverDataPercentages
+			{color}
+			{w}
+			{h}
+		/>
+		<VisTypeButtonPercentages
+			visTypeToCheckFor={'percentages'}
+			bind:visType
+			bind:visTypePrev
+			bind:tl
+			{isAnimating}
+			bind:hoverDataSeats
+			bind:hoverDataPercentages
+			{color}
+			{w}
+			{h}
 		/>
 		<!-- <VisTypeButton
 			visTypeToCheckFor={'percentages'}

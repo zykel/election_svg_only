@@ -9,14 +9,14 @@
 		tl = $bindable(),
 		isAnimating,
 		hoverDataSeats = $bindable(),
-		hoverDataPercentages = $bindable()
+		hoverDataPercentages = $bindable(),
+		color,
+		w,
+		h
 	} = $props();
 
-	const marginVert = 30;
-	const marginHor = 10;
-
-	const w = 80;
-	const h = 100;
+	const marginVert = h / 4;
+	const marginHor = w / 8;
 
 	const parties = [0, 1, 2];
 	const nrRects = [range(2), range(6), range(5)];
@@ -44,7 +44,8 @@
 </script>
 
 <svg
-	style:height="3.5rem"
+	style:opacity={isAnimating ? 0.5 : 1}
+	class="vis-type-button-svg"
 	viewBox="0 0 {w} {h}"
 	onclick={() => {
 		if (visType !== visTypeToCheckFor && !isAnimating) {
@@ -66,7 +67,16 @@
 	}}
 >
 	{#each rectData as { x, y, width, height }}
-		<rect {x} {y} {width} {height} />
+		<rect {x} {y} {width} {height} fill={color} />
 	{/each}
-	<rect x="0" y={h - 10} width={w} height={10}> </rect>
+	{#if visType == visTypeToCheckFor}
+		<rect x="0" y={h - 10} width={w} height={10} fill={color} />
+	{/if}
 </svg>
+
+<style>
+	.vis-type-button-svg {
+		cursor: pointer;
+		height: 3.5rem;
+	}
+</style>

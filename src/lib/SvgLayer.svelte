@@ -327,6 +327,7 @@
 		display: flex;
 		flex-direction: column;
 		height: 100vh;
+		height: 100svh;
 		max-height: 1000px;
 		justify-content: space-between;
 		align-items: center;

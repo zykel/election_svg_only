@@ -12,11 +12,10 @@
 		hoverDataPercentages = $bindable(),
 		color,
 		w,
-		h
+		h,
+		marginVert,
+		marginHor
 	} = $props();
-
-	const marginVert = h / 4;
-	const marginHor = w / 8;
 
 	const parties = [0, 1];
 	const years = [0, 1];
@@ -28,10 +27,10 @@
 		.range([marginVert, h - marginVert])
 		.padding(0.2);
 	const values = [
-		{ party: 0, year: 0, value: 0.4 },
-		{ party: 0, year: 1, value: 0.5 },
-		{ party: 1, year: 0, value: 0.6 },
-		{ party: 1, year: 1, value: 0.7 }
+		{ party: 0, year: 0, value: 0.5 },
+		{ party: 0, year: 1, value: 0.6 },
+		{ party: 1, year: 0, value: 0.9 },
+		{ party: 1, year: 1, value: 1 }
 	];
 
 	const rectData = parties
@@ -42,7 +41,7 @@
 				return {
 					x: xScale(0),
 					y: yScale(party) + yOffset,
-					width: xScale(value),
+					width: xScale(value) - xScale(0),
 					height: yScale.bandwidth() * 0.6,
 					opacity: year === 0 ? 0.6 : 1
 				};

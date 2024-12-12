@@ -4,6 +4,8 @@
 
 	let { tl, x, y, party, value, opacity, delayAnimation, changingVisCategory = false } = $props();
 
+	const opacityInitial = 0;
+
 	let textNode = $state(null);
 	let textNodeWhite = $state(null);
 
@@ -61,6 +63,7 @@
 
 <text
 	bind:this={textNodeWhite}
+	opacity={opacityInitial}
 	x={x + 10}
 	y={y + fontSize * 0.4}
 	font-size={fontSize}
@@ -73,6 +76,7 @@
 </text>
 <text
 	bind:this={textNode}
+	opacity={opacityInitial}
 	x={x + 10}
 	y={y + fontSize * 0.4}
 	font-size={fontSize}

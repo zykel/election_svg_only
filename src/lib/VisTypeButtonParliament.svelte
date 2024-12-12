@@ -12,11 +12,10 @@
 		hoverDataPercentages = $bindable(),
 		color,
 		w,
-		h
+		h,
+		marginVert,
+		marginHor
 	} = $props();
-
-	const marginVert = h / 4;
-	const marginHor = w / 8;
 
 	export const getPositions = (mapWidth, mapHeight) => {
 		const nrSeatsPerRow = {

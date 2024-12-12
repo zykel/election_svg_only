@@ -4,6 +4,8 @@
 
 	let { tl, rectData, opacity, delayAnimation } = $props();
 
+	const opacityInitial = 0;
+
 	let text20 = $state(null);
 	let text24 = $state(null);
 
@@ -61,6 +63,7 @@
 
 <text
 	bind:this={text20}
+	opacity={opacityInitial}
 	x={rectData.find((d) => d.year === 2020).x + 1}
 	y={rectData.find((d) => d.year === 2020).y + fontSize - 2}
 	font-size={fontSize}
@@ -71,6 +74,7 @@
 </text>
 <text
 	bind:this={text24}
+	opacity={opacityInitial}
 	x={rectData.find((d) => d.year === 2024).x + 1}
 	y={rectData.find((d) => d.year === 2024).y + fontSize - 2}
 	font-size={fontSize}

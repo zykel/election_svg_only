@@ -4,6 +4,8 @@
 
 	let { tl, x, y, party, opacity, delayAnimation, changingVisCategory = false } = $props();
 
+	const opacityInitial = 0;
+
 	let textNode = $state(null);
 
 	$effect(() => {
@@ -36,6 +38,7 @@
 
 <text
 	bind:this={textNode}
+	opacity={opacityInitial}
 	x={x - 10}
 	y={y + fontSize * 0.35}
 	font-size={fontSize}

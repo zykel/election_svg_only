@@ -13,11 +13,10 @@
 		hoverDataPercentages = $bindable(),
 		color,
 		w,
-		h
+		h,
+		marginVert,
+		marginHor
 	} = $props();
-
-	const marginVert = h / 4;
-	const marginHor = w / 8;
 
 	const parties = [0, 1, 2];
 	const nrRects = [range(2), range(6), range(5)];
@@ -44,6 +43,9 @@
 		.flat();
 
 	// const svgPath = '/electoral_map_icon.svg';
+	const hardcodedPathWidth = 68;
+	const scaleFactor = (h - 2 * marginVert) / h;
+	const scaledPathWidth = hardcodedPathWidth * scaleFactor;
 </script>
 
 <svg
@@ -69,7 +71,7 @@
 		}
 	}}
 >
-	<g transform="translate({w * 0.3},{marginVert}) scale({(h - 2 * marginVert) / h})">
+	<g transform="translate({w / 2 - scaledPathWidth / 2},{marginVert}) scale({scaleFactor})">
 		<IrelandIconPath fill={color} />
 	</g>
 	{#if visType == visTypeToCheckFor}

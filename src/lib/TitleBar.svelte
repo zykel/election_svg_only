@@ -15,14 +15,17 @@
 		hoverDataPercentages = $bindable()
 	} = $props();
 
-	const color = 'rgb(80, 80, 80)';
-	const w = 80;
+	const color = 'rgb(40, 40, 40)';
+	const w = 70;
 	const h = 100;
+
+	const marginVert = h / 4;
+	const marginHor = w / 8;
 </script>
 
 <div class="title-bar-container">
 	<div class="title-text-container">
-		<h1>Toghchán '24</h1>
+		<h1 style:color>Toghchán '24</h1>
 	</div>
 
 	<div class="title-button-container">
@@ -64,6 +67,8 @@
 			{color}
 			{w}
 			{h}
+			{marginVert}
+			{marginHor}
 		/>
 		<VisTypeButtonParliament
 			visTypeToCheckFor={'parliament'}
@@ -76,6 +81,8 @@
 			{color}
 			{w}
 			{h}
+			{marginVert}
+			{marginHor}
 		/>
 		<VisTypeButtonBarchart
 			visTypeToCheckFor={'barchart'}
@@ -88,6 +95,8 @@
 			{color}
 			{w}
 			{h}
+			{marginVert}
+			{marginHor}
 		/>
 		<VisTypeButtonPercentages
 			visTypeToCheckFor={'percentages'}
@@ -100,6 +109,8 @@
 			{color}
 			{w}
 			{h}
+			{marginVert}
+			{marginHor}
 		/>
 		<!-- <VisTypeButton
 			visTypeToCheckFor={'percentages'}

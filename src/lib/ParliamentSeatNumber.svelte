@@ -4,6 +4,7 @@
 
 	let { tl, mapWidth, mapHeight, opacity, delayAnimation, changingVisCategory = false } = $props();
 
+	const opacityInitial = 0;
 	const yAnchor = mapHeight * 0.94;
 
 	const fontsizeNumber = 57;
@@ -37,7 +38,7 @@
 	});
 </script>
 
-<g bind:this={textG}>
+<g bind:this={textG} opacity={opacityInitial}>
 	<text
 		class="parliament-legend-number"
 		x={mapWidth / 2}

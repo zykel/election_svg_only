@@ -46,6 +46,11 @@
 </div>
 
 <style>
+	@media (max-width: 400px) {
+		:global(html) {
+			font-size: 14px;
+		}
+	}
 	:global(body) {
 		font-family: 'Inter', sans-serif;
 		margin: 0px;

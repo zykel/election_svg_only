@@ -12,11 +12,10 @@
 		hoverDataPercentages = $bindable(),
 		color,
 		w,
-		h
+		h,
+		marginVert,
+		marginHor
 	} = $props();
-
-	const marginVert = h / 4;
-	const marginHor = w / 8;
 
 	const parties = [0, 1, 2];
 	const nrRects = [range(2), range(6), range(5)];

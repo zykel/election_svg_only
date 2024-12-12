@@ -2,6 +2,8 @@
 	import VisTypeButton from '$lib/VisTypeButton.svelte';
 	import VisTypeButtonPercentages from '$lib/VisTypeButtonPercentages.svelte';
 	import VisTypeButtonBarchart from '$lib/VisTypeButtonBarchart.svelte';
+	import VisTypeButtonParliament from '$lib/VisTypeButtonParliament.svelte';
+	import VisTypeButtonMap from '$lib/VisTypeButtonMap.svelte';
 
 	let {
 		visTypeToCheckFor,
@@ -13,7 +15,7 @@
 		hoverDataPercentages = $bindable()
 	} = $props();
 
-	const color = 'gray';
+	const color = 'rgb(80, 80, 80)';
 	const w = 80;
 	const h = 100;
 </script>
@@ -32,8 +34,8 @@
 			{isAnimating}
 			bind:hoverDataSeats
 			bind:hoverDataPercentages
-		/>
-		<VisTypeButton
+		/> -->
+		<!-- <VisTypeButton
 			visTypeToCheckFor={'parliament'}
 			bind:visType
 			bind:visTypePrev
@@ -41,8 +43,8 @@
 			{isAnimating}
 			bind:hoverDataSeats
 			bind:hoverDataPercentages
-		/>
-		<VisTypeButton
+		/> -->
+		<!-- <VisTypeButton
 			visTypeToCheckFor={'barchart'}
 			bind:visType
 			bind:visTypePrev
@@ -51,6 +53,30 @@
 			bind:hoverDataSeats
 			bind:hoverDataPercentages
 		/> -->
+		<VisTypeButtonMap
+			visTypeToCheckFor={'map'}
+			bind:visType
+			bind:visTypePrev
+			bind:tl
+			{isAnimating}
+			bind:hoverDataSeats
+			bind:hoverDataPercentages
+			{color}
+			{w}
+			{h}
+		/>
+		<VisTypeButtonParliament
+			visTypeToCheckFor={'parliament'}
+			bind:visType
+			bind:visTypePrev
+			bind:tl
+			{isAnimating}
+			bind:hoverDataSeats
+			bind:hoverDataPercentages
+			{color}
+			{w}
+			{h}
+		/>
 		<VisTypeButtonBarchart
 			visTypeToCheckFor={'barchart'}
 			bind:visType

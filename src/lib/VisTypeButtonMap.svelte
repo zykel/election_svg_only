@@ -1,6 +1,7 @@
 <script>
-	import { scaleBand, scaleLinear, range, max } from 'd3';
+	import { scaleBand, range, max } from 'd3';
 	import gsap from 'gsap-trial/dist/gsap';
+	import IrelandIconPath from '$lib/IrelandIconPath.svelte';
 
 	let {
 		visTypeToCheckFor,
@@ -18,37 +19,31 @@
 	const marginVert = h / 4;
 	const marginHor = w / 8;
 
-	const parties = [0, 1];
-	const years = [0, 1];
-	const xScale = scaleLinear()
-		.domain([0, 1])
-		.range([marginHor, w - marginHor]);
+	const parties = [0, 1, 2];
+	const nrRects = [range(2), range(6), range(5)];
+	const xScale = scaleBand()
+		.domain(range(max(nrRects, (arr) => arr.length)))
+		.range([marginHor, w - marginHor])
+		.padding(0.3);
 	const yScale = scaleBand()
 		.domain(parties)
 		.range([marginVert, h - marginVert])
 		.padding(0.2);
-	const values = [
-		{ party: 0, year: 0, value: 0.4 },
-		{ party: 0, year: 1, value: 0.5 },
-		{ party: 1, year: 0, value: 0.6 },
-		{ party: 1, year: 1, value: 0.7 }
-	];
 
 	const rectData = parties
 		.map((party) => {
-			return years.map((year) => {
-				const value = values.find((v) => v.party === party && v.year === year).value;
-				const yOffset = year === 0 ? 0 : yScale.bandwidth() / 2;
+			return nrRects[party].map((rectNr) => {
 				return {
-					x: xScale(0),
-					y: yScale(party) + yOffset,
-					width: xScale(value),
-					height: yScale.bandwidth() * 0.6,
-					opacity: year === 0 ? 0.6 : 1
+					x: xScale(rectNr),
+					y: yScale(party),
+					width: xScale.bandwidth(),
+					height: yScale.bandwidth()
 				};
 			});
 		})
 		.flat();
+
+	// const svgPath = '/electoral_map_icon.svg';
 </script>
 
 <svg
@@ -74,9 +69,9 @@
 		}
 	}}
 >
-	{#each rectData as { x, y, width, height, opacity }}
-		<rect {x} {y} {width} {height} {opacity} fill={color} />
-	{/each}
+	<g transform="translate({w * 0.3},{marginVert}) scale({(h - 2 * marginVert) / h})">
+		<IrelandIconPath fill={color} />
+	</g>
 	{#if visType == visTypeToCheckFor}
 		<rect x="0" y={h - 10} width={w} height={10} fill={color} />
 	{/if}

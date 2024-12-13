@@ -40,12 +40,10 @@
 		let y = hovernodeClientRect.y - svgClientRect.y - 5;
 		let offsetY = '-100%';
 		if (y - 150 < 0) {
-			console.log('y - 200 < 0');
 			y += hovernodeClientRect.height + 2 * 5;
 			offsetY = '0%';
 			// Deal with case where all borders are out of view
 			if (y > svgClientRect.height - 150) {
-				console.log('y > svgClientRect.height - 200');
 				y = 0;
 				offsetY = '110%';
 			}

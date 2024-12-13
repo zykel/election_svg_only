@@ -14,8 +14,6 @@
 
 	// topology => topojson.feature(topology, topology.objects.states)
 
-	// console.log(data);
-
 	let lng = -7.807195714694519;
 	let lat = 53.41035563891312;
 	let zoom = 5;

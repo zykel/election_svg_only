@@ -96,7 +96,7 @@
 <path
 	bind:this={seatPath}
 	onpointermove={updatehoverDataSeats}
-	onpointerenter={updatehoverDataSeats}
+	onpointerdown={updatehoverDataSeats}
 	id="path-{idx}-{area_seat}"
 	class="seat-path"
 	d={pathStringInitial}

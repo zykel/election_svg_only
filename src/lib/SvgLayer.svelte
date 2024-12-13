@@ -107,6 +107,13 @@
 			hoverDataPercentages = null;
 		}
 	});
+
+	// let idHoveredLast = $state(null);
+	// $effect(() => {
+	// 	if (hoverDataSeats !== null) {
+	// 		idHoveredLast = `#path-${hoverDataSeats.idx}-${hoverDataSeats.area_seat}`;
+	// 	}
+	// });
 </script>
 
 <div class="main-container">

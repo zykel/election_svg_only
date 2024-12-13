@@ -6,7 +6,7 @@
 
 		if (visType === 'map') {
 			text =
-				'In the map view, the constituencies were divided based on the seats they correspond to.';
+				'v1In the map view, the constituencies were divided based on the seats they correspond to.';
 		}
 		if (visType === 'parliament') {
 			text =

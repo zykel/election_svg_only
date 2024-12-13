@@ -16,6 +16,7 @@
 	} = $props();
 
 	const color = 'rgb(40, 40, 40)';
+	const backgroundColor = 'hsl(144 48% 71% / 1)';
 	const w = 70;
 	const h = 100;
 
@@ -23,7 +24,7 @@
 	const marginHor = w / 8;
 </script>
 
-<div class="title-bar-container">
+<div class="title-bar-container" style:background-color={backgroundColor}>
 	<div class="title-text-container">
 		<h1 style:color>Toghchán '24</h1>
 	</div>
@@ -129,7 +130,6 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		background-color: hsl(144 48% 71% / 1); /*#aedbb5;*/
 		padding: 0px 15px;
 		font-family: 'Inter', sans-serif;
 	}

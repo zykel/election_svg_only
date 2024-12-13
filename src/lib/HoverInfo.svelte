@@ -72,7 +72,7 @@
 				(d) => d.properties.idx === hoverData.idx
 			).properties;
 			return `
-				<p class="hoverinfo-title-text">
+				<p class="hoverinfo-title-text" style="text-transform: uppercase;">
 					${hoverData.area_seat.split('_')[0]}
 				</p>
 				<p class="hoverinfo-bodyline" style="font-weight: bold; color: ${colorScale(hoverData.party)};">

@@ -77,5 +77,9 @@
 	.vis-type-button-svg {
 		cursor: pointer;
 		height: 3.5rem;
+		background-color: hsl(144 48% 71% / 1);
+	}
+	.vis-type-button-svg:hover {
+		background-color: hsl(144 48% 79% / 1);
 	}
 </style>

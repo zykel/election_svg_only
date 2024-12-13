@@ -4,15 +4,12 @@
 	const getText = () => {
 		let text = '';
 
-		let vh100 = typeof window === 'undefined' ? '0' : window.innerHeight;
-		let vw100 = typeof window === 'undefined' ? '0' : window.innerWidth;
+		// let vh100 = typeof window === 'undefined' ? '0' : window.innerHeight;
+		// let vw100 = typeof window === 'undefined' ? '0' : window.innerWidth;
 
 		if (visType === 'map') {
 			text =
-				vh100 +
-				'.' +
-				vw100 +
-				'.In the map view, the constituencies were divided based on the seats they correspond to.';
+				'v3In the map view, the constituencies were divided based on the seats they correspond to.';
 		}
 		if (visType === 'parliament') {
 			text =
@@ -44,7 +41,7 @@
 		width: 100%;
 	}
 	.vis-description {
-		margin: 15px 15px 0 15px;
+		margin: 15px 15px 10px 15px;
 	}
 	@media (max-width: 400px) {
 		.vis-description {

@@ -9,22 +9,19 @@
 
 		if (visType === 'map') {
 			text =
-				mapWidth +
-				'.' +
-				mapHeight +
-				'.v8In the map view, the constituencies were divided based on the seats they correspond to.';
+				'Explore the results from the 2024 Irish General Election by constituency. Created by <a href="https://www.dataanddesign.ie" target="_blank" rel="noopener noreferrer">Data&Design</a>.';
 		}
 		if (visType === 'parliament') {
 			text =
-				'In this view, each circle corresponds to one of the 174 seats in the Irish parliament.';
+				'In this view, each circle corresponds to one of the 174 seats in the Dáil (the Irish parliament).';
 		}
 		if (visType === 'barchart') {
 			text =
-				'In this view, the seats for each party are grouped to compare how many seats each party received.';
+				'In this view, the seats for each party are grouped to compare the number of seats each party received.';
 		}
 		if (visType === 'percentages') {
 			text =
-				'The bars represent how many percent each party received in 2024 (saturated) and in 2020 (light).';
+				'This view shows the percentage of votes received in 2024 (saturated) and in 2020 (light).';
 		}
 
 		return text;
@@ -35,7 +32,7 @@
 
 <div>
 	<p class="vis-description">
-		{text}
+		{@html text}
 	</p>
 </div>
 

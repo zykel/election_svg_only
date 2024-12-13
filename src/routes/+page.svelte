@@ -28,6 +28,7 @@
 	onMount(() => {
 		svh100 = window.innerHeight;
 	});
+	// let svh100 = $derived(typeof window !== "undefined" ? window.innerHeight : 1)
 
 	const titleHeight = 50;
 	const mainContainerWidth = $derived(Math.min(600, vw100));

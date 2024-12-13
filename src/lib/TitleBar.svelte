@@ -140,6 +140,7 @@
 
 	h1 {
 		margin: 0.2rem 0;
+		font-size: 1.75rem;
 	}
 
 	@media (max-width: 400px) {

@@ -72,19 +72,29 @@
 				(d) => d.properties.idx === hoverData.idx
 			).properties;
 			return `
-				<p class="hoverinfo-bodyline">
+				<p class="hoverinfo-title-text">
 					${hoverData.area_seat.split('_')[0]}
 				</p>
-				<p class="hoverinfo-bodyline">
-					Seat ${seatProperties.placement.split('/')[0]} of ${seatProperties.placement.split('/')[1]}
+				<p class="hoverinfo-bodyline" style="font-weight: bold; color: ${colorScale(hoverData.party)};">
+					${hoverData.party}
 				</p>
 				<p class="hoverinfo-bodyline">
 					${seatProperties.first_name} ${normalizeName(seatProperties.surname)}
 				</p>
+				<p class="hoverinfo-bodyline">
+					Seat ${seatProperties.placement.split('/')[0]} of ${seatProperties.placement.split('/')[1]}
+				</p>
 				
 			`;
 		} else {
-			return `${hoverData.year}: ${(data.find((d) => d.year === hoverData.year && d.party === hoverData.party).percentage * 100).toFixed(1)}%`;
+			return `
+				<p class="hoverinfo-title-text" style="color: ${colorScale(hoverData.party)};">
+					${hoverData.party}
+				</p>
+				<p class="hoverinfo-bodyline">
+					${hoverData.year}: ${(data.find((d) => d.year === hoverData.year && d.party === hoverData.party).percentage * 100).toFixed(1)}%
+				</p>
+				`;
 		}
 	};
 
@@ -100,10 +110,7 @@
 	>
 		<div class="hover-info-color" style="background-color: {colorScale(hoverData.party)};"></div>
 		<div class="hover-info-content" style:min-width="{minWidth}px" style:max-width="{maxWidth}px">
-			<p class="title-text" style="color: {colorScale(hoverData.party)};">
-				{hoverData.party}
-			</p>
-			<p>{@html bodyText}</p>
+			{@html bodyText}
 		</div>
 	</div>
 {/if}
@@ -123,12 +130,9 @@
 		padding: 10px 15px;
 		flex-grow: 1;
 	}
-	p {
-		margin: 0px 0px 9px 0px;
-	}
-	.title-text {
+	:global(.hoverinfo-title-text) {
 		font-weight: bold;
-		margin-top: 3px;
+		margin: 0px 0px 3px 0px;
 	}
 	:global(.hoverinfo-bodyline) {
 		margin: 3px 0;

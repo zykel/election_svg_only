@@ -140,7 +140,7 @@
 			hoverDataPercentages = null;
 		}}
 	>
-		<VisDescription {visType} />
+		<VisDescription {visType} {mapWidth} {mapHeight} />
 	</div>
 	<div class="middle-container" style:height="{mapHeightPercent * 100}%">
 		<svg

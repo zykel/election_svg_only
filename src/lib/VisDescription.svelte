@@ -4,8 +4,8 @@
 	const getText = () => {
 		let text = '';
 
-		let vh100 = window?.innerHeight;
-		let vw100 = window?.innerWidth;
+		let vh100 = typeof window === 'undefined' ? '0' : window.innerHeight;
+		let vw100 = typeof window === 'undefined' ? '0' : window.innerWidth;
 
 		if (visType === 'map') {
 			text =

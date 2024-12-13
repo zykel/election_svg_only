@@ -12,7 +12,7 @@
 				mapWidth +
 				'.' +
 				mapHeight +
-				'.v5In the map view, the constituencies were divided based on the seats they correspond to.';
+				'.v6In the map view, the constituencies were divided based on the seats they correspond to.';
 		}
 		if (visType === 'parliament') {
 			text =

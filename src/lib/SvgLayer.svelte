@@ -30,7 +30,8 @@
 		dataSeatCounts2019,
 		titleHeight,
 		mapWidth,
-		mapHeight
+		mapHeight,
+		mapHeightPercent
 	} = $props();
 
 	let visType = $state('map');
@@ -141,7 +142,7 @@
 	>
 		<VisDescription {visType} />
 	</div>
-	<div class="middle-container">
+	<div class="middle-container" style:height="{mapHeightPercent * 100}%">
 		<svg
 			style:pointer-events={isAnimating ? 'none' : 'auto'}
 			bind:this={svgLayer}
@@ -340,7 +341,6 @@
 	}
 	.middle-container {
 		/* flex: 1 1 auto; Allow the SVG to grow and shrink */
-		height: 55%;
 		display: flex;
 		justify-content: center; /* Center the SVG horizontally */
 		align-items: center; /* Center the SVG vertically */

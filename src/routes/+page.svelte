@@ -23,11 +23,20 @@
 	let svgLayer = $state(null);
 
 	let vw100 = $state(10000);
+	let svh100 = $state(1);
+
+	onMount(() => {
+		svh100 = window.innerHeight;
+	});
 
 	const titleHeight = 50;
 	const mainContainerWidth = $derived(Math.min(600, vw100));
-	const mapWidth = $derived(Math.max(450, mainContainerWidth));
 	const mapHeight = 600;
+	const mapHeightPercent = 0.55;
+	// const mapWidth = $derived(Math.max(450, mainContainerWidth));
+	const mapWidth = $derived(
+		Math.min(600, (mainContainerWidth / (svh100 * mapHeightPercent)) * 600)
+	);
 </script>
 
 <div id="main-content" bind:clientWidth={vw100}>
@@ -41,6 +50,7 @@
 			{titleHeight}
 			{mapWidth}
 			{mapHeight}
+			{mapHeightPercent}
 		/>
 	</div>
 </div>

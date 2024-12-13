@@ -4,9 +4,15 @@
 	const getText = () => {
 		let text = '';
 
+		let vh100 = window?.innerHeight;
+		let vw100 = window?.innerWidth;
+
 		if (visType === 'map') {
 			text =
-				'v1In the map view, the constituencies were divided based on the seats they correspond to.';
+				vh100 +
+				'.' +
+				vw100 +
+				'.In the map view, the constituencies were divided based on the seats they correspond to.';
 		}
 		if (visType === 'parliament') {
 			text =

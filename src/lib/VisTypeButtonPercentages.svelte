@@ -48,13 +48,8 @@
 			});
 		})
 		.flat();
-</script>
 
-<svg
-	style:opacity={isAnimating ? 0.5 : 1}
-	class="vis-type-button-svg"
-	viewBox="0 0 {w} {h}"
-	onclick={() => {
+	const onclick = () => {
 		if (visType !== visTypeToCheckFor && !isAnimating) {
 			visTypePrev = visType;
 			visType = visTypeToCheckFor;
@@ -70,6 +65,21 @@
 					tl = null;
 				}
 			});
+		}
+	};
+</script>
+
+<svg
+	style:opacity={isAnimating ? 0.5 : 1}
+	class="vis-type-button-svg"
+	viewBox="0 0 {w} {h}"
+	role="button"
+	tabindex="0"
+	onclick={() => onclick()}
+	onkeydown={(e) => {
+		if (e.key === 'Enter' || e.key === ' ') {
+			e.preventDefault();
+			onclick();
 		}
 	}}
 >

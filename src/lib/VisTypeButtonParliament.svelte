@@ -66,38 +66,8 @@
 	};
 
 	const positions = getPositions(w, h);
-	// debugger;
 
-	// const parties = [0, 1, 2];
-	// const nrRects = [range(2), range(6), range(5)];
-	// const xScale = scaleBand()
-	// 	.domain(range(max(nrRects, (arr) => arr.length)))
-	// 	.range([marginHor, w - marginHor])
-	// 	.padding(0.3);
-	// const yScale = scaleBand()
-	// 	.domain(parties)
-	// 	.range([marginVert, h - marginVert])
-	// 	.padding(0.2);
-
-	// const rectData = parties
-	// 	.map((party) => {
-	// 		return nrRects[party].map((rectNr) => {
-	// 			return {
-	// 				x: xScale(rectNr),
-	// 				y: yScale(party),
-	// 				width: xScale.bandwidth(),
-	// 				height: yScale.bandwidth()
-	// 			};
-	// 		});
-	// 	})
-	// 	.flat();
-</script>
-
-<svg
-	style:opacity={isAnimating ? 0.5 : 1}
-	class="vis-type-button-svg"
-	viewBox="0 0 {w} {h}"
-	onclick={() => {
+	const onclick = () => {
 		if (visType !== visTypeToCheckFor && !isAnimating) {
 			visTypePrev = visType;
 			visType = visTypeToCheckFor;
@@ -113,6 +83,21 @@
 					tl = null;
 				}
 			});
+		}
+	};
+</script>
+
+<svg
+	style:opacity={isAnimating ? 0.5 : 1}
+	class="vis-type-button-svg"
+	viewBox="0 0 {w} {h}"
+	role="button"
+	tabindex="0"
+	onclick={() => onclick()}
+	onkeydown={(e) => {
+		if (e.key === 'Enter' || e.key === ' ') {
+			e.preventDefault();
+			onclick();
 		}
 	}}
 >

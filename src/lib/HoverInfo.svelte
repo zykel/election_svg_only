@@ -140,4 +140,11 @@
 			/* grid-template-columns: repeat(2, 1fr); Change to 2 columns */
 		}
 	}
+
+	@media (max-height: 600px) {
+		.hover-info {
+			font-size: 12px;
+			/* grid-template-columns: repeat(2, 1fr); Change to 2 columns */
+		}
+	}
 </style>

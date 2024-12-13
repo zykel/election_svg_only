@@ -75,4 +75,14 @@
 			margin: 1px 0px;
 		}
 	}
+	@media (max-height: 600px) {
+		.legend-grid-container {
+			font-size: 12px;
+			/* grid-template-columns: repeat(2, 1fr); Change to 2 columns */
+		}
+
+		.legend-grid-item {
+			margin: 3px;
+		}
+	}
 </style>

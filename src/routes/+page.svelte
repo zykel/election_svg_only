@@ -51,6 +51,11 @@
 			font-size: 14px;
 		}
 	}
+	@media (max-height: 600px) {
+		:global(html) {
+			font-size: 12px;
+		}
+	}
 	:global(body) {
 		font-family: 'Inter', sans-serif;
 		margin: 0px;

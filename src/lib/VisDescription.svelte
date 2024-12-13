@@ -45,4 +45,9 @@
 			font-size: 14px;
 		}
 	}
+	@media (max-height: 600px) {
+		.vis-description {
+			font-size: 12px;
+		}
+	}
 </style>

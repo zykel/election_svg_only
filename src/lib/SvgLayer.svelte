@@ -148,7 +148,6 @@
 			bind:this={svgLayer}
 			class="main-svg"
 			viewBox={`0 0 ${mapWidth} ${mapHeight}`}
-			preserveAspectRatio="none"
 		>
 			<rect
 				x="0"

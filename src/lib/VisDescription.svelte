@@ -4,12 +4,15 @@
 	const getText = () => {
 		let text = '';
 
-		// let vh100 = typeof window === 'undefined' ? '0' : window.innerHeight;
-		// let vw100 = typeof window === 'undefined' ? '0' : window.innerWidth;
+		let vh100 = typeof window === 'undefined' ? '0' : window.innerHeight;
+		let vw100 = typeof window === 'undefined' ? '0' : window.innerWidth;
 
 		if (visType === 'map') {
 			text =
-				'v3In the map view, the constituencies were divided based on the seats they correspond to.';
+				vh100 +
+				'.' +
+				vw100 +
+				'.v4In the map view, the constituencies were divided based on the seats they correspond to.';
 		}
 		if (visType === 'parliament') {
 			text =
